@@ -1,0 +1,136 @@
+---
+import { Image } from "astro:assets";
+import techDashboardImg from "@assets/photo-1551288049-bebda4e38f71.jpg";
+
+interface Technology {
+  title: string;
+  description: string;
+  iconGradient: string;
+  iconPath: string;
+}
+
+const technologies: Technology[] = [
+  {
+    title: "AI-Powered Optimization",
+    description:
+      "Machine learning algorithms continuously analyze data to optimize routes, predict demand, and reduce operational costs.",
+    iconGradient: "from-blue-500 to-blue-600",
+    iconPath:
+      "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+  },
+  {
+    title: "Real-Time Visibility",
+    description:
+      "Track every shipment, monitor warehouse operations, and access live analytics through our comprehensive dashboard platform.",
+    iconGradient: "from-teal-500 to-teal-600",
+    iconPath:
+      "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+  },
+  {
+    title: "IoT Integration",
+    description:
+      "Smart sensors and connected devices provide real-time monitoring of temperature, humidity, location, and condition tracking.",
+    iconGradient: "from-blue-500 to-blue-600",
+    iconPath:
+      "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
+  },
+  {
+    title: "Enterprise Security",
+    description:
+      "Bank-level encryption, multi-factor authentication, and compliance with industry standards ensure your data stays secure.",
+    iconGradient: "from-teal-500 to-teal-600",
+    iconPath:
+      "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+  },
+];
+---
+
+<section
+  class="py-24 bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden"
+>
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div
+      class="absolute inset-0"
+      style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"
+    >
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Content -->
+      <div>
+        <div
+          class="inline-block px-4 py-2 mb-4 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full"
+        >
+          Objective Scoring
+        </div>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Why <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400"
+            >Google Lighthouse?</span
+          >
+        </h2>
+        <p class="text-xl text-slate-300 mb-8 leading-relaxed">
+          It’s Google’s own scoring system — the most objective way to measure
+          SEO quality, Core Web Vitals, accessibility, and performance.
+          LaravelSeo integrates it directly into your project so you can iterate
+          faster and deploy with confidence.
+        </p>
+
+        <!-- CTA -->
+        <div class="mt-10">
+          <a
+            href="/documentation"
+            class="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-linear-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 rounded-lg shadow-lg hover:shadow-xl transition-all group"
+          >
+            Learn more about Scoring
+            <svg
+              class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="relative">
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-800 p-8"
+        >
+          <div class="text-center text-white">
+            <div class="text-6xl font-bold mb-4 text-green-400">100</div>
+            <div class="text-xl">Perfect SEO Score</div>
+          </div>
+          <!-- Placeholder for lighthouse chart or similar -->
+          <div class="mt-8 flex justify-center space-x-4">
+            <div
+              class="w-20 h-20 rounded-full border-4 border-green-500 flex items-center justify-center text-white font-bold"
+            >
+              100
+            </div>
+            <div
+              class="w-20 h-20 rounded-full border-4 border-green-500 flex items-center justify-center text-white font-bold"
+            >
+              100
+            </div>
+            <div
+              class="w-20 h-20 rounded-full border-4 border-green-500 flex items-center justify-center text-white font-bold"
+            >
+              100
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

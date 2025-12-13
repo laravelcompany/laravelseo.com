@@ -1,0 +1,275 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Card from "../components/ui/Card.astro";
+import Button from "../components/ui/Button.astro";
+import { Image } from "astro:assets";
+
+import heroBgImg from "@assets/photo-1586528116311-ad8dd3c8310d.jpg";
+import ctaBgImg from "@assets/photo-1553413077-190dd305871c.jpg";
+
+const capabilities = [
+  {
+    title: "Real-Time Lighthouse Monitoring",
+    description:
+      "Track SEO, accessibility, performance, and best-practice scores as you work. Every change is measured instantly, helping you tune your site with absolute clarity.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+    features: [
+      "Live score updates",
+      "Performance metrics",
+      "Accessibility checks",
+      "Best practices auditing",
+    ],
+  },
+  {
+    title: "Automatic Meta Tags",
+    description:
+      "Titles, descriptions, keywords, robots rules — everything generated dynamically with automatic fallbacks. Override at any level: route, controller, or resource.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>`,
+    features: [
+      "Dynamic generation",
+      "Blade components",
+      "Route overrides",
+      "Automatic fallbacks",
+    ],
+  },
+  {
+    title: "OpenGraph & Social Cards",
+    description:
+      "Ensure perfect social previews without writing a single line of repetitive markup. OG images and Twitter Cards generated on demand.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
+    features: [
+      "Facebook OpenGraph",
+      "Twitter Cards",
+      "Dynamic images",
+      "Preview generator",
+    ],
+  },
+  {
+    title: "JSON-LD Schema Generator",
+    description:
+      "Add structured data to your pages to enhance search visibility. Supports Article, Product, FAQ, BreadcrumbList, LocalBusiness, and custom schemas.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>`,
+    features: [
+      "Rich snippets",
+      "Product schema",
+      "FAQ schema",
+      "Custom schemas",
+    ],
+  },
+  {
+    title: "Route-Level SEO Configuration",
+    description:
+      "Each route in your application can have bespoke SEO settings. Ideal for SaaS platforms, multi-tenant apps, and anything with dynamic content.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-1.447-.894L15 7m0 13V7m0 0L9 5.382" /></svg>`,
+    features: [
+      "Per-route config",
+      "Mult-tenant support",
+      "Dynamic parameters",
+      "Wildcard matching",
+    ],
+  },
+  {
+    title: "Environment-Aware Profiles",
+    description:
+      "Define how SEO behaves on local, staging, and production. Track score variations across deployments.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>`,
+    features: [
+      "Local vs Production",
+      "Staging safety",
+      "Deployment tracking",
+      "Config profiles",
+    ],
+  },
+  {
+    title: "API & Webhooks",
+    description:
+      "Adjust SEO data programmatically using the REST API, or sync changes across your ecosystem through real-time webhooks.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
+    features: [
+      "REST API access",
+      "Real-time webhooks",
+      "Programmatic updates",
+      "Integration events",
+    ],
+  },
+  {
+    title: "CI/CD Integration",
+    description:
+      "Ensure performance regressions never reach production. Run Lighthouse checks inside your pipeline and block weak builds.",
+    icon: `<svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>`,
+    features: [
+      "Pipeline checks",
+      "Build blocking",
+      "Regression testing",
+      "Automated audits",
+    ],
+  },
+];
+---
+
+<BaseLayout title="Our Capabilities - LaravelSeo">
+  <!-- Hero Section -->
+  <section
+    class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden"
+  >
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+      <Image
+        src={heroBgImg}
+        alt="Laravel Seo Capabilities"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <div
+          class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold rounded-full shadow-lg"
+        >
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Complete Toolkit
+        </div>
+
+        <h1
+          class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
+        >
+          Real-Time <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-teal-400 to-blue-400"
+          >
+            Lighthouse Monitoring
+          </span>
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+        >
+          Track SEO, accessibility, performance, and best-practice scores as you
+          work. Every change is measured instantly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Grid -->
+  <Section background="gray">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        {
+          capabilities.map((capability) => (
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100 group">
+              <div class="flex items-start">
+                <div class="shrink-0 w-16 h-16 rounded-xl bg-linear-to-br from-blue-500 to-teal-500 text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                  <div
+                    class="w-8 h-8"
+                    set:html={capability.icon.replace("w-12 h-12", "w-8 h-8")}
+                  />
+                </div>
+                <div class="ml-6 flex-1">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-3">
+                    {capability.title}
+                  </h2>
+                  <p class="text-gray-600 mb-6 leading-relaxed">
+                    {capability.description}
+                  </p>
+                  <ul class="space-y-2">
+                    {capability.features.map((feature) => (
+                      <li class="flex items-center text-sm text-gray-700">
+                        <svg
+                          class="w-4 h-4 text-teal-500 mr-2 shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <section class="relative py-32 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image
+        src={ctaBgImg}
+        alt="SEO Dashboard Background"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-r from-blue-900/95 to-teal-900/95"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <div
+          class="inline-block px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full"
+        >
+          Get Started Today
+        </div>
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+        >
+          Ready to Optimize with <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400"
+            >LaravelSeo</span
+          >?
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed"
+        >
+          Improve your Laravel application's performance and visibility today.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <Button
+            href="/rfq"
+            size="lg"
+            class="bg-blue-600! hover:bg-blue-700! text-white! shadow-2xl!"
+          >
+            Request a Quote
+          </Button>
+          <Button
+            href="/documentation"
+            size="lg"
+            variant="outline"
+            class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!"
+          >
+            View Documentation
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

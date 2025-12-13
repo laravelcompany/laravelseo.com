@@ -1,0 +1,300 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Section from "@components/ui/Section.astro";
+import Button from "@components/ui/Button.astro";
+import TestimonialCard from "@components/ui/TestimonialCard.astro";
+import UseCaseTabs from "@components/react/UseCaseTabs";
+import StatsCards from "@components/react/StatsCards";
+import { Image } from "astro:assets";
+
+import saasImg from "@assets/photo-1551288049-bebda4e38f71.jpg";
+import agencyImg from "@assets/photo-1522071820081-009f0129c71c.jpg";
+import ecommerceImg from "@assets/photo-1607082349566-187342175e2f.jpg";
+import contentImg from "@assets/photo-1494790108377-be9c29b29330.jpg";
+import marketingImg from "@assets/photo-1552664730-d307ca884978.jpg";
+
+import testimonial1Img from "@assets/photo-1494790108377-be9c29b29330.jpg";
+import testimonial2Img from "@assets/photo-1559839734-2b71ea197ec2.jpg";
+import testimonial3Img from "@assets/photo-1507003211169-0a1dd7228f2d.jpg";
+
+import heroBgImg from "@assets/photo-1518770660439-4636190af475.jpg";
+import ctaBgImg from "@assets/photo-1553413077-190dd305871c.jpg";
+
+const useCases: any[] = [
+  {
+    industry: "SaaS Applications",
+    iconName: "Server",
+    image: saasImg,
+    challenge:
+      "Managing SEO across thousands of dynamic, user-generated pages and subdomains while ensuring performance.",
+    solution:
+      "Multi-tenant support with route-level configuration, allowing each tenant to have bespoke SEO settings automatically.",
+    results: [
+      "Automated tenant SEO",
+      "Dynamic meta tag generation",
+      "Instant sitemap updates",
+      "Route-specific lighthouse checks",
+    ],
+  },
+  {
+    industry: "Agencies",
+    iconName: "Briefcase",
+    image: agencyImg,
+    challenge:
+      "Standardizing SEO delivery across multiple client projects while maintaining high quality and consistency.",
+    solution:
+      "A standardized, config-driven approach that allows teams to deploy a proven SEO strategy in minutes, not hours.",
+    results: [
+      "80% reduction in setup time",
+      "Consistent quality baseline",
+      "Client-friendly reporting",
+      "Rapid deployment workflow",
+    ],
+  },
+  {
+    industry: "E-Commerce Platforms",
+    iconName: "ShoppingCart",
+    image: ecommerceImg,
+    challenge:
+      "Keeping product pages, categories, and inventory status synced with search engines to maximize visibility.",
+    solution:
+      "Automatic product schema generation, rich snippets for price and availability, and inventory-aware sitemaps.",
+    results: [
+      "Rich product snippets",
+      "Automated schema generation",
+      "Inventory-aware indexing",
+      "Higher CTR on SERPs",
+    ],
+  },
+  {
+    industry: "Content-Driven Sites",
+    iconName: "FileText",
+    image: contentImg,
+    challenge:
+      "Ensuring every article and blog post looks perfect on social media without manually creating assets for each one.",
+    solution:
+      "Automatic OpenGraph image generation and Twitter cards for every post, ensuring perfect previews every time.",
+    results: [
+      "Automated social images",
+      "Perfect social previews",
+      "Increased social engagement",
+      "No manual asset creation",
+    ],
+  },
+  {
+    industry: "Marketing & Growth Teams",
+    iconName: "TrendingUp",
+    image: marketingImg,
+    challenge:
+      "Need to rapidly test landing pages and SEO changes without waiting for developer deployment cycles.",
+    solution:
+      "Environment-aware profiles and database-driven configuration allow marketers to tweak settings safely.",
+    results: [
+      "Rapid A/B testing",
+      "Campaign-specific tracking",
+      "Safe production edits",
+      "Instant visual verification",
+    ],
+  },
+];
+
+const testimonials: any[] = [
+  {
+    quote:
+      "LaravelSeo completely automated our tenant SEO strategy. We serve 2,000+ shops and they all get perfect meta tags out of the box. Ideally, we wanted to build this ourselves, but this package saved us months.",
+    name: "Alex V.",
+    role: "CTO, ShopBuilder SaaS",
+    image: testimonial1Img,
+    ringColor: "ring-blue-200",
+  },
+  {
+    quote:
+      "As an agency, we deploy LaravelSeo on every new project. It gives us a consistent baseline of 100/100 Lighthouse scores and saves us hours of manual configuration per site.",
+    name: "Marcus J.",
+    role: "Lead Developer, WebScale Agency",
+    image: testimonial2Img,
+    ringColor: "ring-teal-200",
+  },
+  {
+    quote:
+      "The automatic OpenGraph generation changed our workflow. Our editorial team no longer needs to wait for design assets—the social cards are generated instantly and look amazing.",
+    name: "Sarah L.",
+    role: "Content Director, NewsMedia Inc.",
+    image: testimonial3Img,
+    ringColor: "ring-blue-200",
+  },
+];
+---
+
+<BaseLayout title="Use Cases - LaravelSeo">
+  <!-- Hero Section -->
+  <section
+    class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden"
+  >
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+      <Image
+        src={heroBgImg}
+        alt="LaravelSeo Use Cases"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <div
+          class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold rounded-full shadow-lg"
+        >
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Proven Solutions
+        </div>
+
+        <h1
+          class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
+        >
+          Who Uses <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-teal-400 to-blue-400"
+          >
+            LaravelSeo?
+          </span>
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+        >
+          From high-growth SaaS to enterprise e-commerce, see how teams are
+          automating their SEO workflows.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases with Tabs -->
+  <Section background="gray">
+    <UseCaseTabs useCases={useCases} client:load />
+  </Section>
+
+  <!-- Success Metrics -->
+  <Section background="white">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Measurable <span class="gradient-text">Impact</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Real results from teams using LaravelSeo in production.
+      </p>
+    </div>
+
+    <StatsCards
+      stats={[
+        {
+          value: "100/100",
+          label: "Lighthouse Score",
+          iconName: "CheckCircle2",
+        },
+        { value: "80%", label: "Less Config Time", iconName: "TrendingDown" },
+        { value: "1000+", label: "Active Installs", iconName: "Users" },
+        { value: "2M+", label: "Pages Optimized", iconName: "FileText" },
+      ]}
+      client:load
+    />
+  </Section>
+
+  <!-- Testimonials Section -->
+  <Section background="gray">
+    <div class="text-center mb-16">
+      <div
+        class="inline-block px-4 py-2 mb-4 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full"
+      >
+        Community Feedback
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Trusted by <span class="gradient-text">Developers</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        See what the Laravel community is saying about their experience.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        testimonials.map((testimonial) => (
+          <TestimonialCard testimonial={testimonial} />
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <section class="relative py-32 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <Image
+        src={ctaBgImg}
+        alt="Let's work together"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-r from-blue-900/95 to-teal-900/95"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <div
+          class="inline-block px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full"
+        >
+          Get Started Today
+        </div>
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+        >
+          Ready to Automate your <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400"
+            >SEO Strategy</span
+          >?
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-slate-200 mb-12 max-w-2xl mx-auto leading-relaxed"
+        >
+          Join hundreds of other Laravel developers building faster,
+          better-optimized sites.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <Button
+            href="/documentation"
+            size="lg"
+            class="bg-blue-600! hover:bg-blue-700! text-white! shadow-2xl!"
+          >
+            Read the Docs
+          </Button>
+          <Button
+            href="/capabilities"
+            size="lg"
+            variant="outline"
+            class="border-2! border-white! text-white! hover:bg-white/10! shadow-2xl!"
+          >
+            View Capabilities
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

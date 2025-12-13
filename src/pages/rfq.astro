@@ -1,0 +1,203 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import RFQForm from "../components/react/RFQForm";
+import { Image } from "astro:assets";
+
+import ctaBgImg from "@assets/photo-1551288049-bebda4e38f71.jpg";
+---
+
+<BaseLayout title="Request a Quote - LaravelSeo">
+  <!-- Hero Section -->
+  <section
+    class="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden"
+  >
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+      <Image
+        src={ctaBgImg}
+        alt="Laravel Seo Consulting"
+        class="w-full h-full object-cover"
+        width={2070}
+        height={1380}
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <div
+          class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold rounded-full shadow-lg"
+        >
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+            ></path>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+            ></path>
+          </svg>
+          Get in Touch
+        </div>
+
+        <h1
+          class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
+        >
+          Let's Optimize Your <span
+            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-teal-400 to-blue-400"
+          >
+            Application
+          </span>
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+        >
+          Need a custom integration, an audit, or enterprise support? Tell us
+          about your project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <Section background="gray">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Contact Info -->
+        <div class="lg:col-span-1 space-y-8">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              How We Can Help
+            </h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+              Whether you need to automate SEO for a multi-tenant SaaS, require
+              a custom schema implementation, or just need a performance audit,
+              our team is ready to assist.
+            </p>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <svg
+                  class="w-6 h-6 text-green-500 mr-3 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-gray-700">Enterprise support SLA</span>
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="w-6 h-6 text-green-500 mr-3 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-gray-700">Custom integration development</span
+                >
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="w-6 h-6 text-green-500 mr-3 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-gray-700">Team training and workshops</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+            <h4 class="font-bold text-gray-900 mb-4">Direct Contact</h4>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mr-3"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-sm text-gray-500">Email Us</div>
+                  <a
+                    href="mailto:hello@laravelseo.com"
+                    class="text-gray-900 font-medium hover:text-blue-600"
+                    >hello@laravelseo.com</a
+                  >
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mr-3"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-sm text-gray-500">GitHub</div>
+                  <a
+                    href="https://github.com/laravelseo"
+                    target="_blank"
+                    class="text-gray-900 font-medium hover:text-blue-600"
+                    >github.com/laravelseo</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RFQ Form -->
+        <div class="lg:col-span-2">
+          <div
+            class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
+          >
+            <RFQForm client:load />
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
