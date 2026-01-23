@@ -11,7 +11,7 @@ export const NAVIGATION = [
   { name: 'Capabilities', href: '/capabilities' },
   { name: 'Use Cases', href: '/use-cases' },
   { name: 'Facilities', href: '/facilities' },
-  { name: 'Request Quote', href: '/rfq' },
+  { name: 'Try Now', href: 'https://app.laravelseo.com' },
   { name: 'Documentation', href: '/documentation' },
 ] as const;
 

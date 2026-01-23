@@ -1,10 +1,10 @@
 import * as Tabs from '@radix-ui/react-tabs';
-import { 
-  ShoppingCart, 
-  Heart, 
-  Car, 
-  Laptop, 
-  Package, 
+import {
+  ShoppingCart,
+  Heart,
+  Car,
+  Laptop,
+  Package,
   UtensilsCrossed,
   CheckCircle2,
   AlertCircle,
@@ -14,7 +14,7 @@ import {
 interface UseCase {
   industry: string;
   iconName: string;
-  image: { src: string; [key: string]: any };
+  image: { src: string;[key: string]: any };
   challenge: string;
   solution: string;
   results: string[];
@@ -43,15 +43,15 @@ export default function UseCaseTabs({ useCases }: Props) {
         {industries.map((industry) => {
           const useCase = useCases.find((uc) => uc.industry === industry);
           const IconComponent = useCase ? iconMap[useCase.iconName] : null;
-          
+
           return (
             <Tabs.Trigger
               key={industry}
               value={industry}
-              className="group px-6 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-300 transition-all duration-200 data-[state=active]:text-blue-600 data-[state=active]:border-blue-600 flex items-center gap-2"
+              className="group px-6 py-3 text-sm font-semibold text-gray-600 border-b-2 border-transparent hover:text-violet-600 hover:border-violet-300 transition-all duration-200 data-[state=active]:text-violet-600 data-[state=active]:border-violet-600 flex items-center gap-2"
             >
               {IconComponent && (
-                <IconComponent className="w-4 h-4 group-data-[state=active]:text-blue-600" />
+                <IconComponent className="w-4 h-4 group-data-[state=active]:text-violet-600" />
               )}
               {industry}
             </Tabs.Trigger>
@@ -66,9 +66,9 @@ export default function UseCaseTabs({ useCases }: Props) {
         const IconComponent = iconMap[useCase.iconName];
 
         return (
-          <Tabs.Content 
-            key={industry} 
-            value={industry} 
+          <Tabs.Content
+            key={industry}
+            value={industry}
             className="space-y-6 animate-fadeIn"
           >
             <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
@@ -85,7 +85,7 @@ export default function UseCaseTabs({ useCases }: Props) {
                   <div className="absolute top-6 left-6">
                     <div className="w-16 h-16 rounded-xl bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-lg">
                       {IconComponent && (
-                        <IconComponent className="w-8 h-8 text-blue-600" />
+                        <IconComponent className="w-8 h-8 text-violet-600" />
                       )}
                     </div>
                   </div>
@@ -115,11 +115,11 @@ export default function UseCaseTabs({ useCases }: Props) {
                     </div>
 
                     {/* Solution */}
-                    <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-5">
+                    <div className="bg-violet-50 border-l-4 border-violet-500 rounded-r-lg p-5">
                       <div className="flex items-start gap-3">
-                        <Lightbulb className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
+                        <Lightbulb className="w-6 h-6 text-violet-600 shrink-0 mt-0.5" />
                         <div>
-                          <h3 className="text-lg font-bold text-blue-900 mb-2">
+                          <h3 className="text-lg font-bold text-violet-900 mb-2">
                             Solution
                           </h3>
                           <p className="text-gray-700 leading-relaxed">

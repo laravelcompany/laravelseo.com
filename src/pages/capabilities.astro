@@ -132,7 +132,7 @@ const capabilities = [
     <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
         <div
-          class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold rounded-full shadow-lg"
+          class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-violet-600 to-pink-600 text-white text-sm font-semibold rounded-full shadow-lg"
         >
           <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -171,7 +171,7 @@ const capabilities = [
           capabilities.map((capability) => (
             <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100 group">
               <div class="flex items-start">
-                <div class="shrink-0 w-16 h-16 rounded-xl bg-linear-to-br from-blue-500 to-teal-500 text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                <div class="shrink-0 w-16 h-16 rounded-xl bg-linear-to-br from-violet-500 to-pink-500 text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
                   <div
                     class="w-8 h-8"
                     set:html={capability.icon.replace("w-12 h-12", "w-8 h-8")}
@@ -188,7 +188,7 @@ const capabilities = [
                     {capability.features.map((feature) => (
                       <li class="flex items-center text-sm text-gray-700">
                         <svg
-                          class="w-4 h-4 text-teal-500 mr-2 shrink-0"
+                          class="w-4 h-4 text-violet-500 mr-2 shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -225,7 +225,7 @@ const capabilities = [
         height={1380}
       />
       <div
-        class="absolute inset-0 bg-linear-to-r from-blue-900/95 to-teal-900/95"
+        class="absolute inset-0 bg-linear-to-r from-violet-900/95 to-pink-900/95"
       >
       </div>
     </div>
@@ -242,7 +242,7 @@ const capabilities = [
           class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
         >
           Ready to Optimize with <span
-            class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-teal-400"
+            class="text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-pink-400"
             >LaravelSeo</span
           >?
         </h2>
@@ -254,11 +254,11 @@ const capabilities = [
 
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <Button
-            href="/rfq"
+            href="https://app.laravelseo.com"
             size="lg"
-            class="bg-blue-600! hover:bg-blue-700! text-white! shadow-2xl!"
+            class="bg-violet-600! hover:bg-violet-700! text-white! shadow-2xl!"
           >
-            Request a Quote
+            Try Now
           </Button>
           <Button
             href="/documentation"

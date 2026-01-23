@@ -126,7 +126,7 @@ const popularArticles = [
           </div>
           <input
             type="text"
-            class="block w-full pl-12 pr-4 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            class="block w-full pl-12 pr-4 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
             placeholder="Search documentation (e.g. 'sitemap', 'opengraph', 'installation')..."
           />
           <div
@@ -143,11 +143,11 @@ const popularArticles = [
       class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20"
     >
       <div
-        class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-blue-600 rounded-full blur-3xl"
+        class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-violet-600 rounded-full blur-3xl"
       >
       </div>
       <div
-        class="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-teal-600 rounded-full blur-3xl"
+        class="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-pink-600 rounded-full blur-3xl"
       >
       </div>
     </div>
@@ -161,7 +161,7 @@ const popularArticles = [
           docCategories.map((category) => (
             <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
               <div class="flex items-center mb-4">
-                <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 mr-4">
+                <div class="w-12 h-12 rounded-lg bg-violet-50 flex items-center justify-center text-violet-600 mr-4">
                   <category.icon className="w-6 h-6" />
                 </div>
                 <div>
@@ -177,9 +177,9 @@ const popularArticles = [
                   <li>
                     <a
                       href={link.href}
-                      class="flex items-center text-gray-600 hover:text-blue-600 transition-colors group"
+                      class="flex items-center text-gray-600 hover:text-violet-600 transition-colors group"
                     >
-                      <span class="w-1.5 h-1.5 bg-gray-300 rounded-full mr-2 group-hover:bg-blue-600 transition-colors" />
+                      <span class="w-1.5 h-1.5 bg-gray-300 rounded-full mr-2 group-hover:bg-violet-600 transition-colors" />
                       {link.text}
                     </a>
                   </li>
@@ -201,14 +201,14 @@ const popularArticles = [
               popularArticles.map((article) => (
                 <a
                   href="#"
-                  class="block bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all group"
+                  class="block bg-white border border-gray-200 rounded-lg p-6 hover:border-violet-300 hover:shadow-md transition-all group"
                 >
                   <div class="flex items-center justify-between">
                     <div>
-                      <div class="text-sm text-blue-600 font-semibold mb-1">
+                      <div class="text-sm text-violet-600 font-semibold mb-1">
                         {article.category}
                       </div>
-                      <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
+                      <h3 class="text-lg font-bold text-gray-900 group-hover:text-violet-700 transition-colors">
                         {article.title}
                       </h3>
                     </div>

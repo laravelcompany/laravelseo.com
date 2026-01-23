@@ -23,7 +23,7 @@ export default function RFQForm() {
       {/* Contact Information */}
       <div>
         <div className="flex items-center mb-6">
-          <div className="w-10 h-10 rounded-lg bg-linear-to-br from-blue-600 to-teal-600 flex items-center justify-center mr-3">
+          <div className="w-10 h-10 rounded-lg bg-linear-to-br from-violet-600 to-pink-600 flex items-center justify-center mr-3">
             <User className="w-5 h-5 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
@@ -43,7 +43,7 @@ export default function RFQForm() {
               id="firstName"
               name="firstName"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
           <div>
@@ -58,7 +58,7 @@ export default function RFQForm() {
               id="lastName"
               name="lastName"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
           <div>
@@ -73,7 +73,7 @@ export default function RFQForm() {
               id="email"
               name="email"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ export default function RFQForm() {
               id="phone"
               name="phone"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function RFQForm() {
               id="projectName"
               name="projectName"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
           <div>
@@ -132,7 +132,7 @@ export default function RFQForm() {
               id="websiteUrl"
               name="websiteUrl"
               placeholder="https://example.com"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
           <div>
@@ -146,7 +146,7 @@ export default function RFQForm() {
               id="projectType"
               name="projectType"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             >
               <option value="">Select project type</option>
               <option value="saas">SaaS Application</option>
@@ -185,20 +185,20 @@ export default function RFQForm() {
                 return (
                   <div
                     key={service.id}
-                    className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer group"
+                    className="flex items-center space-x-3 p-4 border-2 border-gray-200 rounded-lg hover:border-violet-400 hover:bg-violet-50 transition-all cursor-pointer group"
                   >
                     <Checkbox.Root
                       id={service.id}
                       name="services"
                       value={service.id}
-                      className="w-5 h-5 flex items-center justify-center border-2 border-gray-300 rounded data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 transition-colors shrink-0"
+                      className="w-5 h-5 flex items-center justify-center border-2 border-gray-300 rounded data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600 transition-colors shrink-0"
                     >
                       <Checkbox.Indicator>
                         <Check className="w-4 h-4 text-white" />
                       </Checkbox.Indicator>
                     </Checkbox.Root>
-                    <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-blue-100 flex items-center justify-center shrink-0 transition-colors">
-                      <IconComponent className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors" />
+                    <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-violet-100 flex items-center justify-center shrink-0 transition-colors">>
+                      <IconComponent className="w-4 h-4 text-gray-600 group-hover:text-violet-600 transition-colors" />
                     </div>
                     <Label.Root
                       htmlFor={service.id}
@@ -226,7 +226,7 @@ export default function RFQForm() {
                   id="timeline"
                   name="timeline"
                   required
-                  className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-white"
+                  className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition appearance-none bg-white"
                 >
                   <option value="">Select timeline</option>
                   <option value="immediate">Immediate (ASAP)</option>
@@ -249,7 +249,7 @@ export default function RFQForm() {
                 <select
                   id="budget"
                   name="budget"
-                  className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition appearance-none bg-white"
+                  className="w-full px-4 py-2 pl-10 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition appearance-none bg-white"
                 >
                   <option value="">Select budget range</option>
                   <option value="small">&lt; $5k</option>
@@ -285,7 +285,7 @@ export default function RFQForm() {
       <div className="pt-6">
         <button
           type="submit"
-          className="w-full bg-linear-to-r from-blue-600 to-teal-600 text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:from-blue-700 hover:to-teal-700 transition-all duration-200 hover:shadow-xl active:scale-95 flex items-center justify-center space-x-2"
+          className="w-full bg-linear-to-r from-violet-600 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:from-violet-700 hover:to-pink-700 transition-all duration-200 hover:shadow-xl active:scale-95 flex items-center justify-center space-x-2"
         >
           <span>Request Quote</span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
