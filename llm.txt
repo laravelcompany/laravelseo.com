@@ -1,0 +1,30 @@
+# Laravel Seo Project
+
+## Overview
+Laravel Seo is an open-source platform for managing site search visibility. It provides a fully automated optimisation suite built specifically for Laravel.
+
+## Tech Stack
+- **Framework**: Astro (Static Site Generator)
+- **Styling**: TailwindCSS (v4 with @import "tailwindcss")
+- **Icons**: Lucide React
+- **Language**: TypeScript
+
+## Project Structure
+- `src/`: Source code
+  - `components/`: UI components (Astro and React)
+    - `home/`: Home page specific components
+    - `ui/`: Reusable UI components
+    - `react/`: React interactive components
+  - `layouts/`: Page layouts (BaseLayout)
+  - `pages/`: Site pages (index makes use of components)
+  - `styles/`: Global styles (global.css)
+  - `config/`: Configuration files (site.ts for constants)
+
+## Design System
+- **Theme**: Dark Mode (Slate-950 background, Slate-100 text)
+- **Primary Colors**: Violet, Pink (Gradients)
+- **Typography**: Sans-serif (Inter/System defaults)
+
+## Key Commands
+- `npm run dev`: Start development server
+- `npm run build`: Build production site

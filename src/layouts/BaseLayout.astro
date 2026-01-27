@@ -21,6 +21,15 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, SITE.url).href} />
+
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://www.googletagmanager.com"
+      crossorigin
+    />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -38,7 +47,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <meta property="twitter:description" content={description} />
   </head>
   <body
-    class="flex min-h-screen flex-col bg-white font-sans text-neutral-900 antialiased"
+    class="flex min-h-screen flex-col bg-slate-950 font-sans text-slate-100 antialiased"
   >
     <Header currentPathname={currentPathname} />
     <main class="flex-1">

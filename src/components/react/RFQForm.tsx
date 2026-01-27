@@ -197,7 +197,7 @@ export default function RFQForm() {
                         <Check className="w-4 h-4 text-white" />
                       </Checkbox.Indicator>
                     </Checkbox.Root>
-                    <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-violet-100 flex items-center justify-center shrink-0 transition-colors">>
+                    <div className="w-8 h-8 rounded-lg bg-gray-100 group-hover:bg-violet-100 flex items-center justify-center shrink-0 transition-colors">
                       <IconComponent className="w-4 h-4 text-gray-600 group-hover:text-violet-600 transition-colors" />
                     </div>
                     <Label.Root

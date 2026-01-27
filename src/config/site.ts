@@ -1,6 +1,6 @@
 // Site configuration
 export const SITE = {
-  title: 'LaravelSeo',
+  title: 'Open source platform for managing your site’s search visibility | Laravel Seo',
   description: 'Take control of your site’s search visibility with a fully automated optimisation suite built specifically for Laravel.',
   url: 'https://laravelseo.com',
   author: 'LaravelSeo',
@@ -11,8 +11,8 @@ export const NAVIGATION = [
   { name: 'Capabilities', href: '/capabilities' },
   { name: 'Use Cases', href: '/use-cases' },
   { name: 'Facilities', href: '/facilities' },
-  { name: 'Try Now', href: 'https://app.laravelseo.com' },
-  { name: 'Documentation', href: '/documentation' },
+  { name: 'Login', href: 'https://app.laravelseo.com/login' },
+
 ] as const;
 
 export const SOCIAL_LINKS = {
