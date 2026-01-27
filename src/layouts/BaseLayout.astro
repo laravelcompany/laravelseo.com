@@ -22,13 +22,15 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={new URL(Astro.url.pathname, SITE.url).href} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content={SITE.author} />
 
     <!-- Preconnect hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link
       rel="preconnect"
       href="https://www.googletagmanager.com"
-      crossorigin
+      crossorigin="anonymous"
     />
 
     <!-- Primary Meta Tags -->
@@ -55,8 +57,10 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     </main>
     <Footer />
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0105085QVM"
-    ></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-0105085QVM"
+      crossorigin="anonymous"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {

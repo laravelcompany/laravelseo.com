@@ -11,7 +11,7 @@ export default function RFQForm() {
     const data = Object.fromEntries(formData.entries());
 
     // In a real application, you would send this to your backend
-    console.log('Form submitted:', data);
+    // console.log('Form submitted:', data);
 
     // Show success message
     alert('Thank you for your request! We will contact you within 24 hours.');
