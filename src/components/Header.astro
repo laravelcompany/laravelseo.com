@@ -34,14 +34,14 @@ const isActiveLink = (href: string): boolean => {
     </div>
 
     <!-- Desktop Navigation -->
-    <div class="hidden lg:flex lg:items-center lg:space-x-1">
+    <div class="hidden lg:flex lg:items-center lg:space-x-6">
       {
         NAVIGATION.map((item) => {
           const isActive = isActiveLink(item.href);
           return (
             <a
               href={item.href}
-              class={`px-4 py-2 text-sm font-medium text-slate-300 hover:text-violet-400 hover:bg-slate-800 rounded-lg transition-all relative group ${isActive ? "nav-active" : ""}`}
+              class={`px-4 py-3 min-h-[44px] flex items-center text-sm font-medium text-slate-300 hover:text-violet-400 hover:bg-slate-800 rounded-lg transition-all relative group ${isActive ? "nav-active" : ""}`}
             >
               {item.name}
             </a>
@@ -54,6 +54,7 @@ const isActiveLink = (href: string): boolean => {
     <div class="hidden lg:flex lg:items-center lg:space-x-4">
       <a
         href="https://app.laravelseo.com/login"
+        onclick="gtag('event', 'login_click', {'event_category': 'navigation', 'event_label': 'header_cta'});"
         class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-linear-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 rounded-lg shadow-lg hover:shadow-violet-500/50 transition-all"
       >
         Login

@@ -22,7 +22,12 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={new URL(Astro.url.pathname, SITE.url).href} />
+    <link rel="alternate" hreflang="x-default" href={SITE.url} />
     <meta name="robots" content="index, follow" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://static.hotjar.com https://script.hotjar.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.hotjar.com wss://*.hotjar.com;"
+    />
     <meta name="author" content={SITE.author} />
 
     <!-- Preconnect hints -->
@@ -31,6 +36,13 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
       rel="preconnect"
       href="https://www.googletagmanager.com"
       crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/Inter-VariableFont_slnt,wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
     />
 
     <!-- Primary Meta Tags -->
@@ -47,6 +59,33 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
+    <style is:inline>
+      /* Critical CSS for above-the-fold content */
+      body {
+        background-color: #020617;
+        color: #f1f5f9;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        width: 100%;
+        border-bottom-width: 1px;
+        border-color: #1e293b;
+        background-color: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+      }
+    </style>
   </head>
   <body
     class="flex min-h-screen flex-col bg-slate-950 font-sans text-slate-100 antialiased"
@@ -85,6 +124,13 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
         r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
         a.appendChild(r);
       })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js");
+        });
+      }
     </script>
   </body>
 </html>

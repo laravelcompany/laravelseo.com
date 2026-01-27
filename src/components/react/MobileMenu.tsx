@@ -7,7 +7,7 @@ export default function MobileMenu() {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button
-          className="lg:hidden p-2 text-slate-100 hover:bg-slate-800 rounded-lg transition-colors"
+          className="lg:hidden p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-100 hover:bg-slate-800 rounded-lg transition-colors"
           aria-label="Toggle menu"
         >
           <Menu className="h-6 w-6" />
@@ -23,7 +23,7 @@ export default function MobileMenu() {
               <Dialog.Close asChild key={item.href}>
                 <a
                   href={item.href}
-                  className="block px-4 py-3 text-base font-medium text-slate-100 hover:text-violet-400 hover:bg-violet-900/50 rounded-lg transition-all"
+                  className="block px-4 py-4 min-h-[44px] text-base font-medium text-slate-100 hover:text-violet-400 hover:bg-violet-900/50 rounded-lg transition-all"
                 >
                   {item.name}
                 </a>
@@ -34,6 +34,13 @@ export default function MobileMenu() {
                 <a
                   href="https://app.laravelseo.com/login"
                   className="block text-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-violet-600 to-violet-700 hover:from-violet-700 hover:to-violet-800 rounded-lg shadow-md transition-all"
+                  onClick={() => {
+                    // @ts-ignore
+                    if (typeof window.gtag === 'function') {
+                      // @ts-ignore
+                      window.gtag('event', 'login_click', { 'event_category': 'navigation', 'event_label': 'mobile_menu' });
+                    }
+                  }}
                 >
                   Login
                 </a>
@@ -42,7 +49,7 @@ export default function MobileMenu() {
           </div>
           <Dialog.Close asChild>
             <button
-              className="absolute top-4 right-4 p-2 text-slate-100 hover:bg-slate-800 rounded-lg transition-colors"
+              className="absolute top-4 right-4 p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-100 hover:bg-slate-800 rounded-lg transition-colors"
               aria-label="Close menu"
             >
               <X className="h-6 w-6" />

@@ -2,6 +2,7 @@
 @theme {
   --breakpoint-xs: 320px;
   --breakpoint-sm: 480px;
+  --breakpoint-phone-lg: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
@@ -11,6 +12,12 @@
 /* Smooth scrolling */
 html {
   @apply scroll-smooth;
+}
+
+/* Critical rendering path optimization */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .nav-active {
