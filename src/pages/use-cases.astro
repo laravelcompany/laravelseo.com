@@ -125,9 +125,54 @@ const testimonials: any[] = [
     ringColor: "ring-violet-200",
   },
 ];
+const pageDescription =
+  "Discover how LaravelSeo powers SEO automation for SaaS, agencies, e-commerce, content sites, and marketing teams. See real results and case studies.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      name: "LaravelSeo",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Laravel/PHP",
+      description: pageDescription,
+      url: "https://laravelseo.com/use-cases",
+      author: {
+        "@type": "Organization",
+        name: "LaravelSeo",
+        url: "https://laravelseo.com",
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        reviewCount: "127",
+      },
+    },
+    {
+      "@type": "CollectionPage",
+      name: "Use Cases",
+      description: pageDescription,
+      url: "https://laravelseo.com/use-cases",
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement: useCases.map((useCase, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Product",
+            name: useCase.industry,
+            description: useCase.challenge,
+          },
+        })),
+      },
+    },
+  ],
+};
 ---
 
-<BaseLayout title="Designed for Common Use Cases | Laravel Seo">
+<BaseLayout title="Use Cases | Laravel Seo" description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <!-- Hero Section -->
   <section
     class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden"
@@ -149,6 +194,15 @@ const testimonials: any[] = [
 
     <!-- Content -->
     <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-slate-400 mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-white">Use Cases</span>
+      </nav>
+
       <div class="max-w-4xl mx-auto text-center">
         <div
           class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-violet-600 to-pink-600 text-white text-sm font-semibold rounded-full shadow-lg"
@@ -178,17 +232,35 @@ const testimonials: any[] = [
           From high-growth SaaS to enterprise e-commerce, see how teams are
           automating their SEO workflows.
         </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#use-cases"
+            class="inline-flex items-center justify-center px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl"
+          >
+            Explore Use Cases
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <a
+            href="/capabilities"
+            class="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-400 text-white font-semibold rounded-lg hover:border-white hover:bg-white/10 transition-all"
+          >
+            View Features
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Use Cases with Tabs -->
-  <Section background="gray">
+  <Section id="use-cases" background="gray">
     <UseCaseTabs useCases={useCases} client:load />
   </Section>
 
   <!-- Success Metrics -->
-  <Section background="white">
+  <Section id="results" background="white">
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
         Measurable <span class="gradient-text">Impact</span>
@@ -214,7 +286,7 @@ const testimonials: any[] = [
   </Section>
 
   <!-- Testimonials Section -->
-  <Section background="gray">
+  <Section id="testimonials" background="gray">
     <div class="text-center mb-16">
       <div
         class="inline-block px-4 py-2 mb-4 bg-violet-100 text-violet-800 text-sm font-semibold rounded-full"

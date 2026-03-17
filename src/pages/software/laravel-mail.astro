@@ -1,0 +1,189 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/ui/Section.astro";
+import Card from "../../components/ui/Card.astro";
+import Button from "../../components/ui/Button.astro";
+
+const features = [
+  {
+    title: "Campaign Management",
+    description: "Create, schedule, and send email campaigns with ease. Support for HTML templates, plain text, and responsive designs.",
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`,
+  },
+  {
+    title: "Subscriber Management",
+    description: "Import, export, and manage your subscribers with tags, segments, and custom fields. Handle millions of subscribers effortlessly.",
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
+  },
+  {
+    title: "Automation Workflows",
+    description: "Set up triggered emails based on user behavior, dates, or custom conditions. Welcome sequences, abandoned carts, and more.",
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`,
+  },
+  {
+    title: "Advanced Analytics",
+    description: "Track opens, clicks, bounces, and conversions in real-time. Detailed reports and exportable data for deeper insights.",
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>`,
+  },
+  {
+    title: "A/B Testing",
+    description: "Test subject lines, content, and send times to optimize your campaigns. Let data drive your email strategy.",
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>`,
+  },
+  {
+    title: "API & Integrations",
+    description: "Connect with your existing tools via REST API, webhooks, and native integrations for CRM, e-commerce, and more.",
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
+  },
+];
+
+const pricingPlans = [
+  {
+    name: "Starter",
+    price: "29",
+    description: "Perfect for small businesses getting started with email marketing.",
+    features: ["Up to 2,500 subscribers", "1,000 emails/month", "Basic analytics", "Email support"],
+  },
+  {
+    name: "Professional",
+    price: "79",
+    description: "For growing businesses that need advanced automation and features.",
+    features: ["Up to 10,000 subscribers", "Unlimited emails", "Advanced analytics", "Automation workflows", "Priority support"],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "199",
+    description: "For large organizations with high-volume email needs.",
+    features: ["Unlimited subscribers", "Unlimited emails", "Custom analytics", "Automation & A/B testing", "Dedicated account manager", "24/7 phone support"],
+  },
+];
+---
+
+<BaseLayout title="Laravel Mail - Email Marketing & Automation Platform">
+  <!-- Hero Section -->
+  <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
+    <div class="absolute inset-0 bg-linear-to-br from-violet-900 via-violet-800 to-violet-900"></div>
+    <div class="absolute inset-0 opacity-30">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-violet-400 rounded-full filter blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-400 rounded-full filter blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+          Email Marketing Platform
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          Powerful Email Marketing for <span class="text-transparent bg-clip-text bg-linear-to-r from-violet-300 to-pink-300">Laravel</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-violet-100 mb-8 max-w-3xl mx-auto leading-relaxed">
+          Send campaigns, manage subscribers, and track performance with powerful analytics. Built specifically for Laravel applications.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="#" size="lg" class="bg-white text-violet-900 hover:bg-violet-50">
+            Start Free Trial
+          </Button>
+          <Button href="#" size="lg" variant="outline" class="border-white text-white hover:bg-white/10">
+            View Demo
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <Section background="gray">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Everything You Need to Succeed
+        </h2>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+          A complete email marketing solution built for Laravel developers and businesses.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700 hover:border-violet-500 transition-all group">
+            <div class="w-14 h-14 rounded-xl bg-linear-to-br from-violet-500 to-violet-700 text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+              <div set:html={feature.icon} />
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">{feature.title}</h3>
+            <p class="text-slate-400 leading-relaxed">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- Pricing Section -->
+  <Section background="gray">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Simple, Transparent Pricing
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Choose the plan that fits your needs. No hidden fees, no surprises.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {pricingPlans.map((plan) => (
+          <div class={`relative bg-white rounded-2xl p-8 border-2 ${plan.popular ? 'border-violet-500 shadow-2xl' : 'border-gray-200 shadow-lg'}`}>
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-violet-500 text-white text-sm font-semibold rounded-full">
+                Most Popular
+              </div>
+            )}
+            <h3 class="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+            <div class="flex items-baseline mb-4">
+              <span class="text-4xl font-bold text-gray-900">${plan.price}</span>
+              <span class="text-gray-600 ml-2">/month</span>
+            </div>
+            <p class="text-gray-600 mb-6">{plan.description}</p>
+            <ul class="space-y-3 mb-8">
+              {plan.features.map((feature) => (
+                <li class="flex items-center text-gray-700">
+                  <svg class="w-5 h-5 text-violet-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <Button href="#" class={`w-full ${plan.popular ? '' : 'variant-secondary'}`}>
+              Get Started
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-linear-to-br from-violet-900 to-violet-800"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Ready to Grow Your Email List?
+        </h2>
+        <p class="text-xl text-violet-100 mb-8">
+          Join thousands of Laravel developers who trust Laravel Mail for their email marketing needs.
+        </p>
+        <Button href="#" size="lg" class="bg-white text-violet-900 hover:bg-violet-50">
+          Start Your Free Trial
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
