@@ -1,0 +1,63 @@
+---
+const logoUrl = "/logo.svg";
+---
+
+<section class="bg-slate-900 relative pt-16 sm:pt-24 pb-20 md:pb-28 overflow-hidden" aria-label="Hero section">
+  <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="py-10 sm:py-16">
+      <div class="max-w-4xl text-center lg:text-left">
+        <img src={logoUrl} alt="Laravel SEO Logo" class="w-24 h-24 mb-6" />
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-violet-600/20 border border-violet-500/30 rounded-full mb-6">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-violet-300 text-sm font-medium">Open Source Laravel Package Available</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Professional SEO Reports
+          <span class="block text-violet-400 mt-2">for Laravel Applications</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-slate-300 mb-8 font-normal">
+          Identify critical technical SEO issues and improve your website's health and performance. 
+          Built for Laravel developers — automated Lighthouse audits, real-time monitoring, and actionable insights.
+        </p>
+
+        <nav class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4" aria-label="Primary actions">
+          <a 
+            href="https://app.laravelseo.com/register" 
+            class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-lg shadow-lg hover:shadow-violet-500/50 transition-all"
+          >
+            Start Free Trial
+          </a>
+          <a 
+            href="https://packagist.org/packages/laravelseo/core" 
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-lg transition-all"
+          >
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.5 5.5h3v6.5h-3v-6.5zm0 9h3v3h-3v-3z"/>
+            </svg>
+            View Package
+          </a>
+        </nav>
+        
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-8 text-sm text-slate-400">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Free tier available</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Open source package</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Laravel 10 & 11 compatible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

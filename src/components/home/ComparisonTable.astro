@@ -1,0 +1,51 @@
+---
+const comparisons = [
+  { feature: "Lighthouse Integration", generic: "Manual / Slow", laravelseo: "Deep / Automated" },
+  { feature: "Blade Component Support", generic: "None", laravelseo: "Native @seo directives" },
+  { feature: "Real-time Scoring", generic: "External only", laravelseo: "Built-in Dashboard" },
+  { feature: "Meta & Social Management", generic: "Manual CSVs", laravelseo: "Automatic & Dynamic" },
+  { feature: "Developer Focus", generic: "Marketing-only", laravelseo: "Built for Developers" }
+];
+---
+
+<section id="comparison" class="bg-slate-800 border-t border-b border-slate-700 py-16 md:py-24" aria-labelledby="comparison-heading">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <div class="inline-block px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-full mb-4">
+        SEO Tools Comparison
+      </div>
+      <h2 id="comparison-heading" class="text-3xl md:text-4xl font-bold text-white mb-4">
+        Generic SEO vs. LaravelSeo
+      </h2>
+      <p class="text-slate-300 text-lg max-w-2xl mx-auto">
+        Most SEO tools are built for everyone, which means they aren't optimized for anyone. LaravelSeo is built exclusively for the Laravel ecosystem.
+      </p>
+    </div>
+
+    <div class="overflow-x-auto mt-12">
+      <table class="w-full table-auto border-collapse">
+        <thead>
+          <tr class="text-center">
+            <th class="text-left py-4 px-6 text-xl font-bold text-white">Feature</th>
+            <th class="py-4 px-6 text-xl font-bold text-slate-500">Generic SEO Tools</th>
+            <th class="py-4 px-6 text-xl font-bold text-violet-400">
+              <div class="flex items-center justify-center gap-2">
+                <span>LaravelSeo</span>
+                <span class="text-lg">🚀</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {comparisons.map((item, index) => (
+            <tr class={`text-center ${index !== comparisons.length - 1 ? 'border-b border-slate-700' : ''}`}>
+              <td class="text-left py-4 px-6 font-semibold text-white">{item.feature}</td>
+              <td class="py-4 px-6 text-slate-400">{item.generic}</td>
+              <td class="py-4 px-6 font-semibold text-violet-400 bg-violet-600/10">{item.laravelseo}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
