@@ -3,7 +3,7 @@ export const SITE = {
   title: 'Laravel SEO Platform | Automated Search Visibility Tools',
   description: 'Take control of your site’s search visibility with a fully automated optimisation suite built specifically for Laravel.',
   url: 'https://laravelseo.com',
-  author: 'LaravelSeo',
+  author: 'laravel seo',
 } as const;
 
 export const NAVIGATION = [
