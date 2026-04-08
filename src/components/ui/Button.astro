@@ -4,6 +4,7 @@ interface Props {
   size?: "sm" | "md" | "lg";
   href?: string;
   class?: string;
+  onclick?: string;
 }
 
 const {
@@ -11,6 +12,7 @@ const {
   size = "md",
   href,
   class: className = "",
+  onclick,
   ...rest
 } = Astro.props;
 
@@ -34,6 +36,6 @@ const classes = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${c
 const Tag = href ? "a" : "button";
 ---
 
-<Tag href={href} class={classes} {...rest}>
+<Tag href={href} class={classes} onclick={onclick} {...rest}>
   <slot />
 </Tag>
