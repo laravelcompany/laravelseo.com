@@ -1,0 +1,32 @@
+---
+const { title = SITE.title, description = SITE.description, schema = null } = Astro.props;
+const currentPathname = Astro.url.pathname;
+
+const defaultOrganizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Laravel Seo",
+  "url": "https://laravelseo.com",
+  "logo": "https://laravelseo.com/logo.svg",
+  "description": "Automated search visibility tools built specifically for Laravel applications.",
+  "sameAs": [
+    "https://twitter.com/laravelseo",
+    "https://linkedin.com/company/laravelseo",
+    "https://facebook.com/laravelseo"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "support@laravelseo.com",
+    "contactType": "customer service"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://laravelseo.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const organizationSchema = schema || defaultOrganizationSchema;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />

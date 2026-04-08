@@ -1,0 +1,58 @@
+# robots.txt for laravelseo.com
+# Optimized for AI crawlers (Google AI Overviews, ChatGPT, Perplexity)
+
+User-agent: *
+Allow: /
+
+# Allow AI crawlers
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: perplexity-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow private/admin areas
+Disallow: /api/
+Disallow: /_nuxt/
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+
+# Sitemap
+Sitemap: https://laravelseo.com/sitemap.xml
+
+# Crawl-delay (optional, for politeness)
+Crawl-delay: 1
