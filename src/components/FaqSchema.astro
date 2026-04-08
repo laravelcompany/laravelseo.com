@@ -1,0 +1,35 @@
+---
+const faqs = [
+  { 
+    question: "How does LaravelSeo integrate with my existing app?", 
+    answer: "You can integrate it in seconds using our dedicated Laravel package. It provides native Blade directives and automated hooks for your models." 
+  },
+  { 
+    question: "Do I need deep SEO knowledge to use it?", 
+    answer: "Not at all. We translate complex Lighthouse data and SEO metrics into actionable tasks that any developer can implement." 
+  },
+  { 
+    question: "Can I use it for multiple client sites?", 
+    answer: "Yes! Our Agency plans are designed specifically for teams managing multiple Laravel installations from a single dashboard." 
+  },
+  { 
+    question: "Is it compatible with Laravel 11/12?", 
+    answer: "Absolutely. We stay at the cutting edge of the Laravel ecosystem, ensuring full compatibility with the latest versions." 
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

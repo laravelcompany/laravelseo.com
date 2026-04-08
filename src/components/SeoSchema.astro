@@ -1,8 +1,9 @@
 ---
-const { title = SITE.title, description = SITE.description, schema = null } = Astro.props;
-const currentPathname = Astro.url.pathname;
+import { SITE } from "@config/site";
 
-const defaultOrganizationSchema = {
+const { schema = null, type = "website" } = Astro.props;
+
+const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Laravel Seo",
@@ -18,15 +19,27 @@ const defaultOrganizationSchema = {
     "@type": "ContactPoint",
     "email": "support@laravelseo.com",
     "contactType": "customer service"
-  },
+  }
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Laravel Seo",
+  "url": "https://laravelseo.com",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://laravelseo.com/search?q={search_term_string}",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://laravelseo.com/search?q={search_term_string}"
+    },
     "query-input": "required name=search_term_string"
   }
 };
 
-const organizationSchema = schema || defaultOrganizationSchema;
+const schemas = schema ? [schema] : [organizationSchema, websiteSchema];
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+{schemas.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}
