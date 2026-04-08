@@ -29,23 +29,6 @@ export default function MobileMenu() {
                 </a>
               </Dialog.Close>
             ))}
-            <div className="pt-4">
-              <Dialog.Close asChild>
-                <a
-                  href="https://app.laravelseo.com/login"
-                  className="block text-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-violet-600 to-violet-700 hover:from-violet-700 hover:to-violet-800 rounded-lg shadow-md transition-all"
-                  onClick={() => {
-                    // @ts-ignore
-                    if (typeof window.gtag === 'function') {
-                      // @ts-ignore
-                      window.gtag('event', 'login_click', { 'event_category': 'navigation', 'event_label': 'mobile_menu' });
-                    }
-                  }}
-                >
-                  Login
-                </a>
-              </Dialog.Close>
-            </div>
           </div>
           <Dialog.Close asChild>
             <button

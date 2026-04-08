@@ -1,0 +1,103 @@
+---
+import Section from "../ui/Section.astro";
+---
+
+<Section id="broken-links-scanner" background="gradient">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-violet-600/20 rounded-full text-violet-300 text-sm font-medium mb-4">
+          <span class="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></span>
+          New Feature
+        </div>
+        
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Introducing Our New <span class="text-violet-400">Broken Links Scanner</span>
+        </h2>
+        
+        <p class="text-slate-300 text-lg mb-6">
+          We're excited to roll out a powerful new feature designed to keep your website healthy and fully functional: the Broken Links Scanner.
+        </p>
+
+        <p class="text-slate-400 mb-6">
+          With this addition, our platform can now automatically crawl your site, identify broken links, and give you actionable insights to fix them before they impact your users or <a href="/" class="text-violet-400 hover:text-violet-300 underline">SEO</a>. Behind the scenes, we've built a robust system leveraging Laravel services to handle URL normalization, link extraction, and robots.txt compliance, ensuring accurate results without false positives.
+        </p>
+
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-violet-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span class="text-slate-300">Comprehensive crawling and broken link detection</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-violet-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span class="text-slate-300">Smart URL normalization and link extraction for precise scanning</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-violet-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span class="text-slate-300">Fully integrated administration panel to manage and review broken links</span>
+          </li>
+        </ul>
+
+        <p class="text-slate-400 italic">
+          Stay tuned as we complete the final steps to make link health monitoring a seamless part of your workflow.
+        </p>
+      </div>
+
+      <div class="relative">
+        <div class="bg-slate-800/80 backdrop-blur rounded-2xl p-6 border border-slate-700/50">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-violet-600 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold text-lg">Broken Links Scanner</h3>
+              <p class="text-slate-400 text-sm">Laravel-powered link health monitoring</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-4 bg-slate-900/50 rounded-xl">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-slate-300 text-sm">Scan Progress</span>
+                <span class="text-violet-400 font-medium">87%</span>
+              </div>
+              <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-violet-600 to-pink-500 rounded-full" style="width: 87%"></div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="p-3 bg-red-500/10 rounded-xl border border-red-500/20 text-center">
+                <div class="text-red-400 font-bold text-xl">12</div>
+                <div class="text-slate-400 text-xs">Broken</div>
+              </div>
+              <div class="p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/20 text-center">
+                <div class="text-yellow-400 font-bold text-xl">8</div>
+                <div class="text-slate-400 text-xs">Redirects</div>
+              </div>
+              <div class="p-3 bg-green-500/10 rounded-xl border border-green-500/20 text-center">
+                <div class="text-green-400 font-bold text-xl">1.2k</div>
+                <div class="text-slate-400 text-xs">Healthy</div>
+              </div>
+            </div>
+
+            <a href="/" class="block w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-xl text-center transition-colors">
+              Start Your First Scan
+            </a>
+          </div>
+        </div>
+
+        <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-violet-600 to-pink-600 rounded-full blur-2xl opacity-30"></div>
+        <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-violet-600 to-purple-600 rounded-full blur-2xl opacity-20"></div>
+      </div>
+    </div>
+  </div>
+</Section>

@@ -9,8 +9,8 @@ import { Package, Linkedin, Twitter, Facebook } from "lucide-react";
       <!-- Company Info -->
       <div class="lg:col-span-1 space-y-6">
         <a href="/" class="flex items-center space-x-3 group">
-          <img src="/logo.svg" alt="laravel seo Logo" class="w-12 h-12" />
-          <span class="text-2xl font-bold text-white"> laravel seo </span>
+          <img src="/logo.svg" alt="Laravel Seo Logo" class="w-12 h-12" />
+          <span class="text-2xl font-bold text-white"> Laravel Seo </span>
         </a>
         <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
           {SITE.description}
@@ -18,24 +18,10 @@ import { Package, Linkedin, Twitter, Facebook } from "lucide-react";
         <div class="flex space-x-4">
           <a
             href={SOCIAL_LINKS.linkedin}
-            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-violet-600 hover:text-white transition-all"
+            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-violet-600 hover:text-white transition-all duration-300 transform hover:scale-110"
             aria-label="LinkedIn"
           >
             <Linkedin className="w-5 h-5" />
-          </a>
-          <a
-            href={SOCIAL_LINKS.twitter}
-            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-violet-400 hover:text-white transition-all"
-            aria-label="Twitter"
-          >
-            <Twitter className="w-5 h-5" />
-          </a>
-          <a
-            href={SOCIAL_LINKS.facebook}
-            class="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:bg-violet-500 hover:text-white transition-all"
-            aria-label="Facebook"
-          >
-            <Facebook className="w-5 h-5" />
           </a>
         </div>
       </div>
@@ -119,7 +105,7 @@ import { Package, Linkedin, Twitter, Facebook } from "lucide-react";
         </ul>
       </div>
 
-      <!-- Contact -->
+      <!-- Get Started -->
       <div>
         <h3
           class="text-sm font-semibold uppercase tracking-wider text-white mb-6"
@@ -128,64 +114,39 @@ import { Package, Linkedin, Twitter, Facebook } from "lucide-react";
         </h3>
         <ul class="space-y-3 text-sm">
           <li>
-            <a Login < a> </a>
-            <li>
-              <a
-                href="/facilities"
-                class="text-slate-400 hover:text-violet-400 transition-colors inline-flex items-center group"
-              >
-                <span
-                  class="w-0 group-hover:w-2 h-0.5 bg-violet-400 transition-all mr-0 group-hover:mr-2"
-                ></span>
-                Facilities
-              </a>
-            </li>
-          </li>
-
-          <div class="mt-8">
             <a
-              href="https://app.laravelseo.com/login"
-              onclick="gtag('event', 'login_click', {'event_category': 'footer', 'event_label': 'footer_cta_button'});"
-              class="inline-flex items-center px-6 py-3 text-sm font-semibold text-white bg-linear-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 rounded-lg shadow-lg hover:shadow-violet-500/50 transition-all"
+              href="/privacy"
+              class="text-slate-400 hover:text-violet-400 transition-colors inline-flex items-center group"
             >
-              Login
-            </a>
-          </div>
-        </ul>
-      </div>
-
-      <!-- Bottom Bar -->
-      <div class="mt-16 pt-8 border-t border-slate-800">
-        <div
-          class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0"
-        >
-          <p class="text-sm text-slate-400">
-            &copy; {new Date().getFullYear()}
-            {SITE.author}. All rights reserved.
-          </p>
-          <div class="flex items-center space-x-6 text-sm">
-            <a
-              href="/"
-              class="text-slate-400 hover:text-violet-400 transition-colors"
-            >
+              <span
+                class="w-0 group-hover:w-2 h-0.5 bg-violet-400 transition-all mr-0 group-hover:mr-2"
+              ></span>
               Privacy Policy
             </a>
-            <span class="text-slate-600">•</span>
+          </li>
+          <li>
             <a
-              href="/"
-              class="text-slate-400 hover:text-violet-400 transition-colors"
+              href="/terms"
+              class="text-slate-400 hover:text-violet-400 transition-colors inline-flex items-center group"
             >
+              <span
+                class="w-0 group-hover:w-2 h-0.5 bg-violet-400 transition-all mr-0 group-hover:mr-2"
+              ></span>
               Terms of Service
             </a>
-            <span class="text-slate-700">•</span>
+          </li>
+          <li>
             <a
-              href="/"
-              class="text-slate-400 hover:text-violet-400 transition-colors"
+              href="/contact"
+              class="text-slate-400 hover:text-violet-400 transition-colors inline-flex items-center group"
             >
-              Cookie Policy
+              <span
+                class="w-0 group-hover:w-2 h-0.5 bg-violet-400 transition-all mr-0 group-hover:mr-2"
+              ></span>
+              Contact
             </a>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
