@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
 import posts from "../../data/posts.json";
 
 const ITEMS_PER_PAGE = 12;
@@ -37,9 +38,13 @@ const sentimentColors: Record<string, string> = {
 ---
 
 <BaseLayout
-  title="Climate Posts - Social Media Analytics"
-  description="Browse climate-related social media posts with engagement metrics and sentiment analysis"
+  title="Climate Posts - Social Media Analytics and Engagement Data"
+  description="Browse thousands of climate-related social media posts with engagement metrics, sentiment analysis, and audience insights."
 >
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Climate Posts", href: "/posts" },
+  ]} />
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mb-12 text-center">
       <h1 class="mb-4 text-4xl font-bold tracking-tight">Climate Posts</h1>

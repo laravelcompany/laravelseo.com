@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
+import Card from "../../components/ui/Card.astro";
+
+const articles = [
+  {
+    slug: "laravel-seo-best-practices",
+    title: "Laravel SEO Best Practices: A Complete Guide for 2026",
+    description: "Learn the essential Laravel SEO best practices to improve your application's search visibility, including meta tags, structured data, and performance optimization.",
+    date: "2026-04-10",
+    category: "Best Practices",
+    readTime: "8 min read",
+    tags: ["laravel seo", "seo best practices", "laravel optimization"],
+  },
+  {
+    slug: "optimize-laravel-app-google",
+    title: "How to Optimize Your Laravel Application for Google Search",
+    description: "A step-by-step guide to optimizing your Laravel app for Google, covering technical SEO, Core Web Vitals, and AI-powered search optimization.",
+    date: "2026-04-08",
+    category: "Technical SEO",
+    readTime: "10 min read",
+    tags: ["laravel seo", "google optimization", "technical seo"],
+  },
+  {
+    slug: "laravel-meta-tags-guide",
+    title: "Laravel Meta Tags: The Complete Guide to Dynamic SEO Metadata",
+    description: "Master dynamic meta tag generation in Laravel. Learn how to create automatic title tags, meta descriptions, and Open Graph cards for better SEO.",
+    date: "2026-04-05",
+    category: "Meta Tags",
+    readTime: "7 min read",
+    tags: ["laravel seo", "meta tags", "opengraph"],
+  },
+  {
+    slug: "structured-data-laravel-jsonld",
+    title: "Structured Data in Laravel: A Complete JSON-LD Schema Guide",
+    description: "Implement JSON-LD structured data in your Laravel application. Learn how to add schema markup for articles, products, FAQs, and more.",
+    date: "2026-04-01",
+    category: "Structured Data",
+    readTime: "9 min read",
+    tags: ["laravel seo", "json-ld", "structured data", "schema markup"],
+  },
+];
+---
+
+<BaseLayout
+  title="Laravel SEO Blog - Tips, Guides & Best Practices"
+  description="Expert articles about Laravel SEO optimization, meta tags, structured data, and technical SEO best practices for Laravel developers."
+>
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+  ]} />
+
+  <section class="relative py-24 overflow-hidden bg-slate-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Laravel SEO Blog</h1>
+        <p class="text-xl text-slate-300">Expert guides, tips, and best practices for optimizing your Laravel applications for search engines.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-950 py-16 lg:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {articles.map((article) => (
+          <a href={`/blog/${article.slug}`} class="group block">
+            <Card hover class="h-full p-6 transition-all group-hover:border-violet-500/50">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">{article.category}</span>
+                <span class="text-xs text-slate-500">{article.readTime}</span>
+              </div>
+              <h2 class="mb-3 text-xl font-bold text-white group-hover:text-violet-400 transition-colors">{article.title}</h2>
+              <p class="mb-4 text-sm text-slate-400 leading-relaxed">{article.description}</p>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-500">{article.date}</span>
+                <span class="flex items-center gap-1 text-violet-400 font-medium text-sm">
+                  Read More
+                  <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Card>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

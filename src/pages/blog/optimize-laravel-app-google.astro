@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleSchema from "../../components/ArticleSchema.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
+import Button from "../../components/ui/Button.astro";
+
+const title = "How to Optimize Your Laravel Application for Google Search";
+const description = "A step-by-step guide to optimizing your Laravel app for Google, covering technical SEO, Core Web Vitals, and AI-powered search optimization.";
+const date = "2026-04-08";
+---
+
+<BaseLayout title={`${title} | Laravel Seo`} description={description}>
+  <ArticleSchema {title} {description} date={date} />
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: title, href: "/blog/optimize-laravel-app-google" },
+  ]} />
+
+  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Technical SEO</span>
+        <span class="text-sm text-slate-500">10 min read</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
+      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
+      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
+        <span>Published: {date}</span>
+        <span>Tags: laravel seo, google optimization, technical seo</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg prose-invert max-w-none">
+      <h2>Why Google Optimization Matters for Laravel Apps</h2>
+      <p>
+        Google processes over 8.5 billion searches per day. If your Laravel application isn't optimized for Google's search algorithms, you are missing out on a massive amount of organic traffic. With Google's move toward AI-powered search (SGE) and the increasing importance of Core Web Vitals, technical SEO has become more complex and more critical than ever.
+      </p>
+
+      <h2>1. Technical SEO Foundation</h2>
+      <p>
+        Before diving into advanced optimization, ensure your Laravel application has a solid technical SEO foundation:
+      </p>
+      <ul>
+        <li><strong>Clean URL Structure</strong> - Use descriptive, keyword-rich URLs</li>
+        <li><strong>Proper HTTP Status Codes</strong> - Return 200 for valid pages, 404 for missing, 301 for redirects</li>
+        <li><strong>Mobile Responsiveness</strong> - Google uses mobile-first indexing</li>
+        <li><strong>HTTPS</strong> - Security is a ranking factor</li>
+        <li><strong>robots.txt</strong> - Guide crawlers to important pages</li>
+      </ul>
+      <p>
+        A comprehensive <strong>Laravel SEO</strong> package can automate checking these fundamentals and alert you to issues.
+      </p>
+
+      <h2>2. Optimize Core Web Vitals</h2>
+      <p>
+        Core Web Vitals are Google's set of metrics measuring user experience. For Laravel applications:
+      </p>
+      <ul>
+        <li><strong>LCP (Largest Contentful Paint)</strong> - Optimize images, implement lazy loading, use Laravel's built-in image processing</li>
+        <li><strong>FID (First Input Delay)</strong> - Minimize JavaScript, leverage Laravel Vite for code splitting</li>
+        <li><strong>CLS (Cumulative Layout Shift)</strong> - Set explicit dimensions for images and embeds</li>
+      </ul>
+
+      <h2>3. Content Optimization for AI Search</h2>
+      <p>
+        Google's Search Generative Experience (SGE) is changing how search results are displayed. To optimize for AI-powered search:
+      </p>
+      <ul>
+        <li>Create comprehensive, authoritative content</li>
+        <li>Use clear heading hierarchies (H1, H2, H3)</li>
+        <li>Implement FAQ schema for featured snippets</li>
+        <li>Structure content with lists and tables for easy parsing</li>
+      </ul>
+
+      <h2>4. Meta Tags and Structured Data</h2>
+      <p>
+        Every page in your Laravel application needs unique, descriptive meta tags. Using the <strong>laravelseo/core</strong> package, you can:
+      </p>
+      <ul>
+        <li>Automatically generate title tags and meta descriptions</li>
+        <li>Add Open Graph tags for social sharing</li>
+        <li>Implement Twitter Cards for Twitter previews</li>
+        <li>Generate JSON-LD structured data for rich results</li>
+      </ul>
+
+      <h2>5. Sitemap and Indexing Strategy</h2>
+      <p>
+        Ensure Google can efficiently discover and index your pages:
+      </p>
+      <ul>
+        <li>Generate dynamic XML sitemaps</li>
+        <li>Use canonical URLs to prevent duplicate content</li>
+        <li>Implement hreflang tags for multi-language sites</li>
+        <li>Leverage Laravel's route caching for faster responses to crawlers</li>
+      </ul>
+
+      <h2>6. Monitoring and Continuous Improvement</h2>
+      <p>
+        SEO is not a one-time effort. Use the <strong>Laravel SEO</strong> platform's real-time Lighthouse monitoring to track your scores and catch regressions before they impact your rankings. Set up automated audits that run on every deployment.
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        Optimizing your Laravel application for Google search requires a systematic approach covering technical fundamentals, performance, content, and ongoing monitoring. By leveraging dedicated <strong>Laravel SEO</strong> tools, you can automate much of this work and ensure your application stays competitive in search results.
+      </p>
+      <p>
+        Start optimizing today with our <a href="/software/laravel-seo" class="text-violet-400 hover:text-violet-300">Laravel SEO package</a> and see the difference proper optimization makes.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href="/blog" variant="outline">Back to Blog</Button>
+        <Button href="/capabilities">View Capabilities</Button>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

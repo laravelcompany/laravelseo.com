@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleSchema from "../../components/ArticleSchema.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
 import posts from "../../data/posts.json";
 
 export function getStaticPaths() {
@@ -35,9 +37,20 @@ const topicColors: Record<string, string> = {
 ---
 
 <BaseLayout
-  title={`${post.username} on ${post.platform} - Climate Post`}
+  title={`${post.username} on ${post.platform} - ${post.climate_topic} Climate Post`}
   description={post.post_text.slice(0, 160)}
+  image="/og-image.png"
 >
+  <ArticleSchema
+    title={`${post.username} on ${post.platform} - ${post.climate_topic} Climate Post`}
+    description={post.post_text.slice(0, 160)}
+    date={post.post_date}
+  />
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Climate Posts", href: "/posts" },
+    { name: `Post #${post.post_id}`, href: `/posts/${post.post_id}` },
+  ]} />
   <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
     <a
       href="/posts"

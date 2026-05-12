@@ -10,9 +10,8 @@ export const NAVIGATION = [
   { name: 'Home', href: '/' },
   { name: 'Capabilities', href: '/capabilities' },
   { name: 'Use Cases', href: '/use-cases' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Facilities', href: '/facilities' },
-  { name: 'Buy', href: '/buy' },
-
 ] as const;
 
 export const SOCIAL_LINKS = {

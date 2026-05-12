@@ -14,6 +14,16 @@ const features = [
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
     title: "Security",
     description: "Obtain privacy and security information to keep your webpage's health in good standing."
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>`,
+    title: "Accessibility",
+    description: "Ensure your webpage is accessible to all users with detailed compliance checks."
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>`,
+    title: "Mobile Friendliness",
+    description: "Check how well your webpage performs and displays on mobile devices."
   }
 ];
 
@@ -23,7 +33,13 @@ const checks = [
   { label: "Load time", status: "success", message: "The webpage loaded in 0.02 seconds." },
   { label: "Structured data", status: "warning", message: "There are no structured data tags on the webpage." },
   { label: "JavaScript defer", status: "neutral", message: "There are 10 javascript resources without the defer attribute." },
-  { label: "Content length", status: "success", message: "The webpage has 2,995 words." }
+  { label: "Content length", status: "success", message: "The webpage has 2,995 words." },
+  { label: "H1 tags", status: "error", message: "Multiple H1 tags found on the webpage." },
+  { label: "Image alt attributes", status: "warning", message: "3 images are missing alt attributes." },
+  { label: "SSL certificate", status: "success", message: "Valid SSL certificate is installed." },
+  { label: "Canonical URL", status: "success", message: "Canonical tag is correctly set." },
+  { label: "Viewport meta tag", status: "success", message: "Viewport meta tag is properly configured." },
+  { label: "Open Graph tags", status: "warning", message: "Missing og:image and og:description tags." }
 ];
 ---
 

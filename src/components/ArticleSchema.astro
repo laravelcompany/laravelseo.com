@@ -1,0 +1,41 @@
+---
+import { SITE } from "@config/site";
+
+interface Props {
+  title: string;
+  description: string;
+  date: string;
+  image?: string;
+  author?: string;
+}
+
+const { title, description, date, image = "/og-image.png", author = SITE.author } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "author": {
+    "@type": "Person",
+    "name": author,
+  },
+  "datePublished": date,
+  "dateModified": date,
+  "image": new URL(image, SITE.url).href,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Laravel Seo",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/logo.svg", SITE.url).href,
+    },
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.href,
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

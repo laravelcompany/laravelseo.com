@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Section from "../../components/ui/Section.astro";
 import Card from "../../components/ui/Card.astro";
 import Button from "../../components/ui/Button.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
 
 const features = [
   {
@@ -60,7 +61,12 @@ const pricingPlans = [
 ];
 ---
 
-<BaseLayout title="Laravel Mail - Email Marketing & Automation Platform">
+<BaseLayout title="Laravel Mail - Email Marketing & Automation Platform" description="Email marketing and automation platform built for Laravel. Send campaigns, track opens, and automate your email workflows.">
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Software", href: "/software/laravel-mail" },
+    { name: "Laravel Mail", href: "/software/laravel-mail" },
+  ]} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-violet-900 via-violet-800 to-violet-900"></div>

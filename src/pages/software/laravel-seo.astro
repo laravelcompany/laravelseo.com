@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Section from "../../components/ui/Section.astro";
 import Card from "../../components/ui/Card.astro";
 import Button from "../../components/ui/Button.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
 
 const features = [
   {
@@ -47,7 +48,12 @@ const benefits = [
 ];
 ---
 
-<BaseLayout title="Laravel SEO - Complete SEO Toolkit for Laravel">
+<BaseLayout title="Laravel SEO - Complete SEO Toolkit for Laravel" description="The ultimate Laravel SEO toolkit for automatic meta tags, JSON-LD schema generation, sitemaps, and real-time Lighthouse monitoring.">
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Software", href: "/software/laravel-seo" },
+    { name: "Laravel SEO", href: "/software/laravel-seo" },
+  ]} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-pink-900 via-pink-800 to-rose-900"></div>

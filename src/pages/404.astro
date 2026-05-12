@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<BaseLayout title="404 - Page Not Found | Laravel Seo" description="The page you are looking for does not exist. Return to Laravel Seo homepage.">
+  <section class="flex min-h-[70vh] items-center justify-center px-4">
+    <div class="max-w-lg text-center">
+      <div class="mb-8">
+        <span class="text-9xl font-bold bg-linear-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">404</span>
+      </div>
+      <h1 class="mb-4 text-3xl font-bold text-white">Page Not Found</h1>
+      <p class="mb-8 text-lg text-slate-400">
+        The page you are looking for doesn't exist or has been moved. Let us help you find your way back.
+      </p>
+      <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <Button href="/" size="lg">Return Home</Button>
+        <Button href="/capabilities" size="lg" variant="secondary">Explore Capabilities</Button>
+      </div>
+      <div class="mt-12 border-t border-slate-800 pt-8">
+        <p class="text-sm text-slate-500">
+          Looking for something specific? Try our <a href="/backlinks" class="text-violet-400 hover:text-violet-300">resources page</a> or read our <a href="/blog" class="text-violet-400 hover:text-violet-300">latest articles</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

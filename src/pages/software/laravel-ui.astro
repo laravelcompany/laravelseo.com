@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Section from "../../components/ui/Section.astro";
 import Card from "../../components/ui/Card.astro";
 import Button from "../../components/ui/Button.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
 
 const features = [
   {
@@ -49,7 +50,12 @@ const componentCategories = [
 ];
 ---
 
-<BaseLayout title="Laravel UI - Premium UI Components for Laravel">
+<BaseLayout title="Laravel UI - Premium UI Components for Laravel" description="Premium UI components for Laravel applications. Marketing blocks, dashboards, forms, and more ready-to-use components.">
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Software", href: "/software/laravel-ui" },
+    { name: "Laravel UI", href: "/software/laravel-ui" },
+  ]} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-blue-900 via-blue-800 to-sky-900"></div>

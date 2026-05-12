@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Section from "../../components/ui/Section.astro";
 import Card from "../../components/ui/Card.astro";
 import Button from "../../components/ui/Button.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
 
 const features = [
   {
@@ -57,7 +58,12 @@ const useCases = [
 ];
 ---
 
-<BaseLayout title="Laravel GPT - AI-Powered Laravel Applications">
+<BaseLayout title="Laravel GPT - AI-Powered Laravel Applications" description="Integrate AI into your Laravel applications with Laravel GPT. Generate content, automate responses, and leverage GPT models seamlessly.">
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Software", href: "/software/laravel-gpt" },
+    { name: "Laravel GPT", href: "/software/laravel-gpt" },
+  ]} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-purple-900 via-purple-800 to-indigo-900"></div>

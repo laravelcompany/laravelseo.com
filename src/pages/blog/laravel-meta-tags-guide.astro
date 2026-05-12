@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleSchema from "../../components/ArticleSchema.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
+import Button from "../../components/ui/Button.astro";
+
+const title = "Laravel Meta Tags: The Complete Guide to Dynamic SEO Metadata";
+const description = "Master dynamic meta tag generation in Laravel. Learn how to create automatic title tags, meta descriptions, and Open Graph cards for better SEO.";
+const date = "2026-04-05";
+---
+
+<BaseLayout title={`${title} | Laravel Seo`} description={description}>
+  <ArticleSchema {title} {description} date={date} />
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: title, href: "/blog/laravel-meta-tags-guide" },
+  ]} />
+
+  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Meta Tags</span>
+        <span class="text-sm text-slate-500">7 min read</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
+      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
+      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
+        <span>Published: {date}</span>
+        <span>Tags: laravel seo, meta tags, opengraph</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg prose-invert max-w-none">
+      <h2>Why Meta Tags Matter for Laravel SEO</h2>
+      <p>
+        Meta tags are the foundation of on-page SEO. They tell search engines what your page is about and influence how your site appears in search results. For Laravel applications, managing meta tags dynamically across hundreds or thousands of pages can be challenging without the right tools.
+      </p>
+
+      <h2>Essential Meta Tags for Laravel Applications</h2>
+
+      <h3>Title Tags</h3>
+      <p>
+        The title tag is the most important meta tag for SEO. A well-optimized title tag should:
+      </p>
+      <ul>
+        <li>Include your primary keyword (e.g., "laravel seo")</li>
+        <li>Be 50-60 characters long</li>
+        <li>Include your brand name at the end</li>
+        <li>Be unique for every page</li>
+      </ul>
+
+      <h3>Meta Descriptions</h3>
+      <p>
+        While not a direct ranking factor, meta descriptions influence click-through rates. Good meta descriptions:
+      </p>
+      <ul>
+        <li>Are 150-160 characters</li>
+        <li>Include relevant keywords naturally</li>
+        <li>Include a call to action</li>
+        <li>Accurately describe the page content</li>
+      </ul>
+
+      <h2>Dynamic Meta Tag Generation in Laravel</h2>
+      <p>
+        The <strong>laravelseo/core</strong> package provides a powerful meta tag management system that:
+      </p>
+      <ul>
+        <li>Automatically generates meta tags for every route</li>
+        <li>Supports route-level overrides and inheritance</li>
+        <li>Generates Open Graph and Twitter Card tags automatically</li>
+        <li>Provides Blade components for easy integration</li>
+        <li>Includes automatic fallbacks for missing metadata</li>
+      </ul>
+
+      <h2>Open Graph Tags for Social Sharing</h2>
+      <p>
+        When your content is shared on social media, Open Graph tags determine how it appears. Key OG tags include:
+      </p>
+      <ul>
+        <li><strong>og:title</strong> - Title for social preview</li>
+        <li><strong>og:description</strong> - Description for social preview</li>
+        <li><strong>og:image</strong> - Preview image (1200x630 recommended)</li>
+        <li><strong>og:url</strong> - Canonical URL</li>
+        <li><strong>og:type</strong> - Content type (website, article, product)</li>
+      </ul>
+
+      <h2>Twitter Cards</h2>
+      <p>
+        Twitter Cards ensure your content looks great when shared on X (formerly Twitter). The two main types are:
+      </p>
+      <ul>
+        <li><strong>Summary Card</strong> - Title, description, and thumbnail</li>
+        <li><strong>Summary Card with Large Image</strong> - Featured image prominently displayed</li>
+      </ul>
+
+      <h2>Best Practices for Laravel Meta Tags</h2>
+      <ol>
+        <li><strong>Use a Dedicated Package</strong> - Manually managing meta tags is error-prone. Use <strong>laravelseo/core</strong> for automatic generation.</li>
+        <li><strong>Implement Fallbacks</strong> - Every page should have a fallback title and description to prevent empty meta tags.</li>
+        <li><strong>Test with Validators</strong> - Use Google's Rich Results Test and Facebook Sharing Debugger.</li>
+        <li><strong>Keep Content Fresh</strong> - Update meta tags when page content changes.</li>
+        <li><strong>Avoid Keyword Stuffing</strong> - Write for humans first, search engines second.</li>
+      </ol>
+
+      <h2>Conclusion</h2>
+      <p>
+        Proper meta tag management is essential for <strong>Laravel SEO</strong> success. By using automated tools and following best practices, you can ensure every page on your site is optimized for both search engines and social media platforms.
+      </p>
+      <p>
+        Ready to simplify your Laravel meta tag management? Check out the <a href="/software/laravel-seo" class="text-violet-400 hover:text-violet-300">laravelseo/core package</a> and start generating perfect meta tags automatically.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href="/blog" variant="outline">Back to Blog</Button>
+        <Button href="/capabilities">Explore Capabilities</Button>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -7,6 +7,7 @@ import UseCaseTabs from "@components/react/UseCaseTabs";
 import StatsCards from "@components/react/StatsCards";
 import { Image } from "astro:assets";
 import SoftwareProducts from "@components/home/SoftwareProducts.astro";
+import BreadcrumbSchema from "@components/BreadcrumbSchema.astro";
 
 import saasImg from "@assets/photo-1551288049-bebda4e38f71.jpg";
 import agencyImg from "@assets/photo-1522071820081-009f0129c71c.jpg";
@@ -36,6 +37,11 @@ const useCases: any[] = [
       "Instant sitemap updates",
       "Route-specific lighthouse checks",
     ],
+    keyFigures: [
+      { value: "10k+", label: "Pages per tenant" },
+      { value: "99.9%", label: "Audit coverage" },
+      { value: "< 2s", label: "Meta generation" },
+    ],
   },
   {
     industry: "Agencies",
@@ -50,6 +56,11 @@ const useCases: any[] = [
       "Consistent quality baseline",
       "Client-friendly reporting",
       "Rapid deployment workflow",
+    ],
+    keyFigures: [
+      { value: "80%", label: "Faster onboarding" },
+      { value: "15+", label: "Clients per agency" },
+      { value: "100%", label: "Lighthouse pass rate" },
     ],
   },
   {
@@ -66,6 +77,11 @@ const useCases: any[] = [
       "Inventory-aware indexing",
       "Higher CTR on SERPs",
     ],
+    keyFigures: [
+      { value: "2M+", label: "Products indexed" },
+      { value: "35%", label: "CTR improvement" },
+      { value: "24/7", label: "Inventory sync" },
+    ],
   },
   {
     industry: "Content-Driven Sites",
@@ -81,6 +97,11 @@ const useCases: any[] = [
       "Increased social engagement",
       "No manual asset creation",
     ],
+    keyFigures: [
+      { value: "1000+", label: "Posts optimized" },
+      { value: "60%", label: "Faster publishing" },
+      { value: "0", label: "Manual assets needed" },
+    ],
   },
   {
     industry: "Marketing & Growth Teams",
@@ -95,6 +116,11 @@ const useCases: any[] = [
       "Campaign-specific tracking",
       "Safe production edits",
       "Instant visual verification",
+    ],
+    keyFigures: [
+      { value: "5x", label: "Faster iterations" },
+      { value: "50+", label: "Concurrent campaigns" },
+      { value: "Zero", label: "Dev dependencies" },
     ],
   },
 ];
@@ -172,6 +198,10 @@ const jsonLd = {
 ---
 
 <BaseLayout title="Use Cases | Laravel Seo" description={pageDescription}>
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Use Cases", href: "/use-cases" },
+  ]} />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <!-- Hero Section -->
   <section

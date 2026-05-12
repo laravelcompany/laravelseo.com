@@ -1,12 +1,17 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Section from "../components/ui/Section.astro";
+import BreadcrumbSchema from "../components/BreadcrumbSchema.astro";
 import { Image } from "astro:assets";
 
 import heroBgImg from "@assets/photo-1553413077-190dd305871c.jpg";
 ---
 
 <BaseLayout title="Privacy Policy | Laravel Seo" description="Laravel Company LLC Privacy Policy - Learn how we collect, use, and protect your personal data.">
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Privacy Policy", href: "/privacy" },
+  ]} />
   <section class="relative py-24 overflow-hidden">
     <div class="absolute inset-0">
       <Image

@@ -6,10 +6,20 @@ import {
   Laptop,
   Package,
   UtensilsCrossed,
+  Server,
+  Briefcase,
+  FileText,
+  TrendingUp,
   CheckCircle2,
   AlertCircle,
-  Lightbulb
+  Lightbulb,
+  BarChart3
 } from 'lucide-react';
+
+interface KeyFigure {
+  value: string;
+  label: string;
+}
 
 interface UseCase {
   industry: string;
@@ -18,6 +28,7 @@ interface UseCase {
   challenge: string;
   solution: string;
   results: string[];
+  keyFigures?: KeyFigure[];
 }
 
 interface Props {
@@ -31,6 +42,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Laptop,
   Package,
   UtensilsCrossed,
+  Server,
+  Briefcase,
+  FileText,
+  TrendingUp,
 };
 
 export default function UseCaseTabs({ useCases }: Props) {
@@ -128,6 +143,31 @@ export default function UseCaseTabs({ useCases }: Props) {
                         </div>
                       </div>
                     </div>
+
+                    {/* Key Metrics */}
+                    {useCase.keyFigures && useCase.keyFigures.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                          <BarChart3 className="w-5 h-5 text-blue-400" />
+                          Key Metrics
+                        </h3>
+                        <div className="grid grid-cols-3 gap-3">
+                          {useCase.keyFigures.map((figure, idx) => (
+                            <div
+                              key={idx}
+                              className="text-center bg-blue-900/30 rounded-lg p-4 border border-blue-800"
+                            >
+                              <div className="text-2xl font-bold text-blue-300">
+                                {figure.value}
+                              </div>
+                              <div className="text-xs text-slate-400 mt-1">
+                                {figure.label}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Results */}
                     <div>
