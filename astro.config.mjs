@@ -8,7 +8,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://laravelseo.com',
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap({
+    filter: (page) => !page.includes('/posts/'),
+  })],
   vite: {
     plugins: [tailwindcss()]
   }

@@ -54,6 +54,20 @@ const benefits = [
     { name: "Software", href: "/software/laravel-seo" },
     { name: "Laravel SEO", href: "/software/laravel-seo" },
   ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Laravel SEO",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Laravel/PHP",
+    "description": "The ultimate Laravel SEO toolkit for automatic meta tags, JSON-LD schema generation, sitemaps, and real-time Lighthouse monitoring.",
+    "url": "https://laravelseo.com/software/laravel-seo",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  })} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-pink-900 via-pink-800 to-rose-900"></div>

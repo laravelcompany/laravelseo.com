@@ -56,6 +56,20 @@ const componentCategories = [
     { name: "Software", href: "/software/laravel-ui" },
     { name: "Laravel UI", href: "/software/laravel-ui" },
   ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Laravel UI",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Laravel/PHP",
+    "description": "Premium UI components for Laravel applications. Marketing blocks, dashboards, forms, and more ready-to-use components.",
+    "url": "https://laravelseo.com/software/laravel-ui",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  })} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-blue-900 via-blue-800 to-sky-900"></div>

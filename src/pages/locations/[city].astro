@@ -1,0 +1,202 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Section from "@components/ui/Section.astro";
+import Card from "@components/ui/Card.astro";
+import Button from "@components/ui/Button.astro";
+import BreadcrumbSchema from "@components/BreadcrumbSchema.astro";
+import locations from "../../data/locations.json";
+
+export function getStaticPaths() {
+  return locations.map((loc) => ({
+    params: { city: loc.slug },
+    props: { loc },
+  }));
+}
+
+const { loc } = Astro.props;
+
+const locationDisplay = loc.state ? `${loc.city}, ${loc.state}` : loc.city;
+const services = [
+  {
+    title: "Automated Meta Tags",
+    description: `Dynamic title tags, meta descriptions, and Open Graph cards generated automatically for every page of your ${loc.city} Laravel application.`,
+  },
+  {
+    title: "JSON-LD Structured Data",
+    description: `Schema markup for articles, products, FAQs, and local business — helping ${loc.city} businesses stand out in search results with rich snippets.`,
+  },
+  {
+    title: "Lighthouse Monitoring",
+    description: `Real-time SEO, accessibility, and performance scores so ${loc.city} developers can catch issues before they impact rankings.`,
+  },
+  {
+    title: "XML Sitemaps",
+    description: `Automatically generated sitemaps that help search engines discover and index every page of your ${loc.city} Laravel site.`,
+  },
+  {
+    title: "Core Web Vitals",
+    description: `Optimize loading speed, interactivity, and visual stability — critical for ranking in ${loc.city}'s competitive search landscape.`,
+  },
+  {
+    title: "Route-Level SEO",
+    description: `Configure unique SEO settings for each route in your ${loc.city} Laravel application, perfect for SaaS and multi-tenant platforms.`,
+  },
+];
+---
+
+<BaseLayout
+  title={`Laravel SEO Services in ${locationDisplay}`}
+  description={loc.description}
+>
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Locations", href: "/locations" },
+    { name: loc.city, href: `/locations/${loc.slug}` },
+  ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": `Laravel SEO in ${loc.city}`,
+    "description": loc.description,
+    "url": `https://laravelseo.com/locations/${loc.slug}`,
+    "areaServed": {
+      "@type": "City",
+      "name": loc.city,
+      "addressCountry": loc.country
+    },
+    "availableLanguage": ["English"],
+    "priceRange": "$$"
+  })} />
+
+  <section class="relative py-24 overflow-hidden bg-slate-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+          Laravel SEO Services in {locationDisplay}
+        </h1>
+        <p class="text-xl text-slate-300 leading-relaxed">
+          {loc.intro}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Section background="dark">
+    <div class="container mx-auto">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            Complete SEO Toolkit for Laravel Developers in {loc.city}
+          </h2>
+          <p class="text-lg text-slate-300 max-w-3xl mx-auto">
+            Everything your {loc.city} Laravel project needs to rank higher, from automated meta tags to real-time performance monitoring.
+          </p>
+        </div>
+        <div class="bg-slate-800 rounded-xl p-6 mb-12 border border-violet-500/20">
+          <p class="text-slate-300 leading-relaxed text-center italic">
+            {loc.highlight}
+          </p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="gray">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4">
+          What Our SEO Tools Do for {loc.city} Developers
+        </h2>
+        <p class="text-lg text-slate-300 max-w-3xl mx-auto">
+          Purpose-built for Laravel, our toolkit automates the technical SEO that drives organic growth.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {services.map((service) => (
+          <Card hover class="p-6">
+            <h3 class="text-lg font-semibold text-white mb-3">{service.title}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{service.description}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section background="dark">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            Why {loc.city} Businesses Need Laravel SEO
+          </h2>
+          <p class="text-lg text-slate-300">
+            In a competitive market like {loc.city}, technical SEO can make the difference between page one and obscurity.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+            <div class="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Save Development Time</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Stop writing repetitive meta tags and schema markup. Our tools generate everything automatically, letting {loc.city} developers focus on building features.
+            </p>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+            <div class="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Improve Rankings</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Real-time Lighthouse monitoring and Core Web Vitals tracking help {loc.city} teams catch SEO issues before they affect search rankings.
+            </p>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Automate Structured Data</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              JSON-LD schema generation for articles, products, FAQs, and local business — helping {loc.city} sites earn rich results in search.
+            </p>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Scale with Confidence</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Route-level SEO configuration means every page of your {loc.city} Laravel application gets optimized, from the homepage to the deepest nested route.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="gray">
+    <div class="container mx-auto text-center">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-white mb-4">
+          Ready to Optimize Your {loc.city} Laravel Application?
+        </h2>
+        <p class="text-lg text-slate-300 mb-8">
+          Join thousands of developers worldwide who use our Laravel SEO toolkit to automate their technical SEO and improve search rankings.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/capabilities" size="lg">Explore Capabilities</Button>
+          <Button href="/contact" size="lg" variant="secondary">Contact Us</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

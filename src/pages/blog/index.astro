@@ -51,6 +51,21 @@ const articles = [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
   ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Laravel SEO Blog",
+    "description": "Expert articles about Laravel SEO optimization, meta tags, structured data, and technical SEO best practices.",
+    "url": "https://laravelseo.com/blog",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": articles.map((article, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": `https://laravelseo.com/blog/${article.slug}`
+      }))
+    }
+  })} />
 
   <section class="relative py-24 overflow-hidden bg-slate-900">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -64,6 +64,20 @@ const useCases = [
     { name: "Software", href: "/software/laravel-gpt" },
     { name: "Laravel GPT", href: "/software/laravel-gpt" },
   ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Laravel GPT",
+    "applicationCategory": "AIApplication",
+    "operatingSystem": "Laravel/PHP",
+    "description": "Integrate AI into your Laravel applications with Laravel GPT. Generate content, automate responses, and leverage GPT models seamlessly.",
+    "url": "https://laravelseo.com/software/laravel-gpt",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  })} />
   <!-- Hero Section -->
   <section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
     <div class="absolute inset-0 bg-linear-to-br from-purple-900 via-purple-800 to-indigo-900"></div>
