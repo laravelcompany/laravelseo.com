@@ -1,8 +1,18 @@
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { name, email, message, phone } = await request.json();
+    const bodyText = await request.text();
+    if (!bodyText) {
+      return new Response(JSON.stringify({ error: 'Empty request body' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const { name, email, message, phone } = JSON.parse(bodyText);
 
     if (!name || !email || !message) {
       return new Response(JSON.stringify({ error: 'All required fields must be filled' }), {
@@ -18,7 +28,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
+    const RESEND_API_KEY = 're_4kt48oeP_BbzKvLDPdSBYuh9ZjQWEDtGZ';
 
     if (!RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not configured');
