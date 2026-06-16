@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BreadcrumbSchema from "../components/BreadcrumbSchema.astro";
+import ChatInterface from "../components/react/ChatInterface";
+---
+
+<BaseLayout title="AI Agent | Laravel SEO" description="Chat with our AI assistant powered by open-source models. Get help with Laravel SEO, web development, and AI-powered tools.">
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Agent", href: "/agent" },
+  ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Laravel SEO AI Agent",
+    "description": "AI-powered assistant for Laravel SEO optimization and web development guidance.",
+    "url": "https://laravelseo.com/agent",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web"
+  })} />
+
+  <section class="relative py-16 overflow-hidden bg-linear-to-br from-violet-900/20 via-slate-900 to-pink-900/20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm text-violet-300 mb-6">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Powered by Open Source Models
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">AI Agent</h1>
+        <p class="text-xl text-slate-300">Ask questions and get instant help from our AI assistant.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 lg:py-16 bg-slate-950">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <ChatInterface client:load />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

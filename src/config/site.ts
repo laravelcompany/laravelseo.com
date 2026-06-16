@@ -12,6 +12,7 @@ export const NAVIGATION = [
   { name: 'Use Cases', href: '/use-cases' },
   { name: 'Blog', href: '/blog' },
   { name: 'Facilities', href: '/facilities' },
+  { name: 'Agent', href: '/agent' },
 ] as const;
 
 export const SOCIAL_LINKS = {
