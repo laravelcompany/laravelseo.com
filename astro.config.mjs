@@ -4,7 +4,7 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
-import netlify from '@astrojs/netlify';
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +13,7 @@ export default defineConfig({
     filter: (page) => !page.includes('/posts/'),
   })],
   output: 'server',
-  adapter: netlify(),
+  adapter: cloudflare(),
   vite: {
     plugins: [tailwindcss()]
   }

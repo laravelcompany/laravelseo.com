@@ -4,10 +4,9 @@ import { Send, Bot, User, ChevronDown, Loader2 } from 'lucide-react';
 const API_BASE = 'https://ai.izdrail.com';
 
 const MODELS = [
-  { id: 'gemma4:e4b', name: 'Gemma 4 (8B)' },
-  { id: 'neural-chat:7b', name: 'Neural Chat (7B)' },
-  { id: 'hf.co/yannelli/Laravel-11-Llama-3.2-1B-Instruct-GGUF:Q4_K_M', name: 'Llama 3.2 (1B)' },
+  { id: 'hf.co/laravelcompany/laravelseo:latest', name: 'Laravel SEO (3.2B)' },
   { id: 'hf.co/laravelcompany/laravelmail:latest', name: 'Laravel Mail (3.2B)' },
+  { id: 'neural-chat:7b', name: 'Neural Chat (7B)' },
 ] as const;
 
 interface Message {
