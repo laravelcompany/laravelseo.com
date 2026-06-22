@@ -29,6 +29,16 @@ export default function MobileMenu() {
                 </a>
               </Dialog.Close>
             ))}
+            <Dialog.Close asChild>
+              <a
+                href="https://app.laravelseo.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-4 min-h-[44px] text-base font-semibold text-white bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-500 hover:to-pink-400 rounded-lg transition-all text-center mt-4"
+              >
+                Login
+              </a>
+            </Dialog.Close>
           </div>
           <Dialog.Close asChild>
             <button

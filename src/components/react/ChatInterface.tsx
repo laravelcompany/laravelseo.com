@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, type FormEvent } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { Send, Bot, User, ChevronDown, Loader2 } from 'lucide-react';
 
 const API_BASE = 'https://ai.izdrail.com';
@@ -14,7 +15,7 @@ interface Message {
   content: string;
 }
 
-export default function ChatInterface() {
+function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [model, setModel] = useState<string>(MODELS[0].id);
@@ -241,3 +242,5 @@ export default function ChatInterface() {
     </div>
   );
 }
+
+export default React.memo(ChatInterface);
