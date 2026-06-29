@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleSchema from "../../components/ArticleSchema.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
+import Button from "../../components/ui/Button.astro";
+
+const title = "Google Business Profile Optimization: The Ultimate Guide";
+const description = "Optimize your Google Business Profile to attract more local customers. Step-by-step guide covering categories, reviews, photos, and local SEO signals.";
+const date = "2026-06-22";
+---
+
+<BaseLayout title={`${title} | Laravel Seo`} description={description}>
+  <ArticleSchema {title} {description} date={date} />
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: title, href: "/blog/google-business-profile-optimization" },
+  ]} />
+
+  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Local SEO</span>
+        <span class="text-sm text-slate-500">10 min read</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
+      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
+      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
+        <span>Published: {date}</span>
+        <span>Tags: local seo, google business profile, gmb optimization, local search</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg prose-invert max-w-none">
+      <h2>Introduction</h2>
+      <p>
+        Your Google Business Profile (GBP) is the single most important factor for local SEO success. When someone searches for a business near them, Google prominently displays GBP listings in the Local Pack, Local Finder, and Google Maps. A fully optimized profile can dramatically increase your visibility and attract more customers.
+      </p>
+
+      <h2>Why Google Business Profile Matters</h2>
+      <p>
+        Google Business Profile listings appear in some of the most visible positions in search results. The Local Pack, which appears at the top of many local searches, features three businesses with their ratings, hours, and contact information. Being in the Local Pack can drive significant traffic to your business.
+      </p>
+
+      <h2>Step 1: Claim and Verify Your Profile</h2>
+      <p>
+        The first step is claiming your business on Google Business Profile. If your business already has a listing, you can claim it. If not, create a new one. Verification is typically done via postcard, phone, or email, depending on your business type.
+      </p>
+
+      <h2>Step 2: Complete Every Section</h2>
+      <p>
+        Google rewards complete profiles with better rankings. Fill in every available field:
+      </p>
+      <ul>
+        <li><strong>Business name</strong> - Use your exact real-world business name</li>
+        <li><strong>Categories</strong> - Select the most specific primary category and relevant secondary categories</li>
+        <li><strong>Address</strong> - Use a precise, verifiable address</li>
+        <li><strong>Phone number</strong> - Use a local number, not a toll-free one</li>
+        <li><strong>Website</strong> - Link to your website</li>
+        <li><strong>Hours</strong> - Set accurate business hours, including holiday hours</li>
+        <li><strong>Attributes</strong> - Add relevant attributes like "free Wi-Fi," "wheelchair accessible," etc.</li>
+      </ul>
+
+      <h2>Step 3: Optimize Your Description</h2>
+      <p>
+        Your business description should be 750 characters or less and include relevant keywords naturally. Focus on what makes your business unique and the services you offer. Avoid keyword stuffing, as Google penalizes this practice.
+      </p>
+
+      <h2>Step 4: Add High-Quality Photos</h2>
+      <p>
+        Businesses with photos receive 42% more requests for directions and 35% more click-throughs to their websites. Add photos of your storefront, interior, products, team, and customers. Update your photos regularly to show your business is active.
+      </p>
+
+      <h2>Step 5: Manage Reviews</h2>
+      <p>
+        Reviews are a major ranking factor for local SEO. Encourage satisfied customers to leave reviews and respond to every review, both positive and negative. Professional responses to negative reviews can actually improve your reputation.
+      </p>
+
+      <h2>Step 6: Use Google Posts</h2>
+      <p>
+        Google Posts allow you to share updates, offers, events, and news directly on your profile. Active profiles that post regularly get more visibility. Posts appear in your listing for 7 days and can include images and call-to-action buttons.
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        <strong>Google Business Profile optimization</strong> is an ongoing process, not a one-time task. Regularly update your information, respond to reviews, post updates, and monitor your insights. A well-maintained profile is the foundation of a successful local SEO strategy.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href="/blog" variant="outline">Back to Blog</Button>
+        <Button href="/software/laravel-seo">Learn About Laravel SEO Package</Button>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

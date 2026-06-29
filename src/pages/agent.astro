@@ -4,16 +4,16 @@ import BreadcrumbSchema from "../components/BreadcrumbSchema.astro";
 import ChatInterface from "../components/react/ChatInterface";
 ---
 
-<BaseLayout title="AI Agent | Laravel SEO" description="Chat with our AI assistant powered by open-source models. Get help with Laravel SEO, web development, and AI-powered tools.">
+<BaseLayout title="SEO Agent | Laravel SEO" description="Chat with your dedicated SEO agent. Get expert help with Laravel SEO optimization, meta tags, structured data, site audits, and search engine rankings.">
   <BreadcrumbSchema items={[
     { name: "Home", href: "/" },
-    { name: "Agent", href: "/agent" },
+    { name: "SEO Agent", href: "/agent" },
   ]} />
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Laravel SEO AI Agent",
-    "description": "AI-powered assistant for Laravel SEO optimization and web development guidance.",
+    "name": "Laravel SEO Agent",
+    "description": "AI-powered SEO agent for Laravel SEO optimization, site audits, meta tags, structured data, and search engine rankings guidance.",
     "url": "https://laravelseo.com/agent",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web"
@@ -21,15 +21,29 @@ import ChatInterface from "../components/react/ChatInterface";
 
   <section class="relative py-16 overflow-hidden bg-linear-to-br from-violet-900/20 via-slate-900 to-pink-900/20">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="max-w-3xl mx-auto text-center">
+      <div class="max-w-4xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm text-violet-300 mb-6">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           Powered by Open Source Models
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">AI Agent</h1>
-        <p class="text-xl text-slate-300">Ask questions and get instant help from our AI assistant.</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">SEO Agent</h1>
+        <p class="text-xl text-slate-300 mb-8">Your intelligent SEO assistant. Get real-time help with Laravel SEO optimization, technical audits, and search engine best practices.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+          <div class="rounded-xl bg-white/5 border border-slate-700/50 p-4">
+            <div class="text-violet-400 font-semibold text-sm mb-1">Site Audits</div>
+            <p class="text-slate-400 text-sm">Analyze your Laravel app for SEO issues and get actionable fixes.</p>
+          </div>
+          <div class="rounded-xl bg-white/5 border border-slate-700/50 p-4">
+            <div class="text-violet-400 font-semibold text-sm mb-1">Meta Tags &amp; Schema</div>
+            <p class="text-slate-400 text-sm">Generate optimized title tags, descriptions, and JSON-LD structured data.</p>
+          </div>
+          <div class="rounded-xl bg-white/5 border border-slate-700/50 p-4">
+            <div class="text-violet-400 font-semibold text-sm mb-1">Rankings &amp; Strategy</div>
+            <p class="text-slate-400 text-sm">Get guidance on improving search rankings and SEO strategy.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

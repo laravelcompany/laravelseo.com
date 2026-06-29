@@ -1,0 +1,265 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleSchema from "../../components/ArticleSchema.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
+import Button from "../../components/ui/Button.astro";
+
+const title = "How to Secure API-Generated Video Embed Links in Laravel and Prevent Sharing";
+const description = "Learn how to generate expiring, single-use video embed links in Laravel APIs. Prevent users from sharing protected video content with token-based access control.";
+const date = "2026-06-29";
+---
+
+<BaseLayout title={`${title} | Laravel Seo`} description={description}>
+  <ArticleSchema {title} {description} date={date} />
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: title, href: "/blog/secure-video-embed-links-laravel-api" },
+  ]} />
+
+  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Laravel</span>
+        <span class="text-sm text-slate-500">10 min read</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
+      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
+      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
+        <span>Published: {date}</span>
+        <span>Tags: laravel api, video security, token-based access, embed links</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg prose-invert max-w-none">
+      <p>
+        A common challenge in Laravel applications is generating secure embed links for paid video content. The workflow seems straightforward: a user pays, hits a watch page, your API generates an embed URL from a hosting provider like UIshare or Vimeo, and returns it to the client. But there is a problem: if that embed URL is a static link, the user can share it with anyone, and your paid content protection is gone.
+      </p>
+
+      <p>
+        This guide walks through a Laravel implementation that generates expiring, single-use, device-bound embed links so your protected video content stays protected.
+      </p>
+
+      <h2>The Problem with Static Embed Links</h2>
+      <p>
+        Most video hosting platforms generate a standard embed URL that looks something like this:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">https://player.vimeo.com/video/123456789
+
+https://uisha.re/embed/abc123def</code></pre>
+
+      <p>
+        These URLs are static and permanent. Once your Laravel backend returns one to the client, the user can copy it, share it, or embed it anywhere. The only thing preventing sharing is obscurity, and that is not a security strategy.
+      </p>
+
+      <h2>The Solution: Token-Based Access Control</h2>
+      <p>
+        Instead of returning the embed URL directly, you create a proxy endpoint in Laravel that validates access before serving the embed. Here is the architecture:
+      </p>
+
+      <ol>
+        <li>User purchases access and lands on the watch page</li>
+        <li>Your backend verifies their entitlement</li>
+        <li>Generate a signed, expiring token tied to the user and the specific video</li>
+        <li>Return the token (not the embed URL) to the frontend</li>
+        <li>The frontend uses the token to request the actual embed URL via a secure endpoint</li>
+        <li>Your backend validates the token and returns a short-lived proxy URL</li>
+      </ol>
+
+      <h2>Implementation</h2>
+
+      <h3>Step 1: Create the Token Generation</h3>
+      <p>
+        Laravel's built-in URL signing is perfect for this. You do not need any external packages:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
+
+class VideoAccessService
+{
+    public function generateAccessToken(string $userId, string $videoId): string
+    {
+        // Create a signed URL with a 30-minute expiration
+        // tied to the specific user and video
+        $signedUrl = URL::temporarySignedRoute(
+            'video.proxy',
+            now()->addMinutes(30),
+            [
+                'user' => $userId,
+                'video' => $videoId,
+                'nonce' => Str::random(32),
+            ]
+        );
+
+        // Optionally store the token in cache for revocation capability
+        cache()->set(
+            "video_access:{$userId}:{$videoId}",
+            true,
+            now()->addMinutes(30)
+        );
+
+        return $signedUrl;
+    }
+}</code></pre>
+
+      <h3>Step 2: Create the Proxy Route and Controller</h3>
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+// routes/web.php
+Route::get('/video/proxy/{user}/{video}', 'VideoController@proxy')
+    ->name('video.proxy')
+    ->middleware('signed'); // Laravel's built-in signed URL validation</code></pre>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Video;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
+class VideoController extends Controller
+{
+    public function proxy(Request $request, User $user, string $videoId)
+    {
+        // Verify user entitlement
+        if (!$user->hasAccessToVideo($videoId)) {
+            abort(403, 'Access revoked');
+        }
+
+        // Check cache for revocation
+        if (!Cache::get("video_access:{$user->id}:{$videoId}")) {
+            abort(410, 'Token expired or revoked');
+        }
+
+        // Verify it is the same user making the request
+        if ($request-&gt;user()-&gt;id !== $user-&gt;id) {
+            abort(403, 'Token belongs to another user');
+        }
+
+        // Generate a short-lived embed URL from your video provider
+        $embedUrl = $this->generateEmbedUrl($videoId, 5); // 5-minute TTL
+
+        // Delete the cache entry to make it single-use
+        Cache::forget("video_access:{$user->id}:{$videoId}");
+
+        return response()-&gt;json([
+            'embed_url' =&gt; $embedUrl,
+            'expires_at' =&gt; now()-&gt;addMinutes(5)-&gt;toIso8601String(),
+        ]);
+    }
+
+    private function generateEmbedUrl(string $videoId, int $ttlMinutes): string
+    {
+        // Call your video provider's API to generate a time-limited embed URL
+        // Example with a generic API:
+        $response = Http::withToken(config('services.videoprovider.key'))
+            -&gt;post('https://api.videoprovider.com/embed', [
+                'video_id' =&gt; $videoId,
+                'expires_in' =&gt; $ttlMinutes * 60,
+                'domain_restriction' =&gt; config('app.url'),
+            ]);
+
+        return $response-&gt;json('embed_url');
+    }
+}</code></pre>
+
+      <h3>Step 3: Frontend Integration</h3>
+      <p>
+        On the client side, request the token from your API, then use it to fetch the actual embed URL:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Frontend JavaScript (or Vue/React)
+async function loadVideo(videoId) {
+    // Step 1: Request an access token from your API
+    const tokenResponse = await fetch('/api/video/request-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ video_id: videoId }),
+    });
+    const { token } = await tokenResponse.json();
+
+    // Step 2: Use the token to get the actual embed URL
+    const proxyResponse = await fetch(token);
+    const { embed_url, expires_at } = await proxyResponse.json();
+
+    // Step 3: Load the embed
+    const iframe = document.getElementById('video-player');
+    iframe.src = embed_url;
+}</code></pre>
+
+      <h2>Additional Security Layers</h2>
+
+      <h3>Domain Restriction</h3>
+      <p>
+        Configure your video hosting provider to only serve the embed from your domain. Most providers support this:
+      </p>
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Vimeo: Set allowed domains in the video settings
+// UIshare: Pass domain_restriction in the API call</code></pre>
+
+      <h3>IP Binding</h3>
+      <p>
+        Bind the token to the user's IP address at generation time and verify it at consumption time:
+      </p>
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+public function generateAccessToken(string $userId, string $videoId, string $ip): string
+{
+    return URL::temporarySignedRoute(
+        'video.proxy',
+        now()->addMinutes(30),
+        [
+            'user' =&gt; $userId,
+            'video' =&gt; $videoId,
+            'ip' =&gt; $ip, // Bind to IP
+            'nonce' =&gt; Str::random(32),
+        ]
+    );
+}
+
+// In the proxy controller:
+if ($request-&gt;ip() !== $request-&gt;route('ip')) {
+    abort(403, 'IP address mismatch');
+}</code></pre>
+
+      <h3>User Agent Fingerprinting</h3>
+      <p>
+        For stricter security, combine IP binding with user agent fingerprinting. This makes it significantly harder for someone to share the token with another person.
+      </p>
+
+      <h2>Handling the Sharing Problem</h2>
+      <p>
+        The original question asked how to prevent users from sharing the embed link. Here is how each layer helps:
+      </p>
+      <ul>
+        <li><strong>Expiring tokens</strong> — the embed link is only valid for a few minutes, making shared links useless quickly</li>
+        <li><strong>Single-use tokens</strong> — once the embed is loaded, the token cannot be reused</li>
+        <li><strong>IP binding</strong> — the token only works from the original requester's IP</li>
+        <li><strong>Domain restriction</strong> — the embed only renders on your domain</li>
+        <li><strong>Revocation cache</strong> — you can invalidate all tokens for a user if you detect abuse</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>
+        Protecting paid video content in a Laravel application does not require a third-party DRM service. By combining Laravel's built-in signed routes with short-lived tokens, IP binding, and domain restriction, you can build a robust access control system that prevents unauthorized sharing of your embed links.
+      </p>
+      <p>
+        The key principle: <strong>never return a static embed URL to the client</strong>. Always proxy through your backend with time-limited, revocable tokens.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href="/blog" variant="outline">Back to Blog</Button>
+        <Button href="/capabilities">Explore Capabilities</Button>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

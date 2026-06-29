@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleSchema from "../../components/ArticleSchema.astro";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
+import Button from "../../components/ui/Button.astro";
+
+const title = "Laravel Precog Always Returns Success: Troubleshooting Guide";
+const description = "Debug why Laravel Precog's HandlePrecognitiveRequests middleware always returns success. Common causes and fixes for precognitive request validation.";
+const date = "2026-06-29";
+---
+
+<BaseLayout title={`${title} | Laravel Seo`} description={description}>
+  <ArticleSchema {title} {description} date={date} />
+  <BreadcrumbSchema items={[
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: title, href: "/blog/laravel-precog-always-returns-success" },
+  ]} />
+
+  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Laravel</span>
+        <span class="text-sm text-slate-500">8 min read</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
+      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
+      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
+        <span>Published: {date}</span>
+        <span>Tags: laravel precog, validation, debugging, precognitive requests</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg prose-invert max-w-none">
+      <p>
+        Laravel Precognition is a powerful feature that lets you validate forms before the user submits them, providing real-time validation feedback. But a common issue reported by developers — including a recent Laracasts thread — is that Precognition always returns success, even when the input is invalid. The <code>HandlePrecognitiveRequests</code> middleware seems to do nothing. Here is why and how to fix it.
+      </p>
+
+      <h2>How Precognition Works</h2>
+      <p>
+        Precognition works by sending a <code>HEAD</code> or <code>POST</code> request with a special <code>X-Precognition</code> header. Laravel detects this header and runs validation without executing the full controller logic. If validation fails, it returns a JSON response with the validation errors. If it passes, it returns a <code>204 No Content</code> response.
+      </p>
+
+      <p>
+        The key middleware is <code>HandlePrecognitiveRequests</code>, which intercepts precognitive requests and returns early with validation results.
+      </p>
+
+      <h2>The Problem: Precognition Always Returns 200/201</h2>
+      <p>
+        Here is a typical setup that looks correct but silently bypasses Precognition:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+// routes/web.php
+use App\Http\Requests\EmailRequest;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+use Illuminate\Support\Facades\Route;
+
+Route::post('/', function (EmailRequest $request) {
+    // ... process the request
+})-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
+
+      <p>
+        You send a request with the <code>Precognition: true</code> header and invalid data, expecting validation errors. But instead, the request goes through the full controller and returns a 200 or 201 response.
+      </p>
+
+      <h2>Common Causes and Fixes</h2>
+
+      <h3>1. Missing the X-Precognition Header</h3>
+      <p>
+        This is the most common cause. Precognition requires the <code>Precognition: true</code> header (or <code>X-Precognition</code> depending on your version). Without it, the middleware passes the request through as normal:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Frontend — WRONG (missing the header)
+fetch('/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: 'invalid' }),
+});
+
+// Frontend — CORRECT
+fetch('/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Precognition': 'true', // OR 'X-Precognition': 'true'
+    },
+    body: JSON.stringify({ email: 'invalid' }),
+});</code></pre>
+
+      <h3>2. Form Request Not Using ValidatesWhenResolved</h3>
+      <p>
+        The <code>HandlePrecognitiveRequests</code> middleware relies on your form request using the <code>ValidatesWhenResolved</code> trait (which it does by default in recent Laravel versions). But if you override the <code>validate</code> method or use manual validation in the controller, Precognition will not work:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+// routes/web.php — WRONG: manual validation bypasses Precognition
+Route::post('/', function (Request $request) {
+    $validated = $request-&gt;validate([
+        'email' =&gt; 'required|email',
+    ]);
+    // ... process
+})-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+// routes/web.php — CORRECT: use a Form Request
+Route::post('/', function (EmailRequest $request) {
+    // Form request handles validation automatically
+    // ... process
+})-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
+
+      <h3>3. Middleware Order Matters</h3>
+      <p>
+        The <code>HandlePrecognitiveRequests</code> middleware must run <strong>before</strong> your form request is resolved. If you have other middleware on the route that runs first and calls <code>$request->validate()</code> manually, Precognition will be bypassed:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+// Kernel.php or route — WRONG
+Route::post('/', function (EmailRequest $request) {
+    // ...
+})-&gt;middleware(['throttle:api', HandlePrecognitiveRequests::class]);</code></pre>
+
+      <p>
+        If <code>throttle</code> or any other middleware calls <code>$request->validate()</code>, the form request validation in the controller will not trigger precognitive behavior. Move <code>HandlePrecognitiveRequests</code> earlier in the pipeline, or remove other middleware that interferes.
+      </p>
+
+      <h3>4. Inertia.js Configuration</h3>
+      <p>
+        If you are using Inertia.js with Precognition, the frontend setup must use the <code>@inertiajs/inertia-precognition</code> plugin or include the header automatically. Here is the correct Inertia setup:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;script&gt;
+import { createInertiaApp } from '@inertiajs/vue3';
+import { precognitive } from '@inertiajs/vue3-precognition';
+
+createInertiaApp({
+    // ...
+    plugins: [
+        precognitive(),
+    ],
+});
+&lt;/script&gt;</code></pre>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;!-- Vue component --&gt;
+&lt;template&gt;
+    &lt;form @submit="submit"&gt;
+        &lt;input
+            v-model="form.email"
+            @change="form.validate('email')"
+        /&gt;
+        &lt;div v-if="form.invalid('email')"&gt;
+            {{ form.errors.email }}
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { usePrecognition } from '@inertiajs/vue3-precognition';
+
+const form = usePrecognition('post', '/', {
+    email: '',
+});
+
+function submit() {
+    form.submit();
+}
+&lt;/script&gt;</code></pre>
+
+      <h3>5. Testing Precognition</h3>
+      <p>
+        If you want to test whether Precognition is working, use Laravel's HTTP test helpers with the precognitive header:
+      </p>
+
+      <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
+
+test('precognition validates email field', function () {
+    $response = $this-&gt;post('/', [
+        'email' =&gt; 'not-an-email',
+    ], [
+        'Precognition' =&gt; 'true',
+    ]);
+
+    $response
+        -&gt;assertUnprocessable()
+        -&gt;assertJsonValidationErrors(['email']);
+});</code></pre>
+
+      <h2>Quick Debugging Checklist</h2>
+      <ol>
+        <li>Open the browser's Network tab and check: is the <code>Precognition: true</code> header being sent?</li>
+        <li>Are you using a Form Request class (not <code>$request->validate()</code>)?</li>
+        <li>Is <code>HandlePrecognitiveRequests</code> the first middleware on the route? Check with <code>php artisan route:list -v</code></li>
+        <li>If using Inertia, have you installed and configured the precognition plugin?</li>
+        <li>Does the response include <code>X-Precognition: success</code> header when validation passes?</li>
+      </ol>
+
+      <h2>Conclusion</h2>
+      <p>
+        Laravel Precognition silently falls through to normal request handling when it is not configured correctly. The three most common culprits are: not sending the <code>Precognition</code> header, using manual validation instead of a Form Request, or incorrect middleware ordering. Check those first, and Precognition will start returning proper validation errors as expected.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href="/blog" variant="outline">Back to Blog</Button>
+        <Button href="/software/laravel-seo">Explore Laravel SEO Tools</Button>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -117,7 +117,7 @@ const capabilities = [
   ]} />
   <!-- Hero Section -->
   <section
-    class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden"
+    class="relative min-h-[70vh] flex items-center overflow-hidden"
   >
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0">
@@ -129,13 +129,19 @@ const capabilities = [
         height={1380}
       />
       <div
-        class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"
+        class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/60"
       >
       </div>
     </div>
 
+    <!-- Three.js Canvas -->
+    <canvas id="capabilities-canvas" class="absolute inset-0 w-full h-full pointer-events-auto cursor-grab active:cursor-grabbing"></canvas>
+
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(rgba(124,58,237,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.3) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
     <!-- Content -->
-    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8 py-24 md:py-32">
       <div class="max-w-4xl mx-auto text-center">
         <div
           class="inline-flex items-center px-4 py-2 mb-6 bg-linear-to-r from-violet-600 to-pink-600 text-white text-sm font-semibold rounded-full shadow-lg"
@@ -152,32 +158,182 @@ const capabilities = [
         <h1
           class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
         >
-          Real-Time <span
+          Complete <span
             class="text-transparent bg-clip-text bg-linear-to-r from-violet-400 via-pink-400 to-violet-400"
           >
-            Lighthouse Monitoring
+            SEO Toolkit
           </span>
         </h1>
 
         <p
-          class="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+          class="text-xl md:text-2xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Track SEO, accessibility, performance, and best-practice scores as you
-          work. Every change is measured instantly.
+          Everything you need to audit, monitor, and optimize your Laravel
+          application for search engines and AI-powered discovery.
         </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#capabilities-grid"
+            class="inline-flex items-center justify-center px-8 py-4 bg-linear-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl hover:from-violet-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-violet-500/25"
+          >
+            Explore Capabilities
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
+  <script>
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const canvas = document.getElementById('capabilities-canvas') as HTMLCanvasElement;
+
+    (function () {
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      const scene = new THREE.Scene();
+      const W = canvas.clientWidth, H = canvas.clientHeight;
+      const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
+      camera.position.set(0, 0, 12);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.06;
+      controls.minDistance = 5;
+      controls.maxDistance = 25;
+      controls.maxPolarAngle = Math.PI / 2.1;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.6;
+      controls.target.set(0, 0, 0);
+      controls.update();
+
+      function resize() {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      scene.add(new THREE.AmbientLight(0x7c3aed, 0.4));
+      const dir = new THREE.DirectionalLight(0xffffff, 1.0);
+      dir.position.set(5, 10, 7);
+      scene.add(dir);
+      const purplePoint = new THREE.PointLight(0x7c3aed, 3, 15);
+      purplePoint.position.set(-3, 2, 4);
+      scene.add(purplePoint);
+      const pinkPoint = new THREE.PointLight(0xec4899, 2, 15);
+      pinkPoint.position.set(3, -1, 5);
+      scene.add(pinkPoint);
+
+      const boxMat = new THREE.MeshPhysicalMaterial({ color: 0x1e1b4b, emissive: 0x4c1d95, emissiveIntensity: 0.15, roughness: 0.1, metalness: 0.8, transparent: true, opacity: 0.7 });
+      const wireMat = new THREE.MeshBasicMaterial({ color: 0x7c3aed, wireframe: true, transparent: true, opacity: 0.15 });
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const geo = new THREE.BoxGeometry(1.8, 1.8, 1.8);
+      const core = new THREE.Mesh(geo, boxMat);
+      group.add(core);
+
+      const wire = new THREE.Mesh(geo.clone(), wireMat);
+      group.add(wire);
+
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0x7c3aed, transparent: true, opacity: 0.25, side: THREE.DoubleSide });
+      const ringGeo = new THREE.TorusGeometry(1.6, 0.03, 16, 80);
+      for (let i = 0; i < 3; i++) {
+        const ring = new THREE.Mesh(ringGeo.clone(), ringMat.clone());
+        ring.rotation.x = (i / 3) * Math.PI;
+        ring.rotation.y = (i / 3) * Math.PI;
+        ring.material.color.setHSL(0.75 + i * 0.08, 0.7, 0.5);
+        group.add(ring);
+      }
+
+      const orbCount = 40;
+      const orbGroup = new THREE.Group();
+      group.add(orbGroup);
+      const orbs: { mesh: THREE.Mesh; speed: number; offset: number; radius: number }[] = [];
+      for (let i = 0; i < orbCount; i++) {
+        const size = 0.04 + Math.random() * 0.08;
+        const orbMat = new THREE.MeshBasicMaterial({ color: new THREE.Color().setHSL(0.75 + Math.random() * 0.15, 0.8, 0.5 + Math.random() * 0.3) });
+        const orb = new THREE.Mesh(new THREE.SphereGeometry(size, 6, 6), orbMat);
+        const radius = 2 + Math.random() * 2.5;
+        const angle = Math.random() * Math.PI * 2;
+        const height = (Math.random() - 0.5) * 3;
+        orb.position.set(Math.cos(angle) * radius, height, Math.sin(angle) * radius);
+        orbGroup.add(orb);
+        orbs.push({ mesh: orb, speed: 0.2 + Math.random() * 0.4, offset: angle, radius });
+      }
+
+      const particlesGeo = new THREE.BufferGeometry();
+      const particleCount = 600;
+      const positions = new Float32Array(particleCount * 3);
+      const particleSizes = new Float32Array(particleCount);
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 20 - 5;
+        particleSizes[i] = 0.5 + Math.random() * 1.5;
+      }
+      particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particlesGeo.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
+      const particleMat = new THREE.PointsMaterial({
+        color: 0x7c3aed,
+        size: 0.06,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true,
+      });
+      const particles = new THREE.Points(particlesGeo, particleMat);
+      scene.add(particles);
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+
+        controls.update();
+
+        group.rotation.x = Math.sin(t * 0.15) * 0.1;
+        group.rotation.y += 0.003;
+
+        wire.rotation.x = Math.sin(t * 0.2) * 0.15;
+        wire.rotation.y = Math.cos(t * 0.25) * 0.1;
+
+        orbs.forEach((o, i) => {
+          const a = o.offset + t * o.speed;
+          o.mesh.position.x = Math.cos(a) * o.radius;
+          o.mesh.position.z = Math.sin(a) * o.radius;
+          o.mesh.position.y += Math.sin(t * 0.5 + i) * 0.002;
+        });
+
+        particles.rotation.y = t * 0.01;
+
+        purplePoint.intensity = 2.5 + Math.sin(t * 0.8) * 1;
+        pinkPoint.intensity = 1.5 + Math.sin(t * 1.1 + 1) * 0.8;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+  </script>
+
   <!-- Capabilities Grid -->
-  <Section background="dark">
+  <Section background="dark" id="capabilities-grid">
     <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
         {
           capabilities.map((capability) => (
-            <div class="bg-slate-800/80 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-700/50 group">
+            <div class="bg-slate-800/80 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-700/50 hover:border-violet-500/30 group">
               <div class="flex items-start">
-                <div class="shrink-0 w-16 h-16 rounded-xl bg-linear-to-br from-violet-500 to-pink-500 text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                <div class="shrink-0 w-16 h-16 rounded-xl bg-linear-to-br from-violet-500 to-pink-500 text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:shadow-violet-500/25 transition-all duration-300">
                   <div
                     class="w-8 h-8"
                     set:html={capability.icon.replace("w-12 h-12", "w-8 h-8")}
@@ -187,14 +343,14 @@ const capabilities = [
                   <h2 class="text-2xl font-bold text-white mb-3">
                     {capability.title}
                   </h2>
-                  <p class="text-slate-300 mb-6 leading-relaxed">
+                  <p class="text-slate-200 mb-6 leading-relaxed">
                     {capability.description}
                   </p>
-                  <ul class="space-y-2">
+                  <ul class="space-y-3">
                     {capability.features.map((feature) => (
-                      <li class="flex items-center text-sm text-slate-200">
+                      <li class="flex items-center text-slate-300">
                         <svg
-                          class="w-4 h-4 text-violet-400 mr-2 shrink-0"
+                          class="w-5 h-5 text-violet-400 mr-3 shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -304,32 +460,32 @@ const capabilities = [
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
-            <div class="w-12 h-12 bg-violet-500/20 rounded-lg flex items-center justify-center mb-4">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 bg-violet-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-violet-500/30 transition-colors">
               <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">Hybrid Crawling Engine</h3>
             <p class="text-slate-300">Fast HTTP fetching for static content plus headless Chrome integration for SPAs built with React, Angular, Vue.js. Automatically detects when browser rendering is needed.</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
-            <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-pink-500/30 hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-500/30 transition-colors">
               <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">Technical SEO Analysis</h3>
             <p class="text-slate-300">23 metadata issues, 38 Core Web Vitals, content quality, structured data validation (JSON-LD, Microdata, RDFa), link analysis, security headers, mobile optimization, and i18n.</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
-            <div class="w-12 h-12 bg-violet-500/20 rounded-lg flex items-center justify-center mb-4">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 bg-violet-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-violet-500/30 transition-colors">
               <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">AI-Powered Insights</h3>
             <p class="text-slate-300">Integrates with Anthropic Claude, OpenAI GPT, DeepSeek, and Google Gemini. Generate meta descriptions, identify content gaps, and get strategic recommendations.</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
-            <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-pink-500/30 hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-500/30 transition-colors">
               <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">Multiple Output Formats</h3>
@@ -355,34 +511,28 @@ const capabilities = [
         </h2>
 
         <div class="space-y-6">
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300 group">
             <h3 class="text-xl font-bold text-white mb-3 flex items-center">
-              <span class="w-8 h-8 bg-violet-500 rounded-lg flex items-center justify-center mr-3 text-sm font-bold">1</span>
+              <span class="w-8 h-8 bg-violet-500 rounded-lg flex items-center justify-center mr-3 text-sm font-bold group-hover:bg-violet-400 transition-colors">1</span>
               Headless Chrome for Modern SPAs
             </h3>
-            <p class="text-slate-300">
-              Many Laravel applications now incorporate Inertia.js, Livewire, or Vue.js frontends. Black SEO Analyzer's headless Chrome integration ensures these JavaScript-heavy pages are fully rendered and analyzed accurately.
-            </p>
+            <p class="text-slate-300">...</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300 group">
             <h3 class="text-xl font-bold text-white mb-3 flex items-center">
-              <span class="w-8 h-8 bg-violet-500 rounded-lg flex items-center justify-center mr-3 text-sm font-bold">2</span>
+              <span class="w-8 h-8 bg-violet-500 rounded-lg flex items-center justify-center mr-3 text-sm font-bold group-hover:bg-violet-400 transition-colors">2</span>
               CI/CD Pipeline Integration
             </h3>
-            <p class="text-slate-300">
-              Modern Laravel development relies on automated deployment pipelines. Black SEO Analyzer's CLI works seamlessly in CI/CD pipelines, cron jobs, and scripts, with exit codes suitable for scripting and machine-readable output.
-            </p>
+            <p class="text-slate-300">...</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300 group">
             <h3 class="text-xl font-bold text-white mb-3 flex items-center">
-              <span class="w-8 h-8 bg-violet-500 rounded-lg flex items-center justify-center mr-3 text-sm font-bold">3</span>
+              <span class="w-8 h-8 bg-violet-500 rounded-lg flex items-center justify-center mr-3 text-sm font-bold group-hover:bg-violet-400 transition-colors">3</span>
               Local Execution, Data Privacy
             </h3>
-            <p class="text-slate-300">
-              For Laravel applications handling sensitive user data, sending page content to third-party cloud services can be a compliance nightmare. Black SEO Analyzer runs locally—your data never leaves your infrastructure unless you explicitly enable AI features.
-            </p>
+            <p class="text-slate-300">...</p>
           </div>
         </div>
       </div>
@@ -415,24 +565,24 @@ const capabilities = [
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="font-bold text-white mb-3">Automated, Scheduled Audits</h3>
-            <p class="text-slate-300 text-sm">Using Laravel's task scheduling, our software triggers Black SEO Analyzer crawls daily, weekly, or monthly—completely unattended.</p>
+            <p class="text-slate-300">Using Laravel's task scheduling, our software triggers Black SEO Analyzer crawls daily, weekly, or monthly—completely unattended.</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="font-bold text-white mb-3">Dashboard Visualization</h3>
-            <p class="text-slate-300 text-sm">Parse JSON output into an intuitive dashboard showing health scores, critical issues, performance trends, and per-page breakdowns.</p>
+            <p class="text-slate-300">Parse JSON output into an intuitive dashboard showing health scores, critical issues, performance trends, and per-page breakdowns.</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="font-bold text-white mb-3">AI-Enhanced Recommendations</h3>
-            <p class="text-slate-300 text-sm">Surface AI-generated insights directly in the UI—meta descriptions, title optimizations, content opportunities.</p>
+            <p class="text-slate-300">Surface AI-generated insights directly in the UI—meta descriptions, title optimizations, content opportunities.</p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="font-bold text-white mb-3">Client Reporting</h3>
-            <p class="text-slate-300 text-sm">Generate branded, white-label reports with executive summaries and actionable recommendations.</p>
+            <p class="text-slate-300">Generate branded, white-label reports with executive summaries and actionable recommendations.</p>
           </div>
         </div>
       </div>
@@ -454,21 +604,21 @@ const capabilities = [
         </h2>
 
         <div class="space-y-6">
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="text-xl font-bold text-white mb-3">E-commerce SEO Audits</h3>
             <p class="text-slate-300">
               For Laravel-based e-commerce platforms (using packages like Bagisto or Aimeos), product pages often number in the thousands. Black SEO Analyzer can crawl these at scale, checking for missing meta descriptions, duplicate content across similar products, broken category links, and Core Web Vitals issues that impact conversion rates.
             </p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="text-xl font-bold text-white mb-3">SaaS Landing Page Optimization</h3>
             <p class="text-slate-300">
               SaaS companies constantly iterate on landing pages to improve conversion. Our Laravel SEO software integrates Black SEO Analyzer into the deployment pipeline, running an automated audit every time new content is pushed to production. This catches title tag truncations, missing canonical URLs, and performance regressions before they affect search rankings.
             </p>
           </div>
 
-          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50">
+          <div class="bg-slate-800/80 rounded-xl p-6 border border-slate-700/50 hover:border-violet-500/30 hover:shadow-xl transition-all duration-300">
             <h3 class="text-xl font-bold text-white mb-3">Multi-Language Internationalization</h3>
             <p class="text-slate-300">
               Laravel's localization features are powerful, but hreflang implementation is notoriously error-prone. Black SEO Analyzer's i18n module validates language tags, checks hreflang annotations, and ensures proper character encoding—critical for sites targeting multiple countries.
@@ -490,11 +640,13 @@ const capabilities = [
           Black SEO Analyzer offers a generous free trial that analyzes up to 3 pages with all features enabled—no credit card required. This allows you to test the integration with your Laravel application before committing to a license.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#" class="inline-flex items-center justify-center px-6 py-3 bg-violet-600 text-white font-semibold rounded-lg hover:bg-violet-500 transition-colors">
+          <a href="https://app.laravelseo.com/login" class="inline-flex items-center justify-center px-8 py-4 bg-linear-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl hover:from-violet-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-violet-500/25">
             Download Free Trial
-            <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-            </svg>
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          </a>
+          <a href="https://app.laravelseo.com/register" class="inline-flex items-center justify-center px-8 py-4 border border-slate-600 text-slate-200 font-semibold rounded-xl hover:border-violet-500/50 hover:text-white transition-all duration-300">
+            Create Account
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
           </a>
         </div>
       </div>
@@ -524,9 +676,13 @@ const capabilities = [
             <p class="text-lg font-semibold text-slate-900">
               Ready to see the difference?
             </p>
-            <p class="text-slate-600 mt-2">
+            <p class="text-slate-600 mt-2 mb-6">
               Download the free trial of Black SEO Analyzer, integrate it with your Laravel application, and start optimizing with confidence.
             </p>
+            <a href="https://app.laravelseo.com/login" class="inline-flex items-center px-6 py-3 bg-linear-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl hover:from-violet-500 hover:to-pink-500 transition-all duration-300 shadow-md">
+              Get Started Free
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
           </div>
         </div>
       </div>
