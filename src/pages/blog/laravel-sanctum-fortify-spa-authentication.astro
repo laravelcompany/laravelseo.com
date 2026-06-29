@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Laravel Sanctum + Fortify SPA Authentication: Fixing API Route Redirects";
 const description = "Fix redirect issues when using Laravel Sanctum with Fortify for SPA authentication. Complete setup guide for first-party SPA and API authentication.";
 const date = "2026-06-29";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/laravel-sanctum-fortify-spa-authentication" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="Laravel" readTime="11 min read" tags="laravel sanctum, fortify, spa authentication, api">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Laravel</span>
-        <span class="text-sm text-slate-500">11 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: laravel sanctum, fortify, spa authentication, api</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <p>
         A common issue when setting up Laravel Sanctum with Fortify for SPA authentication is that API routes unexpectedly redirect to the login page instead of returning JSON 401 responses. This happens because Laravel's default authentication middleware behavior is geared toward session-based web apps, not stateless API consumers. Here is exactly why it happens and how to fix it.
       </p>
@@ -261,12 +238,4 @@ fetch('/api/user', {
         The API route redirect problem with Sanctum and Fortify almost always comes down to one of three things: using the wrong middleware guard, missing the <code>Accept: application/json</code> header, or a misconfigured <code>Authenticate</code> middleware. Fix those three and your SPA authentication will return proper JSON responses as expected.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Explore Laravel SEO Tools</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

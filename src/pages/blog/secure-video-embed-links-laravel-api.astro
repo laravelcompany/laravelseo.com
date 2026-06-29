@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "How to Secure API-Generated Video Embed Links in Laravel and Prevent Sharing";
 const description = "Learn how to generate expiring, single-use video embed links in Laravel APIs. Prevent users from sharing protected video content with token-based access control.";
 const date = "2026-06-29";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/secure-video-embed-links-laravel-api" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="Laravel" readTime="10 min read" tags="laravel api, video security, token-based access, embed links">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Laravel</span>
-        <span class="text-sm text-slate-500">10 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: laravel api, video security, token-based access, embed links</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <p>
         A common challenge in Laravel applications is generating secure embed links for paid video content. The workflow seems straightforward: a user pays, hits a watch page, your API generates an embed URL from a hosting provider like UIshare or Vimeo, and returns it to the client. But there is a problem: if that embed URL is a static link, the user can share it with anyone, and your paid content protection is gone.
       </p>
@@ -255,11 +232,7 @@ if ($request-&gt;ip() !== $request-&gt;route('ip')) {
       </p>
     </div>
 
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/capabilities">Explore Capabilities</Button>
-      </div>
+    <div class="not-prose mt-12 pt-8 border-t border-slate-800">
+      <a href="/capabilities" class="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-violet-600 hover:bg-violet-500 rounded-lg transition-all shadow-lg shadow-violet-500/25">Explore Capabilities</a>
     </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

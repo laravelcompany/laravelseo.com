@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Best Free SEO Tools for Laravel Developers";
 const description = "Explore the best free SEO tools for Laravel developers. From Google Search Console to open-source audit tools, optimize your app without spending a dime.";
 const date = "2026-06-18";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/free-seo-tools-laravel-developers" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="SEO Tools" readTime="10 min read" tags="seo tools, free tools, laravel, seo audit">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">SEO Tools</span>
-        <span class="text-sm text-slate-500">10 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: seo tools, free tools, laravel, seo audit</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <h2>Introduction</h2>
       <p>
         You don't need an expensive SEO toolset to optimize your Laravel application effectively. A range of powerful free tools can help you audit, monitor, and improve your site's search performance. This guide covers the best free SEO tools every Laravel developer should know about.
@@ -92,12 +69,4 @@ const date = "2026-06-18";
         These <strong>free SEO tools</strong> provide everything you need to build and maintain a well-optimized Laravel application. Start with Google Search Console and Lighthouse, then add more tools as your SEO needs grow. Combined with a Laravel SEO package, these tools give you enterprise-level SEO capabilities at no cost.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Learn About Laravel SEO Package</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  name?: string;
+  bio?: string;
+  avatar?: string;
+}
+
+const {
+  name = "Stefan",
+  bio = "SEO engineer and Laravel developer. Building tools to help Laravel applications rank higher in search results.",
+  avatar = "/avatar.png",
+} = Astro.props;
+---
+
+<div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-8">
+  <div class="flex flex-col sm:flex-row items-start gap-6">
+    <img
+      src={avatar}
+      alt={name}
+      width={80}
+      height={80}
+      class="w-20 h-20 rounded-full object-cover ring-2 ring-violet-500/20"
+      onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%221e293b%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dominant-baseline=%22central%22 font-size=%2240%22 fill=%22%237c3aed%22>👤</text></svg>'"
+    />
+    <div class="flex-1 min-w-0">
+      <p class="text-lg font-semibold text-white mb-1">{name}</p>
+      <p class="text-sm text-slate-400 leading-relaxed">{bio}</p>
+    </div>
+  </div>
+</div>
+

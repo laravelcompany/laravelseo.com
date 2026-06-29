@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Local Citations: A Complete Guide for Small Business SEO";
 const description = "Learn how local citations impact your small business SEO. Discover the best citation sources, how to manage NAP consistency, and boost local rankings.";
 const date = "2026-06-14";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/local-citations-small-business-seo" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="Local SEO" readTime="9 min read" tags="local citations, small business, local seo, nap consistency">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Local SEO</span>
-        <span class="text-sm text-slate-500">9 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: local citations, small business, local seo, nap consistency</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <h2>Introduction</h2>
       <p>
         Local citations are one of the most important yet often overlooked aspects of local SEO. A citation is any online mention of your business's name, address, and phone number (NAP) on another website. Consistent, accurate citations across the web signal to Google that your business is legitimate and establish your local authority.
@@ -89,12 +66,4 @@ const date = "2026-06-14";
         <strong>Local citations</strong> are a foundational element of local SEO. Consistent, accurate NAP information across authoritative websites signals trust and relevance to Google. Invest time in building and maintaining your citations, and you'll see improvements in your local search rankings.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Learn About Laravel SEO Package</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

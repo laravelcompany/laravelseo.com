@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "How to Review AI-Generated Code in Laravel Projects";
 const description = "Practical strategies for reviewing AI-generated Laravel code. Learn what to check for security, performance, data integrity, and maintainability.";
 const date = "2026-06-29";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/review-ai-generated-code-laravel" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="Code Review" readTime="12 min read" tags="ai code review, laravel, code quality, security">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Code Review</span>
-        <span class="text-sm text-slate-500">12 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: ai code review, laravel, code quality, security</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <p>
         If you have started using AI to generate Laravel code, you are not alone. Developers everywhere are using tools like Claude, ChatGPT, and Cursor to scaffold controllers, write Eloquent queries, and build front-end components at blazing speed. But there is a catch: AI-generated code looks plausible but often contains subtle bugs, security holes, and architectural missteps. This guide gives you a practical checklist for reviewing AI-generated Laravel code so you catch problems before they reach production.
       </p>
@@ -268,12 +245,4 @@ Route::get('/posts/{post}', function (Post $post) {
         As one developer on Laracasts recently put it: <em>"I felt like a superhero having AI write code at blazing speed. But now I keep running into issues with data integrity."</em> The solution is not to stop using AI — it is to get better at reviewing what it produces.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Explore Laravel SEO Tools</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

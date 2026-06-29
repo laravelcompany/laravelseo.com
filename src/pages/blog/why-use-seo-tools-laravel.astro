@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Why You Should Use SEO Tools for Your Laravel Application";
 const description = "Learn why dedicated SEO tools are essential for Laravel applications. Automate audits, monitor performance, and improve your search rankings.";
 const date = "2026-06-24";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/why-use-seo-tools-laravel" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="SEO Tools" readTime="9 min read" tags="seo tools, laravel, seo automation, performance monitoring">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">SEO Tools</span>
-        <span class="text-sm text-slate-500">9 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: seo tools, laravel, seo automation, performance monitoring</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <h2>Introduction</h2>
       <p>
         Search engine optimization is no longer optional for web applications. For Laravel developers, integrating SEO tools directly into the development workflow can mean the difference between a site that ranks well and one that gets lost in search results. But why should you specifically use SEO tools built for Laravel?
@@ -78,12 +55,4 @@ const date = "2026-06-24";
         Using <strong>SEO tools for Laravel</strong> is not just about convenience, it's about effectiveness. Automated tools ensure consistency, save time, and provide insights that manual management simply cannot match. Whether you choose an all-in-one platform or a specialized Laravel package, investing in SEO tooling is essential for modern web development.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Learn About Laravel SEO Package</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

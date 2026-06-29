@@ -1,24 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Local SEO Checklist: How to Dominate Local Search Results in 2026";
 const description = "A comprehensive local SEO checklist to dominate local search results. Covering Google Business Profile, citations, reviews, and local content strategy.";
 const date = "2026-06-10";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/local-seo-checklist-dominate-local-search" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="Local SEO" readTime="12 min read" tags="local seo, seo checklist, local search, google business profile">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
+  <slot>
       <div class="flex items-center gap-3 mb-4">
         <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Local SEO</span>
         <span class="text-sm text-slate-500">12 min read</span>
@@ -112,12 +102,4 @@ const date = "2026-06-10";
         Following this <strong>local SEO checklist</strong> systematically will dramatically improve your local search presence. Start with Phase 1 and work your way through each phase. The key to success is consistency and regular maintenance. Use SEO tools to automate monitoring so you can focus on growing your business.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Learn About Laravel SEO Package</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

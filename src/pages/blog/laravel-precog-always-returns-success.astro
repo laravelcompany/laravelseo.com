@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Laravel Precog Always Returns Success: Troubleshooting Guide";
 const description = "Debug why Laravel Precog's HandlePrecognitiveRequests middleware always returns success. Common causes and fixes for precognitive request validation.";
 const date = "2026-06-29";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/laravel-precog-always-returns-success" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="Laravel" readTime="8 min read" tags="laravel precog, validation, debugging, precognitive requests">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">Laravel</span>
-        <span class="text-sm text-slate-500">8 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: laravel precog, validation, debugging, precognitive requests</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <p>
         Laravel Precognition is a powerful feature that lets you validate forms before the user submits them, providing real-time validation feedback. But a common issue reported by developers — including a recent Laracasts thread — is that Precognition always returns success, even when the input is invalid. The <code>HandlePrecognitiveRequests</code> middleware seems to do nothing. Here is why and how to fix it.
       </p>
@@ -205,12 +182,4 @@ test('precognition validates email field', function () {
         Laravel Precognition silently falls through to normal request handling when it is not configured correctly. The three most common culprits are: not sending the <code>Precognition</code> header, using manual validation instead of a Form Request, or incorrect middleware ordering. Check those first, and Precognition will start returning proper validation errors as expected.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Explore Laravel SEO Tools</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

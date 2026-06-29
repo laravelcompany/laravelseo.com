@@ -1,37 +1,14 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleSchema from "../../components/ArticleSchema.astro";
-import BreadcrumbSchema from "../../components/BreadcrumbSchema.astro";
-import Button from "../../components/ui/Button.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 const title = "Top 10 SEO Tools Every Developer Should Use in 2026";
 const description = "Discover the essential SEO tools that every developer needs in 2026. From Lighthouse to Semrush, learn which tools can boost your SEO workflow.";
 const date = "2026-06-26";
 ---
 
-<BaseLayout title={`${title} | Laravel Seo`} description={description}>
-  <ArticleSchema {title} {description} date={date} />
-  <BreadcrumbSchema items={[
-    { name: "Home", href: "/" },
-    { name: "Blog", href: "/blog" },
-    { name: title, href: "/blog/top-seo-tools-developers-2026" },
-  ]} />
+<BlogPost title={title} description={description} date={date} category="SEO Tools" readTime="11 min read" tags="seo tools, developer tools, lighthouse, seo audit">
 
-  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <header class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-400">SEO Tools</span>
-        <span class="text-sm text-slate-500">11 min read</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h1>
-      <p class="text-xl text-slate-400 leading-relaxed">{description}</p>
-      <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
-        <span>Published: {date}</span>
-        <span>Tags: seo tools, developer tools, lighthouse, seo audit</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg prose-invert max-w-none">
+  <div class="prose prose-lg prose-invert max-w-none">
       <h2>Introduction</h2>
       <p>
         In 2026, SEO is more technical than ever. Google's algorithms are increasingly sophisticated, and developers need the right tools to keep up. Whether you're building a Laravel application or managing a WordPress site, having the right SEO tools in your arsenal is essential for staying competitive.
@@ -92,12 +69,4 @@ const date = "2026-06-26";
         Using the right <strong>SEO tools</strong> can dramatically improve your website's search performance. Start with the free tools like Lighthouse and Search Console, then expand to premium tools as your needs grow. For Laravel developers, combining general SEO tools with Laravel-specific packages gives you the best of both worlds.
       </p>
     </div>
-
-    <div class="mt-12 pt-8 border-t border-slate-800">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <Button href="/blog" variant="outline">Back to Blog</Button>
-        <Button href="/software/laravel-seo">Learn About Laravel SEO Package</Button>
-      </div>
-    </div>
-  </article>
-</BaseLayout>
+  </BlogPost>

@@ -1,0 +1,44 @@
+---
+import Button from "../ui/Button.astro";
+
+export interface RelatedPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+  readTime: string;
+}
+
+interface Props {
+  posts: RelatedPost[];
+  currentTitle?: string;
+}
+
+const { posts, currentTitle } = Astro.props;
+const filtered = posts.filter((p) => p.title !== currentTitle).slice(0, 3);
+---
+
+{
+  filtered.length > 0 && (
+    <section>
+      <h2 class="text-2xl font-bold text-white mb-8">Related Articles</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {filtered.map((post) => (
+          <a
+            href={`/blog/${post.slug}`}
+            class="group block rounded-xl border border-slate-800 bg-slate-900/50 p-6 transition-all duration-300 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <span class="rounded-full bg-violet-500/10 px-2.5 py-0.5 text-xs font-medium text-violet-400">{post.category}</span>
+              <span class="text-xs text-slate-500">{post.readTime}</span>
+            </div>
+            <h3 class="text-base font-semibold text-white group-hover:text-violet-400 transition-colors mb-2 line-clamp-2">{post.title}</h3>
+            <p class="text-sm text-slate-400 leading-relaxed line-clamp-2 mb-3">{post.description}</p>
+            <span class="text-xs text-slate-500">{post.date}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
