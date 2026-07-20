@@ -1,9 +1,8 @@
-const CACHE_NAME = 'laravelseo-v1';
+const CACHE_NAME = 'laravelseo-v2';
 const urlsToCache = [
   '/',
   '/logo.svg',
   '/favicon.svg',
-  '/fonts/Inter-VariableFont_slnt,wght.ttf',
 ];
 
 self.addEventListener('install', (event) => {

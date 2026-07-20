@@ -11,6 +11,7 @@ export const NAVIGATION = [
   { name: 'Features', href: '/capabilities' },
   { name: 'Blog', href: '/blog' },
   { name: 'SEO Agent', href: '/agent' },
+  { name: 'Contact', href: '/contact' },
 ] as const;
 
 export const SOCIAL_LINKS = {
