@@ -19,24 +19,24 @@ const date = "2026-08-10";
   <p>Your initial attempt used:</p>
   <pre><code class="language-csharp">routes.MapRoute(
       &quot;articlename&quot;, // Route name
-      &quot;aaaa/{articleID}&quot;, // URL with parameters
-      new {action=&quot;DetailsByName&quot;,controller=&quot;Article&quot;},
-      new string[] { &quot;bssnew.Controllers&quot; } // Parameter defaults
+      &quot;aaaa/&#123;articleID&#125;&quot;, // URL with parameters
+      new &#123;action=&quot;DetailsByName&quot;,controller=&quot;Article&quot;&#125;,
+      new string[] &#123; &quot;bssnew.Controllers&quot; &#125; // Parameter defaults
   );
   </code></pre>
   <p>While this defines a path structure, the way Razor helpers like <code>@Html.RouteLink</code> resolve these routes often requires that the route definition precisely matches the expected MVC convention defined in your controllers.</p>
-  <p>The core issue is ensuring the dynamic segment you define in the URL template (<code>{articleID}</code>) corresponds correctly to the model binding mechanism and the controller's ability to receive those parameters.</p>
+  <p>The core issue is ensuring the dynamic segment you define in the URL template (<code>&#123;articleID&#125;</code>) corresponds correctly to the model binding mechanism and the controller's ability to receive those parameters.</p>
   <h2>Implementing Dynamic Parameter Routing Correctly</h2>
   <p>For a clean structure like <code>/article123</code>, we should focus on creating a route that maps directly to the ID, rather than trying to force all parts (controller, action, ID) into one long string, especially if you want flexibility later.</p>
-  <p>A more robust method involves defining routes that explicitly capture the dynamic part of the URL and map it cleanly to your controller structure. If your desired structure is <code>/articles/{id}</code>, you define the route accordingly.</p>
+  <p>A more robust method involves defining routes that explicitly capture the dynamic part of the URL and map it cleanly to your controller structure. If your desired structure is <code>/articles/&#123;id&#125;</code>, you define the route accordingly.</p>
   <p>Here is how you would typically set up a cleaner routing scenario:</p>
   <pre><code class="language-csharp">routes.MapRoute(
       &quot;ArticleRoute&quot;, // Route name
-      &quot;articles/{articleID}&quot;, // The URL pattern we want to match
-      new { controller = &quot;Article&quot;, action = &quot;DetailsByName&quot;, articleID = &quot;{articleID}&quot; } // Route values
+      &quot;articles/&#123;articleID&#125;&quot;, // The URL pattern we want to match
+      new &#123; controller = &quot;Article&quot;, action = &quot;DetailsByName&quot;, articleID = &quot;&#123;articleID&#125;&quot; &#125; // Route values
   );
   </code></pre>
-  <p>Notice the difference: instead of putting all parameters into a single string template (<code>aaaa/{articleID}</code>), we use a standard segment structure. The key is ensuring that the parameter name used in the route definition (e.g., <code>{articleID}</code>) matches the parameter name expected by your controller method signature.</p>
+  <p>Notice the difference: instead of putting all parameters into a single string template (<code>aaaa/&#123;articleID&#125;</code>), we use a standard segment structure. The key is ensuring that the parameter name used in the route definition (e.g., <code>&#123;articleID&#125;</code>) matches the parameter name expected by your controller method signature.</p>
   <h2>Controller and Action Alignment</h2>
   <p>The success of dynamic routing relies heavily on alignment between the URL template, the route values, and your MVC controller logic. When you use <code>routes.MapRoute</code>, you are essentially teaching the framework how to translate an HTTP request path into a specific C# method call.</p>
   <p>If you want the URL <code>/articles/123</code> to trigger the <code>DetailsByName</code> action in the <code>ArticleController</code>, your route definition must expose the necessary variables for the framework to populate them automatically when matching the request. This is similar to how frameworks like Laravel handle named routes, where defining a clear relationship between a URI and a controller method is paramount. For instance, understanding this mapping discipline is crucial when dealing with complex routing systems, much like ensuring proper dependency injection setup in modern PHP frameworks like https://laravelcompany.com.</p>

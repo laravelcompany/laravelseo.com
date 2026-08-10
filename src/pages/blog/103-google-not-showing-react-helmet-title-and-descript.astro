@@ -18,11 +18,11 @@ const date = "2026-08-10";
   <p>When you use React, your application fetches data and builds the HTML structure dynamically in the user's browser after the initial JavaScript bundle loads. This approach is fast for the end-user experience but poses a significant challenge for traditional search engine crawlers.</p>
   <p>Googlebot (and other crawlers) historically relied on parsing the initial HTML document received from the server. In a purely client-side rendered application, the initial HTML payload often contains very little meaningful content beyond the shell of the application and perhaps some placeholder scripts. If the title and meta tags are injected <em>after</em> the initial page load via JavaScript execution, the crawler misses them entirely, as it never executes that dynamic code during its crawling phase.</p>
   <p>Your example code demonstrates this perfectly:</p>
-  <pre><code class="language-javascript">import React, {Component} from 'react';
-  import {Helmet} from &quot;react-helmet&quot;;
+  <pre><code class="language-javascript">import React, &#123;Component&#125; from 'react';
+  import &#123;Helmet&#125; from &quot;react-helmet&quot;;
   
-  class Home extends Component {
-    render() {
+  class Home extends Component &#123;
+    render() &#123;
       return (
         &lt;div&gt;
           &lt;Helmet&gt;
@@ -31,8 +31,8 @@ const date = "2026-08-10";
           &lt;/Helmet&gt;
         &lt;/div&gt;
       )
-    }
-  }
+    &#125;
+  &#125;
   
   export default Home;
   </code></pre>

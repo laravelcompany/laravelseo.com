@@ -42,13 +42,13 @@ const date = "2026-08-10";
   const url = window.location.href;
   const hashIndex = url.indexOf('#');
   
-  if (hashIndex !== -1) {
+  if (hashIndex !== -1) &#123;
       // Extract everything after the first '#' as the fragment
       const fragment = url.substring(hashIndex + 1);
       console.log(&quot;Fragment found:&quot;, fragment);
-  } else {
+  &#125; else &#123;
       console.log(&quot;No fragment found.&quot;);
-  }
+  &#125;
   </code></pre>
   <h3>Conclusion</h3>
   <p>In summary, while multiple hash signs in a URL are technically permissible under RFC 3986 as chained fragments, they introduce unnecessary complexity and potential client-side bugs due to inconsistent browser parsing. As senior developers, our responsibility is to build systems that operate on predictable data. By prioritizing server-side normalization and managing application state through robust JavaScript logic rather than relying on the exact string representation of the URL, we ensure our applications remain stable, regardless of minor inconsistencies in client implementations. Always prioritize clean routing and predictable data flow when architecting your web services, much like designing efficient systems within a framework like Laravel.</p>

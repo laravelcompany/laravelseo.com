@@ -25,10 +25,10 @@ const date = "2026-08-10";
   <pre><code class="language-tsx">// Inside your component rendering logic
   &lt;Head&gt;
     &lt;title&gt;
-      Apex Blogs | {props?.data?.blogs?.data[0]?.attributes?.title}
+      Apex Blogs | &#123;props?.data?.blogs?.data[0]?.attributes?.title&#125;
     &lt;/title&gt;
-    &lt;meta property=&quot;og:title&quot; content={props?.data?.blogs?.data[0].attributes?.title} /&gt;
-    {/* ... other meta tags */}
+    &lt;meta property=&quot;og:title&quot; content=&#123;props?.data?.blogs?.data[0].attributes?.title&#125; /&gt;
+    &#123;/* ... other meta tags */&#125;
   &lt;/Head&gt;
   </code></pre>
   <p>When you place these tags inside a component that renders dynamically based on props fetched via <code>getStaticProps</code>, Next.js <em>should</em> include them in the final SSR output. If they are still missing from the raw page source, it often points to one of two scenarios:</p>

@@ -19,30 +19,30 @@ const date = "2026-08-10";
   <p>The reason you observe a refresh when navigating via the link is that the underlying mechanism triggers Angular's change detection cycle, which reads the new URL and forces the router state to be re-evaluated, leading to a full view update. This happens because the interaction between the DOM event handling (<code>$event.preventDefault()</code>) and the subsequent state updates (whether manual or via history APIs) is not harmonized with Angular's routing flow.</p>
   <h2>The Correct Approach: Leveraging the Router Service</h2>
   <p>The solution lies in abandoning direct manipulation of the browser history for internal application navigation and instead delegating all URL changes to Angular's <code>Router</code> service. This ensures that when the URL changes, the router is notified correctly, allowing it to handle view transitions smoothly without unnecessary full component refreshes.</p>
-  <p>Instead of trying to manually construct the URL string (e.g., <code>history.pushState({}, "page 2", "criteria/"+params[1]+"/"+params[2]</code>), you should use methods provided by the router to navigate programmatically. This keeps your application state synchronized with the routing system, which is a principle that mirrors how well-structured frameworks like those promoted by Laravel organize their components and routes.</p>
+  <p>Instead of trying to manually construct the URL string (e.g., <code>history.pushState(&#123;&#125;, "page 2", "criteria/"+params[1]+"/"+params[2]</code>), you should use methods provided by the router to navigate programmatically. This keeps your application state synchronized with the routing system, which is a principle that mirrors how well-structured frameworks like those promoted by Laravel organize their components and routes.</p>
   <h3>Implementing Programmatic Navigation</h3>
   <p>To achieve URL updates without view refreshes, you need to inject the <code>Router</code> service into your component and use its navigation methods. This allows Angular's router to manage the transition lifecycle correctly.</p>
   <p>Consider how you can replace your manual logic with a clean call to the router:</p>
-  <pre><code class="language-typescript">import { Router } from '@angular/router';
+  <pre><code class="language-typescript">import &#123; Router &#125; from '@angular/router';
   
   // ... inside your component class
-  constructor(private router: Router) { }
+  constructor(private router: Router) &#123; &#125;
   
-  action(event: Event) {
+  action(event: Event) &#123;
       event.preventDefault(); // Stop the default anchor behavior
   
       const target = event.target as HTMLAnchorElement;
       const href = target.getAttribute('href');
   
-      if (href) {
+      if (href) &#123;
           // Use the router to navigate instead of direct history manipulation
           this.router.navigate([href]); 
           // Or, if you are navigating based on parameters:
           // this.router.navigate(['/criteria', params[1], params[2]]);
-      }
+      &#125;
   
       updateModel(...);
-  }
+  &#125;
   </code></pre>
   <p>By using <code>this.router.navigate()</code>, you are instructing the router to handle the URL update and subsequent state transition internally. This approach respects the application's defined routing rules, preventing the unwanted view refresh that occurs when external history methods are used in isolation. When building robust systems, ensuring that data flow and navigation logic are centralized, as seen in modern PHP frameworks, is key to maintaining performance and predictability.</p>
   <p>This method ensures that model updates occur, the URL changes seamlessly, and the router handles the necessary view switching efficiently, giving you the smooth user experience you require for dynamic content presentation.</p>

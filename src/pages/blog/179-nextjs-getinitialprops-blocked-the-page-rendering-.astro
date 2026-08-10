@@ -19,24 +19,24 @@ const date = "2026-08-10";
   <p>Consider the example you provided:</p>
   <pre><code class="language-javascript">import axios from 'axios'
   
-  function Posts(props) {
+  function Posts(props) &#123;
     return (
       &lt;div&gt;
         &lt;div&gt;Posts:&lt;/div&gt;
-        &lt;div&gt;{JSON.stringify(props)}&lt;/div&gt;
+        &lt;div&gt;&#123;JSON.stringify(props)&#125;&lt;/div&gt;
       &lt;/div&gt;
     )
-  }
+  &#125;
   
-  Posts.getInitialProps = async (context) =&gt; {
+  Posts.getInitialProps = async (context) =&gt; &#123;
     // This runs on the server during initial build/request
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    return {
-      props: {
+    return &#123;
+      props: &#123;
         posts: response.data
-      }
-    }
-  }
+      &#125;
+    &#125;
+  &#125;
   
   export default Posts;
   </code></pre>
@@ -47,37 +47,37 @@ const date = "2026-08-10";
   <h2>Achieving Pure React Separation: Render First, Fill Later</h2>
   <p>You asked how to achieve a pure React pattern where you render the JSX first and then fill in the props. While Next.js provides specific hooks for SSR, achieving this separation often involves shifting the responsibility of data fetching out of the component definition itself and into a dedicated data layer or state management system.</p>
   <p>In a pure React context, instead of relying solely on Next.js data fetching functions to populate initial props, you can manage the loading state explicitly within your component. Render the skeleton or default state immediately, and then use lifecycle methods (or <code>useEffect</code> in functional components) to fetch the data asynchronously. This prevents the UI from being blocked waiting for an external API call during the initial render phase.</p>
-  <pre><code class="language-javascript">import React, { useState, useEffect } from 'react';
+  <pre><code class="language-javascript">import React, &#123; useState, useEffect &#125; from 'react';
   import axios from 'axios';
   
-  function PostsClient() {
+  function PostsClient() &#123;
     const [posts, setPosts] = useState(null);
     const [loading, setLoading] = useState(true);
   
-    useEffect(() =&gt; {
+    useEffect(() =&gt; &#123;
       // This runs client-side after the initial render
       axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(response =&gt; {
+        .then(response =&gt; &#123;
           setPosts(response.data);
           setLoading(false);
-        })
-        .catch(error =&gt; {
+        &#125;)
+        .catch(error =&gt; &#123;
           console.error(&quot;Error fetching data:&quot;, error);
           setLoading(false);
-        });
-    }, []);
+        &#125;);
+    &#125;, []);
   
-    if (loading) {
+    if (loading) &#123;
       return &lt;div&gt;Loading posts...&lt;/div&gt;; // Render skeleton immediately
-    }
+    &#125;
   
     return (
       &lt;div&gt;
         &lt;div&gt;Posts:&lt;/div&gt;
-        &lt;div&gt;{JSON.stringify(posts)}&lt;/div&gt;
+        &lt;div&gt;&#123;JSON.stringify(posts)&#125;&lt;/div&gt;
       &lt;/div&gt;
     );
-  }
+  &#125;
   
   export default PostsClient;
   </code></pre>

@@ -26,16 +26,16 @@ const date = "2026-08-10";
   <pre><code class="language-typescript">// lib/api.ts or similar file
   import axios from 'axios';
   
-  export const getMetaApi = async (page: string): Promise&lt;any&gt; =&gt; {
-      try {
-          const response = await axios.get(`get-meta/${page}`);
+  export const getMetaApi = async (page: string): Promise&lt;any&gt; =&gt; &#123;
+      try &#123;
+          const response = await axios.get(`get-meta/$&#123;page&#125;`);
           return response.data;
-      } catch (err) {
+      &#125; catch (err) &#123;
           console.error(&quot;Error fetching metadata:&quot;, err);
           // Return a safe default if the API fails
-          return { error: 'Failed to load metadata' };
-      }
-  }
+          return &#123; error: 'Failed to load metadata' &#125;;
+      &#125;
+  &#125;
   </code></pre>
   <h3>Step 2: Implementing Dynamic Revalidation (The Next.js Layer)</h3>
   <p>Instead of relying solely on <code>generateMetadata</code> for highly dynamic content that changes frequently, consider using <strong>Incremental Static Regeneration (ISR)</strong> or manual revalidation via the <code>revalidatePath</code> function. While <code>generateMetadata</code> is excellent for static metadata, we can use other mechanisms to ensure data consistency across deployments.</p>
@@ -44,73 +44,73 @@ const date = "2026-08-10";
   <h3>Step 3: Revised Metadata Implementation Example</h3>
   <p>We will keep <code>generateMetadata</code> as the entry point but focus on ensuring the data flow is robust. Since you are fetching this data based on the page slug, we ensure the call is fully asynchronous and handles potential nulls gracefully.</p>
   <pre><code class="language-tsx">// app/about-us/page.tsx
-  import { getMetaApi } from '@/lib/api';
-  import { Metadata } from 'next';
+  import &#123; getMetaApi &#125; from '@/lib/api';
+  import &#123; Metadata &#125; from 'next';
   
-  export async function generateMetadata(): Promise&lt;Metadata&gt; {
+  export async function generateMetadata(): Promise&lt;Metadata&gt; &#123;
       const pageSlug = 'about'; // Determine the slug dynamically if possible
       const metaData = await getMetaApi(pageSlug);
   
-      if (!metaData || !metaData.data) {
+      if (!metaData || !metaData.data) &#123;
           // Handle case where data is missing gracefully
-          return { title: 'Incomplete Page' };
-      }
+          return &#123; title: 'Incomplete Page' &#125;;
+      &#125;
   
-      const { page_name, meta_title, og_title, og_description, og_image } = metaData.data;
+      const &#123; page_name, meta_title, og_title, og_description, og_image &#125; = metaData.data;
   
-      return {
-          title: `${meta_title} | Legato Designs`,
+      return &#123;
+          title: `$&#123;meta_title&#125; | Legato Designs`,
           generator: 'Legato Designs',
           applicationName: 'Legato Designs',
           keywords: metaData.meta_keywords?.split(',') || [],
-          authors: [{name: 'Golden Infotech Ltd'}, {name: 'Golden Infotech Ltd', url: 'https://goldeninfotech.com.bd/'}],
+          authors: [&#123;name: 'Golden Infotech Ltd'&#125;, &#123;name: 'Golden Infotech Ltd', url: 'https://goldeninfotech.com.bd/'&#125;],
           creator: 'Golden Infotech Ltd',
           publisher: 'Legato Designs',
           metadataBase: new URL('https://legatodesigns.com/'),
-          alternates: {
-              canonical: `https://legatodesigns.com/${pageSlug}`, // Use dynamic canonical URL
-              languages: {
+          alternates: &#123;
+              canonical: `https://legatodesigns.com/$&#123;pageSlug&#125;`, // Use dynamic canonical URL
+              languages: &#123;
                   'en-US': '/en-US',
                   // ... other languages
-              },
-          },
-          openGraph: {
+              &#125;,
+          &#125;,
+          openGraph: &#123;
               title: og_title,
               description: og_description,
-              url: `https://legatodesigns.com/${pageSlug}`,
+              url: `https://legatodesigns.com/$&#123;pageSlug&#125;`,
               siteName: 'Legato Designs',
               images: [
-                  {
-                      url: `${process.env.NEXT_PUBLIC_BASE_URL_IMG_ALT}${og_image}`,
+                  &#123;
+                      url: `$&#123;process.env.NEXT_PUBLIC_BASE_URL_IMG_ALT&#125;$&#123;og_image&#125;`,
                       width: 800,
                       height: 600,
-                  },
+                  &#125;,
               ],
               locale: 'en-US',
               type: 'website',
-          },
-          twitter: {
+          &#125;,
+          twitter: &#123;
               card: 'summary_large_image',
               title: og_title,
               description: og_description,
               creator: '@goldeninfotech',
-              images: [`${process.env.NEXT_PUBLIC_BASE_URL_IMG_ALT}${og_image}`],
-          },
-          robots: {
+              images: [`$&#123;process.env.NEXT_PUBLIC_BASE_URL_IMG_ALT&#125;$&#123;og_image&#125;`],
+          &#125;,
+          robots: &#123;
               index: true,
               follow: true,
               nocache: true,
-              googleBot: { index: true, follow: false, noimageindex: true },
-          },
-          icons: {
+              googleBot: &#123; index: true, follow: false, noimageindex: true &#125;,
+          &#125;,
+          icons: &#123;
               icon: '/legato_fav.png',
               shortcut: '/legato_fav.png',
               apple: '/legato_fav.png',
-              other: { rel: '/legato_fav', url: '/legato_fav.png' },
-          },
+              other: &#123; rel: '/legato_fav', url: '/legato_fav.png' &#125;,
+          &#125;,
           manifest: 'https://nextjs.org/manifest.json',
-      };
-  }
+      &#125;;
+  &#125;
   </code></pre>
   <h2>Conclusion: Building Resilient Data Pipelines</h2>
   <p>The experience of dynamic metadata failing on deployment highlights a crucial principle: <strong>data consistency is paramount in server-side rendering.</strong> Simply fetching data is not enough; you must architect your application to handle data volatility.</p>

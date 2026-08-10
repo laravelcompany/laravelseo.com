@@ -30,23 +30,23 @@ const date = "2026-08-10";
   <p>Consider refactoring your <code>updateCanonicalLink</code> method to be purely a data preparation function that feeds information to the template context, rather than attempting direct DOM access during hydration:</p>
   <pre><code class="language-typescript">// article.component.ts (Refactored Approach)
   
-  import { Component, OnInit, Input } from '@angular/core';
-  import { Router, ActivatedRoute } from '@angular/router';
-  import { Renderer2 } from '@angular/platform-browser'; // Keep for client-side use if needed
-  import { ElementRef } from '@angular/core';
+  import &#123; Component, OnInit, Input &#125; from '@angular/core';
+  import &#123; Router, ActivatedRoute &#125; from '@angular/router';
+  import &#123; Renderer2 &#125; from '@angular/platform-browser'; // Keep for client-side use if needed
+  import &#123; ElementRef &#125; from '@angular/core';
   
-  @Component({
+  @Component(&#123;
     selector: 'app-article',
     templateUrl: './article.component.html',
-  })
-  export class ArticleComponent implements OnInit {
+  &#125;)
+  export class ArticleComponent implements OnInit &#123;
     @Input() canonicalUrl!: string; // Receive the URL as input
     // ... other properties
   
-    constructor(private router: Router, private renderer: Renderer2, private elementRef: ElementRef) {}
+    constructor(private router: Router, private renderer: Renderer2, private elementRef: ElementRef) &#123;&#125;
   
-    ngOnInit(): void {
-      this.subscriptions.push(this.router.params.subscribe(routeParams =&gt; {
+    ngOnInit(): void &#123;
+      this.subscriptions.push(this.router.params.subscribe(routeParams =&gt; &#123;
         this.getArticle(routeParams.id, routeParams.path);
   
         // In SSR, the data flow ensures this value is available during server rendering.
@@ -54,17 +54,17 @@ const date = "2026-08-10";
   
         // If we must update post-load (for small dynamic adjustments):
         this.updateCanonicalLinkClientSide(); 
-      }));
-    }
+      &#125;));
+    &#125;
   
-    updateCanonicalLinkClientSide(): void {
+    updateCanonicalLinkClientSide(): void &#123;
         const canonicalLink = this.elementRef.nativeElement.querySelector('link[rel=&quot;canonical&quot;]');
-        if (canonicalLink) {
+        if (canonicalLink) &#123;
             // This is for client-side refinement, not primary SSR source of truth
             this.renderer.setAttribute(canonicalLink, 'href', this.canonicalUrl);
-        }
-    }
-  }
+        &#125;
+    &#125;
+  &#125;
   </code></pre>
   <h3>Step 3: Server-Side Template Generation</h3>
   <p>The crucial part happens on the server side where you use the data fetched (which includes the canonical URL) to generate the initial HTML response. Ensure your SSR setup correctly maps the component's properties to the output structure. When using Angular SSR, frameworks often handle injecting meta tags based on provided <code>title</code> and <code>description</code> properties. For the canonical tag, this value must be explicitly passed from the server context into the template placeholders.</p>

@@ -46,7 +46,7 @@ const date = "2026-08-10";
     &lt;meta property=&quot;og:locale&quot; content=&quot;en_GB&quot; /&gt;
     &lt;meta property=&quot;og:site_name&quot; content=&quot;Student Property Reviews&quot; /&gt;
     &lt;meta name=&quot;robots&quot; content=&quot;index, follow&quot; /&gt;
-    {/* ... other tags */}
+    &#123;/* ... other tags */&#125;
   &lt;/Head&gt;
   </code></pre>
   <p>When Next.js operates correctly with SSR, it merges the content defined within this <code>&lt;Head&gt;</code> component directly into the initial HTML response sent to the client and crawlers. If you are finding that this is missing, it often points to an issue in how data fetching (<code>getServerSideProps</code>) interacts with the Head component, or specific configuration settings that might interfere with SSR output on edge environments like Vercel.</p>

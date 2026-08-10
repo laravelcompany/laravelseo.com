@@ -33,12 +33,12 @@ const date = "2026-08-10";
   <p>To resolve the indexing block, focus on removing the directive from the server response.</p>
   <p>First, ensure that no custom code is inadvertently adding this header. If you suspect a specific piece of code is responsible, use debugging tools to trace where the header is being generated. If you find code that looks like it's manipulating HTTP headers, rewrite that logic to respect your desired indexing policies.</p>
   <p>If the problem persists after theme/plugin isolation, consider server-level control. For example, in an Nginx configuration, you can explicitly manage headers:</p>
-  <pre><code class="language-nginx">server {
+  <pre><code class="language-nginx">server &#123;
       # ... other configurations
-      location / {
+      location / &#123;
           add_header X-Robots-Tag &quot;index, follow&quot;;
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <p>By controlling the response headers directly at the server level, you gain definitive control over how search engines perceive your content, bypassing any potentially erroneous WordPress settings or front-end code injections.</p>
 

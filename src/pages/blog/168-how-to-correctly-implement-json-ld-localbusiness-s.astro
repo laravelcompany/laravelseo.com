@@ -23,22 +23,22 @@ const date = "2026-08-10";
   <h2>The Complete and Correct Implementation</h2>
   <p>To ensure maximum compatibility and signal completeness to search engines, you should aim to include all relevant details for the entity. This means ensuring nested objects are correctly formed. Here is a more comprehensive example demonstrating the correct structure:</p>
   <pre><code class="language-html">&lt;script type=&quot;application/ld+json&quot;&gt;
-  {
+  &#123;
     &quot;@context&quot;: &quot;https://schema.org&quot;,
     &quot;@type&quot;: &quot;LocalBusiness&quot;,
     &quot;name&quot;: &quot;Example Business Inc.&quot;,
     &quot;description&quot;: &quot;A description of our local services and offerings.&quot;,
-    &quot;address&quot;: {
+    &quot;address&quot;: &#123;
       &quot;@type&quot;: &quot;PostalAddress&quot;,
       &quot;streetAddress&quot;: &quot;123 Main St&quot;,
       &quot;addressLocality&quot;: &quot;City&quot;,
       &quot;addressRegion&quot;: &quot;State&quot;,
       &quot;postalCode&quot;: &quot;00000&quot;,
       &quot;addressCountry&quot;: &quot;US&quot; 
-    },
+    &#125;,
     &quot;telephone&quot;: &quot;+1-555-123-4567&quot;,
     &quot;openingHoursSpecification&quot;: [
-      {
+      &#123;
         &quot;@type&quot;: &quot;openingHoursSpecification&quot;,
         &quot;dayOfWeek&quot;: [
           &quot;Monday&quot;,
@@ -47,9 +47,9 @@ const date = "2026-08-10";
         ],
         &quot;opens&quot;: &quot;09:00&quot;,
         &quot;closes&quot;: &quot;17:00&quot;
-      }
+      &#125;
     ]
-  }
+  &#125;
   &lt;/script&gt;
   </code></pre>
   <p>Notice how we incorporated <code>description</code>, added a standard <code>telephone</code> field, and used the more precise <code>openingHoursSpecification</code> instead of just <code>openingHours</code>. This level of detail satisfies both schema validators and search engine requirements. Just as building scalable applications requires attention to detail—something you see in robust frameworks like those offered by Laravel—structured data implementation demands precision.</p>

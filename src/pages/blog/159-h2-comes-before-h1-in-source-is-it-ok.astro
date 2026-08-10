@@ -27,19 +27,19 @@ const date = "2026-08-10";
   <p>The perceived issue arises when developers assume the source order dictates the visual flow. This assumption breaks down because CSS rules govern how elements are positioned, sized, and displayed on the screen, regardless of their source position.</p>
   <p>If you apply specific styling—for example, using Flexbox, Grid, or positioning techniques—you can completely override the default block-level flow dictated by the HTML structure. For instance, you could use CSS to float the sidebar (<code>&lt;h2&gt;</code>) to the left and force the main content (<code>&lt;h1&gt;</code>) to span the rest of the width, effectively creating the desired visual hierarchy even if the source order is not perfectly linear.</p>
   <pre><code class="language-css">/* Example demonstrating how CSS dictates layout */
-  body {
+  body &#123;
       display: flex; /* Enable flex context for layout control */
-  }
+  &#125;
   
-  h1 {
+  h1 &#123;
       order: 1; /* Main content flows first visually */
       margin-left: 0;
-  }
+  &#125;
   
-  h2 {
+  h2 &#123;
       order: 0; /* Sidebar heading flows next visually */
       margin-top: 0;
-  }
+  &#125;
   </code></pre>
   <p>As you can see, by manipulating the <code>order</code> property in CSS, we are explicitly defining the visual sequence, completely decoupling it from the source order. This principle of separating structure (HTML) from presentation (CSS) is foundational to modern web development, much like the component-based thinking promoted by frameworks like those found in Laravel where clear separation of concerns is key.</p>
   <h2>Best Practices for Content Structure</h2>

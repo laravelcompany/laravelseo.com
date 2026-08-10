@@ -26,47 +26,47 @@ const date = "2026-08-10";
   <p>In a typical setup using a framework that supports SSR (like Next.js), you define your page components to fetch data on the server. This allows the meta tags to be dynamically generated based on the specific route being requested.</p>
   <p>Here is a conceptual look at how dynamic Open Graph tags are handled within this pattern:</p>
   <pre><code class="language-jsx">// Example component logic (conceptual, often handled via getServerSideProps in Next.js)
-  import { getPageData } from '../lib/api'; // Function to fetch data based on URL slug
+  import &#123; getPageData &#125; from '../lib/api'; // Function to fetch data based on URL slug
   
-  export async function getStaticProps({ params }) {
+  export async function getStaticProps(&#123; params &#125;) &#123;
     const pageSlug = params.slug;
   
     // 1. Fetch dynamic data from the server/database
     const pageData = await getPageData(pageSlug);
   
     // 2. Construct the full HTML for the page
-    return {
-      props: {
+    return &#123;
+      props: &#123;
         pageData,
-      },
-    };
-  }
+      &#125;,
+    &#125;;
+  &#125;
   
-  export function getStaticProps(context) {
+  export function getStaticProps(context) &#123;
     // This runs on the server before rendering the page components
-    const { pageData } = await getStaticProps({
+    const &#123; pageData &#125; = await getStaticProps(&#123;
       params: context.params,
-    });
+    &#125;);
   
-    return {
-      props: {
+    return &#123;
+      props: &#123;
         pageData,
-      },
-    };
-  }
+      &#125;,
+    &#125;;
+  &#125;
   
-  export default function DynamicPage({ pageData }) {
+  export default function DynamicPage(&#123; pageData &#125;) &#123;
     // The meta tags are now populated directly from the server-fetched data
     return (
       &lt;&gt;
-        &lt;title&gt;{pageData.title}&lt;/title&gt;
-        &lt;meta property=&quot;og:title&quot; content={pageData.title} /&gt;
-        &lt;meta property=&quot;og:image&quot; content={pageData.imageUrl} /&gt;
-        {/* Other dynamic tags... */}
-        &lt;h1&gt;{pageData.content}&lt;/h1&gt;
+        &lt;title&gt;&#123;pageData.title&#125;&lt;/title&gt;
+        &lt;meta property=&quot;og:title&quot; content=&#123;pageData.title&#125; /&gt;
+        &lt;meta property=&quot;og:image&quot; content=&#123;pageData.imageUrl&#125; /&gt;
+        &#123;/* Other dynamic tags... */&#125;
+        &lt;h1&gt;&#123;pageData.content&#125;&lt;/h1&gt;
       &lt;/&gt;
     );
-  }
+  &#125;
   </code></pre>
   <p>As you can see, the React component itself is responsible for <em>displaying</em> the data retrieved by the server. The actual generation of the HTML stream—where the crawlers look—is handled by the server environment executing this logic. This separation ensures that when Googlebot crawls the URL, it immediately receives a fully populated set of meta tags reflecting the specific content of <code>/page/1</code>, solving your original concern about dynamic sharing metadata.</p>
   <p>This approach moves the complexity away from unreliable client-side execution and places it firmly where it belongs: on the reliable server, ensuring optimal performance and SEO visibility for every page in your application.</p>

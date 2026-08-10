@@ -28,17 +28,17 @@ const date = "2026-08-10";
   <p>For instance, instead of generating a complex slug manually at the application level, you can leverage routing mechanisms provided by your framework to ensure that the path structure remains clean and consistent. This approach aligns perfectly with principles of clean architecture, which is essential when working with frameworks like Laravel where clear separation of concerns guides development practices.</p>
   <p>Here is a conceptual look at how this might be handled in code, demonstrating the difference between query parameters (for data) and path segments (for structure):</p>
   <pre><code class="language-php">// Example Route Definition Concept (Conceptual PHP/Laravel style)
-  Route::get('/products/{category}/{slug}', function ($category, $slug) {
+  Route::get('/products/&#123;category&#125;/&#123;slug&#125;', function ($category, $slug) &#123;
       // Logic to find the product based on category and slug
       // The URL structure itself is SEO friendly: /products/spacelysprokets/sproket
-  })-&gt;where('slug', '[a-zA-Z0-9\-]+');
+  &#125;)-&gt;where('slug', '[a-zA-Z0-9\-]+');
   
   // Contrast with a simple ID lookup for internal operations:
-  Route::get('/products/{id}', function ($id) {
+  Route::get('/products/&#123;id&#125;', function ($id) &#123;
       // Database query using the integer ID
       $product = Product::findOrFail($id);
       return view('products.detail', compact('product'));
-  });
+  &#125;);
   </code></pre>
   <p>As you can see, the first example focuses on creating a descriptive path for SEO purposes, while the second example handles the efficient data retrieval using the unique integer ID internally. The key takeaway is that the URL structure itself should prioritize semantic meaning over mere numerical identifiers when it comes to public-facing content.</p>
 

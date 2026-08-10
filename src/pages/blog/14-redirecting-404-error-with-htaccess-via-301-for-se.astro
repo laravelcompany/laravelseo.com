@@ -24,15 +24,15 @@ const date = "2026-08-10";
   <p>To redirect <strong>all</strong> requests that do not match an existing file (i.e., 404 errors) to the root domain, you can implement a powerful rewrite rule. This assumes you are using Apache and have the <code>mod_rewrite</code> module enabled.</p>
   <p>Place the following code at the top of your <code>.htaccess</code> file:</p>
   <pre><code class="language-apache">RewriteEngine On
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d
   RewriteRule ^(.*)$ / [L,R=301]
   </code></pre>
   <h3>Code Breakdown and Explanation</h3>
   <ol>
   <li><strong><code>RewriteEngine On</code></strong>: This activates the rewrite engine for this directory.</li>
-  <li><strong><code>RewriteCond %{REQUEST_FILENAME} !-f</code></strong>: This condition checks if the requested URL <em>is not</em> a physical file (<code>!-f</code>).</li>
-  <li><strong><code>RewriteCond %{REQUEST_FILENAME} !-d</code></strong>: This condition checks if the requested URL <em>is not</em> a directory (<code>!-d</code>). Together, these two conditions ensure we are targeting requests that do not correspond to actual files or directories—which is precisely how 404s manifest.</li>
+  <li><strong><code>RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</code></strong>: This condition checks if the requested URL <em>is not</em> a physical file (<code>!-f</code>).</li>
+  <li><strong><code>RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</code></strong>: This condition checks if the requested URL <em>is not</em> a directory (<code>!-d</code>). Together, these two conditions ensure we are targeting requests that do not correspond to actual files or directories—which is precisely how 404s manifest.</li>
   <li><strong><code>RewriteRule ^(.*)$ / [L,R=301]</code></strong>: If the above conditions are met (it’s a missing page), this rule captures everything (<code>^(.*)$</code>) and permanently redirects it (<code>R=301</code>) to the root directory (<code>/</code>).</li>
   </ol>
   <p>This single block effectively catches every orphaned URL requested by a user or a search engine and sends them back with a 301 status code pointing to your homepage. This is far cleaner than managing hundreds of individual rules or custom error files.</p>

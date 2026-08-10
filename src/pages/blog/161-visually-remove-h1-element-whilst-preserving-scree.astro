@@ -21,11 +21,11 @@ const date = "2026-08-10";
   <p>Instead of trying to hide the heading itself, a more robust approach involves styling the element so that it blends into the design while maintaining full accessibility. This allows search engines and screen readers to perceive the hierarchy correctly.</p>
   <h3>1. Subtle Styling for Visual Reduction</h3>
   <p>If you need the heading to be visually subdued—perhaps appearing smaller or less prominent—use CSS properties related to typography and color rather than hiding the element entirely. For instance, reducing the font size or changing the color can achieve a softer visual effect without removing the semantic weight of the <code>&lt;h1&gt;</code>.</p>
-  <pre><code class="language-css">h1 {
+  <pre><code class="language-css">h1 &#123;
       font-size: 2em; /* Reduce the size */
       color: #555;    /* Soften the color */
       font-weight: 400; /* Make it less aggressive */
-  }
+  &#125;
   </code></pre>
   <p>This approach ensures that the heading is still programmatically accessible to screen readers, fulfilling WCAG guidelines. When building complex applications, ensuring semantic correctness is paramount, much like when structuring data within a framework like Laravel where clear separation of concerns is key.</p>
   <h3>2. Using Decorative Elements for Visual Separation</h3>

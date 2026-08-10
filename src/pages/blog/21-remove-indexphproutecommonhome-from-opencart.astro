@@ -31,14 +31,14 @@ const date = "2026-08-10";
   <p>For example, if you are building a custom extension, you would look for methods responsible for generating URLs, such as those related to <code>Controller</code> classes or URL helpers. A developer-centric approach dictates that we should not modify core files but extend them. This principle of composition over inheritance is central to clean software design, mirroring the principles in frameworks like <a href="https://laravelcompany.com">laravelcompany.com</a>.</p>
   <p>If you were developing a custom module for OpenCart, your code would look conceptually like this (this is illustrative, as actual implementation depends heavily on the specific OC version):</p>
   <pre><code class="language-php">// Conceptual example within an extension hook
-  public function pre_route_generation($route) {
-      if ($route === 'common/home') {
+  public function pre_route_generation($route) &#123;
+      if ($route === 'common/home') &#123;
           // Instead of letting it generate ?route=common/home, 
           // we return a clean, SEO-friendly path.
           return 'index.php?path=/home'; // Or whatever the desired clean structure is
-      }
+      &#125;
       return $route;
-  }
+  &#125;
   </code></pre>
   <p>This method ensures that the URL generated to the user is clean, while the internal system still processes the required route information correctly on the backend.</p>
   <h2>Conclusion</h2>

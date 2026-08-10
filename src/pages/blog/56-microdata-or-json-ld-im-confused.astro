@@ -32,14 +32,14 @@ const date = "2026-08-10";
   <h2>Practical Implementation Example (JSON-LD)</h2>
   <p>Here is how you would implement basic Video Object markup using JSON-LD on a dynamic page:</p>
   <pre><code class="language-html">&lt;script type=&quot;application/ld+json&quot;&gt;
-  {
+  &#123;
     &quot;@context&quot;: &quot;https://schema.org&quot;,
     &quot;@type&quot;: &quot;VideoObject&quot;,
     &quot;name&quot;: &quot;My Awesome Dynamic Video&quot;,
     &quot;description&quot;: &quot;This video was generated dynamically by the application.&quot;,
     &quot;contentUrl&quot;: &quot;https://example.com/video-12345.mp4&quot;,
     &quot;uploadDate&quot;: &quot;2024-05-20&quot;
-  }
+  &#125;
   &lt;/script&gt;
   </code></pre>
   <p>As a senior developer, I strongly advocate for adopting JSON-LD. It aligns with modern JavaScript paradigms, works seamlessly with backend frameworks like Laravel where data is processed before rendering, and provides the robust structure needed to handle the complexity of large-scale structured data without sacrificing performance or maintainability. Embrace JSON-LD for your next SEO project!</p>

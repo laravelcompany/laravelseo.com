@@ -55,15 +55,15 @@ const date = "2026-08-10";
   </code></pre>
   <p><strong>CSS Implementation:</strong>
   Now, you can easily style the container based on its class:</p>
-  <pre><code class="language-css">.special-offer {
+  <pre><code class="language-css">.special-offer &#123;
       color: red;
       font-weight: bold;
-  }
+  &#125;
   
-  .standard-view {
+  .standard-view &#123;
       color: green;
       font-style: italic;
-  }
+  &#125;
   </code></pre>
   <h3>Method 2: Dynamic Generation via Backend (The Laravel Way)</h3>
   <p>In a modern application, this variation is rarely static. It's generated dynamically based on the route or controller logic. When using a framework like <strong>Laravel</strong>, you would use Blade templating to inject these dynamic classes into your view files based on the data passed from the controller. This separation of concerns—logic in the backend, presentation in the frontend—is fundamental to building scalable applications.</p>
@@ -72,8 +72,8 @@ const date = "2026-08-10";
       $titleClass = $pageType === 'special' ? 'special-offer' : 'standard-view';
   @endphp
   
-  &lt;header class=&quot;page-header {{ $titleClass }}&quot;&gt;
-      &lt;h1&gt;{{ $pageTitle }}&lt;/h1&gt;
+  &lt;header class=&quot;page-header &#123;&#123; $titleClass &#125;&#125;&quot;&gt;
+      &lt;h1&gt;&#123;&#123; $pageTitle &#125;&#125;&lt;/h1&gt;
   &lt;/header&gt;
   </code></pre>
   <p>This approach ensures that your HTML remains clean, semantic, and fully controllable by CSS, providing a solid foundation for any complex application you build.</p>

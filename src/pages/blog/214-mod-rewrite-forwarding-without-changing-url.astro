@@ -26,15 +26,15 @@ const date = "2026-08-10";
   
   # 1. Handle requests for index.html (or any static entry point)
   # This rule ensures that if a request hits index.html, it is internally routed to index.php
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d
   RewriteRule ^index\.html$ index.php [L]
   </code></pre>
   <h3>Explanation of the Fix</h3>
   <ol>
   <li><strong><code>RewriteEngine On</code> and <code>RewriteBase /</code></strong>: These are essential prerequisites for enabling URL rewriting within this directory structure.</li>
-  <li><strong><code>RewriteCond %{REQUEST_FILENAME} !-f</code></strong>: This condition checks if the requested file <em>does not</em> exist as a physical file on the disk. We don't want to rewrite requests that point to actual files (like images or CSS).</li>
-  <li><strong><code>RewriteCond %{REQUEST_FILENAME} !-d</code></strong>: This ensures we are not rewriting requests for directories.</li>
+  <li><strong><code>RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</code></strong>: This condition checks if the requested file <em>does not</em> exist as a physical file on the disk. We don't want to rewrite requests that point to actual files (like images or CSS).</li>
+  <li><strong><code>RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</code></strong>: This ensures we are not rewriting requests for directories.</li>
   <li><strong><code>RewriteRule ^index\.html$ index.php [L]</code></strong>: This is the core rule. It specifically targets requests that exactly match <code>/index.html</code>. The <code>^index\.html$</code> regex anchors the match to the start and end of the request path. The replacement is simply <code>index.php</code>, effectively routing the request internally without changing the URL displayed in the browser.</li>
   </ol>
   <h2>The Importance of FollowSymLinks</h2>

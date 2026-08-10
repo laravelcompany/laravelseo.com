@@ -42,32 +42,32 @@ const date = "2026-08-10";
   
   $url = 'https://www.example.com';
   
-  try {
+  try &#123;
       // 1. Import the XML document
       $xml = simplexml_load_file($url);
   
-      if ($xml !== false) {
+      if ($xml !== false) &#123;
           // 2. Use XPath to find all meta description content values
           $xpath = new DOMXPath($xml);
           $descriptions = $xpath-&gt;query(&quot;//meta[@name='description']/@content&quot;);
   
           echo &quot;&lt;h2&gt;Extracted Meta Descriptions:&lt;/h2&gt;&quot;;
   
-          if ($descriptions-&gt;length &gt; 0) {
-              foreach ($descriptions as $node) {
+          if ($descriptions-&gt;length &gt; 0) &#123;
+              foreach ($descriptions as $node) &#123;
                   // Get the value of the attribute
                   echo &quot;&lt;p&gt;Description: &quot; . htmlspecialchars($node-&gt;nodeValue) . &quot;&lt;/p&gt;&quot;;
-              }
-          } else {
+              &#125;
+          &#125; else &#123;
               echo &quot;&lt;p&gt;No meta descriptions found.&lt;/p&gt;&quot;;
-          }
-      } else {
+          &#125;
+      &#125; else &#123;
           echo &quot;Error loading XML from $url.&quot;;
-      }
+      &#125;
   
-  } catch (Exception $e) {
+  &#125; catch (Exception $e) &#123;
       echo &quot;An error occurred: &quot; . $e-&gt;getMessage();
-  }
+  &#125;
   
   ?&gt;
   </code></pre>

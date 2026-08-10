@@ -31,9 +31,9 @@ const date = "2026-08-10";
   <h3>1. Use Visibility for Contextual Display</h3>
   <p>If the content needs to be conditionally shown or hidden based on user state, use CSS properties that control display flow rather than outright hiding the element permanently. For example, instead of <code>display:none</code>, you might toggle visibility based on JavaScript interaction:</p>
   <pre><code class="language-css">/* Example: Hiding based on a specific class */
-  .hidden-h1 {
+  .hidden-h1 &#123;
       display: none !important; /* Use sparingly! */
-  }
+  &#125;
   </code></pre>
   <h3>2. Restructure the Content Semantically</h3>
   <p>If the underlying content changes contextually, consider restructuring the hierarchy instead of hiding the primary title. Perhaps the main topic should be a visible <code>&lt;h1&gt;</code>, and the alternative information can be presented in an <code>&lt;h2&gt;</code> or a descriptive paragraph (<code>&lt;p&gt;</code>) immediately following it. This maintains the crucial SEO signal while accommodating dynamic content needs.</p>

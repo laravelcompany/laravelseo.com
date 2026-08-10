@@ -18,8 +18,8 @@ const date = "2026-08-10";
   <p>The first step is setting up the basic rewrite rule. This rule tells the server how to handle requests that don't map directly to a physical file—it directs all traffic through a single entry point, typically <code>index.php</code>.</p>
   <p>For a simple structure where you want <code>/home</code> to load content, you can use the following directive in your <code>.htaccess</code> file:</p>
   <pre><code class="language-apache">RewriteEngine On
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d
   RewriteRule ^([A-Za-z0-9-]+)/?$ index.php?p=$1
   </code></pre>
   <p>This rule effectively captures any request path (like <code>/home</code>) and redirects it internally to <code>index.php</code>, passing the requested segment (<code>home</code>) as a parameter (<code>p=home</code>). This achieves your first goal: making URLs cleaner.</p>

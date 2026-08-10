@@ -25,12 +25,12 @@ const date = "2026-08-10";
   <p>There are several effective ways to approach slug generation, depending on the complexity of your application and the framework you are using.</p>
   <h3>1. Manual String Manipulation (The Custom Approach)</h3>
   <p>As seen in the example, you can write custom functions using PHP's string and regular expression capabilities (<code>strtr</code>, <code>preg_replace</code>). This method offers complete control over <em>exactly</em> which characters are allowed.</p>
-  <pre><code class="language-php">function sluggable($str) {
+  <pre><code class="language-php">function sluggable($str) &#123;
       // ... complex character replacement logic ...
       $str = strtolower($str);
       // ... further sanitization steps ...
       return $str;
-  }
+  &#125;
   </code></pre>
   <p>While functional, this approach requires you to maintain a comprehensive list of all characters you need to handle. This quickly becomes cumbersome when dealing with the vast spectrum of Unicode characters found on the web.</p>
   <h3>2. Using Framework Features (The Laravel Way)</h3>

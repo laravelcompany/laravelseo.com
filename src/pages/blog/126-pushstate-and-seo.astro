@@ -25,13 +25,13 @@ const date = "2026-08-10";
   <p>Instead of pushing state to manage the content structure client-side, we let the server handle the rendering process entirely. The server executes the logic, fetches the necessary data (perhaps from a database or an API), and outputs a fully formed HTML document containing all the blog posts directly into the response stream.</p>
   <p>This approach ensures that the content is immediately visible to search engine bots, regardless of whether JavaScript then takes over for interactive features on the client side. Frameworks like Laravel excel at this pattern, allowing developers to leverage robust backend structures to generate highly optimized, crawlable pages. By rendering the full HTML structure on the server, we satisfy the crawler's need for indexable content immediately.</p>
   <pre><code class="language-php">// Conceptual example of Server-Side Rendering (SSR) philosophy
-  function renderBlogPage($slug) {
+  function renderBlogPage($slug) &#123;
       // 1. Fetch data from database (e.g., Eloquent models in Laravel)
       $posts = Post::where('slug', $slug)-&gt;get();
   
       // 2. Load the view template with the fully rendered data
       return view('blog.index', ['posts' =&gt; $posts]);
-  }
+  &#125;
   </code></pre>
   <p>When using this method, the URL might still use clean paths (e.g., <code>/blog/my-first-post</code>), and the content is perfectly indexed. The client-side JavaScript then only handles smooth navigation between these already-indexed views, drastically improving both SEO and UX. For complex applications, ensuring proper data hydration and rendering on the server side is paramount for robust SEO strategies.</p>
 

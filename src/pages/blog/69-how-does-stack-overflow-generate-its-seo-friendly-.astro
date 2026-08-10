@@ -30,20 +30,20 @@ const date = "2026-08-10";
   <p>While the exact implementation depends on your backend language (like Ruby or PHP), the underlying mechanism often involves a function that chains these operations together. If we were working within a framework like Laravel, this logic would ideally be encapsulated in a Model or Service layer before the route is defined.</p>
   <p>Here is how the transformation logic might look conceptually using a pattern approach:</p>
   <pre><code class="language-php">function generateSlug(string $title): string
-  {
+  &#123;
       // 1. Convert to lowercase
       $slug = strtolower($title);
   
       // 2. Replace spaces and non-alphanumeric characters with a hyphen
       // This regex replaces anything that is NOT a letter, number, or space with nothing, 
       // then it handles the remaining spaces by replacing them with hyphens.
-      $slug = preg_replace('/[^\p{L}\p{N}]+/u', '-', $slug);
+      $slug = preg_replace('/[^\p&#123;L&#125;\p&#123;N&#125;]+/u', '-', $slug);
   
       // 3. Remove leading/trailing hyphens that might result from aggressive replacement
       $slug = trim($slug, '-');
   
       return $slug;
-  }
+  &#125;
   
   $title = &quot;How Do You Change a Title to Be Part of the URL Like Stack Overflow!&quot;;
   $urlSlug = generateSlug($title); 

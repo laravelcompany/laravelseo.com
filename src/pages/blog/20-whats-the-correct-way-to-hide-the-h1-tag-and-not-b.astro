@@ -34,7 +34,7 @@ const date = "2026-08-10";
   </code></pre>
   <h3>2. Applying the Correct Hiding Technique</h3>
   <p>To hide the text while ensuring it remains in the DOM structure (allowing crawlers to read it), we use techniques that are explicitly ignored by visual rendering but respected by assistive technologies or specific CSS hacks for hiding content visually:</p>
-  <pre><code class="language-css">.visually-hidden {
+  <pre><code class="language-css">.visually-hidden &#123;
       position: absolute;
       width: 1px;
       height: 1px;
@@ -44,7 +44,7 @@ const date = "2026-08-10";
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       border-width: 0;
-  }
+  &#125;
   </code></pre>
   <p>By applying this specific CSS pattern (often called the "visually-hidden" class), you achieve several goals simultaneously:</p>
   <ol>

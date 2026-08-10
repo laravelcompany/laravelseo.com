@@ -29,16 +29,16 @@ const date = "2026-08-10";
   <p>This method ensures that content is present in the initial response, which is the foundation of reliable SEO. While managing complex data flows and performance optimization is key—much like ensuring efficient database querying when architecting solutions on platforms like Laravel—using established tooling simplifies this process significantly.</p>
   <p>Here is a conceptual look at how you would structure a route using SSR concepts:</p>
   <pre><code class="language-typescript">// Example concept for an Angular component that will be rendered server-side
-  import { Component, OnInit } from '@angular/core';
-  import { RenderContext } from '@angular/platform-server';
+  import &#123; Component, OnInit &#125; from '@angular/core';
+  import &#123; RenderContext &#125; from '@angular/platform-server';
   
-  @Component({
+  @Component(&#123;
     selector: 'app-product-detail',
-    template: `&lt;h1&gt;{{ product.name }}&lt;/h1&gt;&lt;p&gt;{{ product.description }}&lt;/p&gt;`
-  })
-  export class ProductDetailComponent implements OnInit {
-    product = { name: 'Angular SEO Guide', description: 'Learn about SSR' };
-  }
+    template: `&lt;h1&gt;&#123;&#123; product.name &#125;&#125;&lt;/h1&gt;&lt;p&gt;&#123;&#123; product.description &#125;&#125;&lt;/p&gt;`
+  &#125;)
+  export class ProductDetailComponent implements OnInit &#123;
+    product = &#123; name: 'Angular SEO Guide', description: 'Learn about SSR' &#125;;
+  &#125;
   
   // In your server-side rendering setup (e.g., Node/Express environment):
   // You use Angular Universal functions to render the component into an HTML string

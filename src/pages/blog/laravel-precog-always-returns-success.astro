@@ -34,9 +34,9 @@ use App\Http\Requests\EmailRequest;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/', function (EmailRequest $request) {
+Route::post('/', function (EmailRequest $request) &#123;
     // ... process the request
-})-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
+&#125;)-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
 
       <p>
         You send a request with the <code>Precognition: true</code> header and invalid data, expecting validation errors. But instead, the request goes through the full controller and returns a 200 or 201 response.
@@ -50,23 +50,23 @@ Route::post('/', function (EmailRequest $request) {
       </p>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Frontend — WRONG (missing the header)
-fetch('/', {
+fetch('/', &#123;
     method: 'POST',
-    headers: {
+    headers: &#123;
         'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email: 'invalid' }),
-});
+    &#125;,
+    body: JSON.stringify(&#123; email: 'invalid' &#125;),
+&#125;);
 
 // Frontend — CORRECT
-fetch('/', {
+fetch('/', &#123;
     method: 'POST',
-    headers: {
+    headers: &#123;
         'Content-Type': 'application/json',
         'Precognition': 'true', // OR 'X-Precognition': 'true'
-    },
-    body: JSON.stringify({ email: 'invalid' }),
-});</code></pre>
+    &#125;,
+    body: JSON.stringify(&#123; email: 'invalid' &#125;),
+&#125;);</code></pre>
 
       <h3>2. Form Request Not Using ValidatesWhenResolved</h3>
       <p>
@@ -76,20 +76,20 @@ fetch('/', {
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // routes/web.php — WRONG: manual validation bypasses Precognition
-Route::post('/', function (Request $request) {
+Route::post('/', function (Request $request) &#123;
     $validated = $request-&gt;validate([
         'email' =&gt; 'required|email',
     ]);
     // ... process
-})-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
+&#125;)-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // routes/web.php — CORRECT: use a Form Request
-Route::post('/', function (EmailRequest $request) {
+Route::post('/', function (EmailRequest $request) &#123;
     // Form request handles validation automatically
     // ... process
-})-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
+&#125;)-&gt;middleware(HandlePrecognitiveRequests::class);</code></pre>
 
       <h3>3. Middleware Order Matters</h3>
       <p>
@@ -99,9 +99,9 @@ Route::post('/', function (EmailRequest $request) {
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // Kernel.php or route — WRONG
-Route::post('/', function (EmailRequest $request) {
+Route::post('/', function (EmailRequest $request) &#123;
     // ...
-})-&gt;middleware(['throttle:api', HandlePrecognitiveRequests::class]);</code></pre>
+&#125;)-&gt;middleware(['throttle:api', HandlePrecognitiveRequests::class]);</code></pre>
 
       <p>
         If <code>throttle</code> or any other middleware calls <code>$request->validate()</code>, the form request validation in the controller will not trigger precognitive behavior. Move <code>HandlePrecognitiveRequests</code> earlier in the pipeline, or remove other middleware that interferes.
@@ -113,15 +113,15 @@ Route::post('/', function (EmailRequest $request) {
       </p>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;script&gt;
-import { createInertiaApp } from '@inertiajs/vue3';
-import { precognitive } from '@inertiajs/vue3-precognition';
+import &#123; createInertiaApp &#125; from '@inertiajs/vue3';
+import &#123; precognitive &#125; from '@inertiajs/vue3-precognition';
 
-createInertiaApp({
+createInertiaApp(&#123;
     // ...
     plugins: [
         precognitive(),
     ],
-});
+&#125;);
 &lt;/script&gt;</code></pre>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;!-- Vue component --&gt;
@@ -132,21 +132,21 @@ createInertiaApp({
             @change="form.validate('email')"
         /&gt;
         &lt;div v-if="form.invalid('email')"&gt;
-            {{ form.errors.email }}
+            &#123;&#123; form.errors.email &#125;&#125;
         &lt;/div&gt;
     &lt;/form&gt;
 &lt;/template&gt;
 
 &lt;script setup&gt;
-import { usePrecognition } from '@inertiajs/vue3-precognition';
+import &#123; usePrecognition &#125; from '@inertiajs/vue3-precognition';
 
-const form = usePrecognition('post', '/', {
+const form = usePrecognition('post', '/', &#123;
     email: '',
-});
+&#125;);
 
-function submit() {
+function submit() &#123;
     form.submit();
-}
+&#125;
 &lt;/script&gt;</code></pre>
 
       <h3>5. Testing Precognition</h3>
@@ -156,7 +156,7 @@ function submit() {
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
-test('precognition validates email field', function () {
+test('precognition validates email field', function () &#123;
     $response = $this-&gt;post('/', [
         'email' =&gt; 'not-an-email',
     ], [
@@ -166,7 +166,7 @@ test('precognition validates email field', function () {
     $response
         -&gt;assertUnprocessable()
         -&gt;assertJsonValidationErrors(['email']);
-});</code></pre>
+&#125;);</code></pre>
 
       <h2>Quick Debugging Checklist</h2>
       <ol>

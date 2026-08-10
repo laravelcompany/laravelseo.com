@@ -31,8 +31,8 @@ const date = "2026-08-10";
   <p>You should generate content that describes what the user will find. For instance, if you are listing blog posts, use the post title as the anchor text:</p>
   <pre><code class="language-html">&lt;!-- Example using PHP/Blade syntax for dynamic generation --&gt;
   @foreach ($items as $item)
-      &lt;a href=&quot;{{ route('posts.show', $item-&gt;id) }}&quot;&gt;
-          {{ $item-&gt;title }} &lt;!-- Use the actual title here! --&gt;
+      &lt;a href=&quot;&#123;&#123; route('posts.show', $item-&gt;id) &#125;&#125;&quot;&gt;
+          &#123;&#123; $item-&gt;title &#125;&#125; &lt;!-- Use the actual title here! --&gt;
       &lt;/a&gt;
   @endforeach
   </code></pre>

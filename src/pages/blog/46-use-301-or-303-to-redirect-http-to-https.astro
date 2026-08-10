@@ -37,11 +37,11 @@ const date = "2026-08-10";
   <p>While you mentioned using IIS rewrite rules, understanding the principle is key. In modern application development, especially when dealing with frameworks like Laravel, handling these redirects often happens within your routing layer or middleware, ensuring that the underlying architecture supports clean, predictable HTTP responses.</p>
   <p>Here is a conceptual look at how this logic translates:</p>
   <pre><code class="language-php">// Conceptual PHP/Laravel logic for site-wide redirect (using 301)
-  if (!is_ssl()) {
+  if (!is_ssl()) &#123;
       // Redirect all traffic from HTTP to HTTPS permanently
       header('Location: https://www.yourdomain.com' . $_SERVER['REQUEST_URI'], 301);
       exit;
-  }
+  &#125;
   </code></pre>
   <p>By using the <code>301</code> code, you are adhering to the established web standards for permanent resource relocation, ensuring maximum compatibility with search engine algorithms and optimal performance. Always prioritize permanence when dealing with domain structure changes. For robust application architecture that handles these concerns cleanly, leveraging well-defined routing patterns, as seen in frameworks like Laravel, is a great practice.</p>
   <h2>Conclusion</h2>

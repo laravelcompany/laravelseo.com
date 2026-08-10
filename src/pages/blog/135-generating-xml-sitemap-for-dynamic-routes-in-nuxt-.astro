@@ -30,12 +30,12 @@ const date = "2026-08-10";
   3. Construct the XML structure, linking back to these dynamic product routes.</p>
   <p>Here is a conceptual look at how this logic might be structured in a hypothetical Nuxt server route or helper function:</p>
   <pre><code class="language-javascript">// Example concept within a Nuxt Server Route handler (Conceptual)
-  export default defineEventHandler(event) =&gt; {
+  export default defineEventHandler(event) =&gt; &#123;
     const storeId = getRouterParam('storeId'); // e.g., 'store1'
   
-    if (!storeId) {
-      return createError({ statusCode: 400, status: 'Bad Request', message: 'Store ID required' });
-    }
+    if (!storeId) &#123;
+      return createError(&#123; statusCode: 400, status: 'Bad Request', message: 'Store ID required' &#125;);
+    &#125;
   
     // 1. Fetch dynamic data based on the store ID
     const storeData = await fetchStoreData(storeId); // Assume this function queries your DB/API
@@ -44,18 +44,18 @@ const date = "2026-08-10";
     const sitemapEntries = [];
   
     // Add the store URL itself
-    sitemapEntries.push({ loc: `https://mysite.com/store${storeId}/sitemap.xml`, changefreq: 'weekly' });
+    sitemapEntries.push(&#123; loc: `https://mysite.com/store$&#123;storeId&#125;/sitemap.xml`, changefreq: 'weekly' &#125;);
   
     // Add dynamic product routes for this store
     const products = await fetchProductsForStore(storeId); 
-    products.forEach(product =&gt; {
-      sitemapEntries.push({ loc: `https://mysite.com/store${storeId}/products/${product.slug}`, changefreq: 'monthly' });
-    });
+    products.forEach(product =&gt; &#123;
+      sitemapEntries.push(&#123; loc: `https://mysite.com/store$&#123;storeId&#125;/products/$&#123;product.slug&#125;`, changefreq: 'monthly' &#125;);
+    &#125;);
   
     // 3. Generate the final XML output
     const xmlContent = generateSitemapXml(sitemapEntries);
     return xmlContent;
-  };
+  &#125;;
   </code></pre>
   <h3>Step 3: Handling Multiple Store Sitemaps</h3>
   <p>To achieve your goal of having separate sitemaps for each store (<code>/store1/sitemap.xml</code>), you would typically expose a route that accepts the dynamic segment as a parameter. The sitemap generator (which could be a dedicated script or part of your Nuxt build) would iterate over all known store IDs and trigger this endpoint for each one, saving the result to the appropriate location.</p>

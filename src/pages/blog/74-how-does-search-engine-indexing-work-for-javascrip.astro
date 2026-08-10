@@ -26,26 +26,26 @@ const date = "2026-08-10";
   <p><strong>Example Concept:</strong></p>
   <p>Instead of waiting for the client to render:</p>
   <pre><code class="language-javascript">// Pure CSR - Harder for SEO
-  function MyComponent() {
+  function MyComponent() &#123;
     const [data, setData] = useState(null);
-    useEffect(() =&gt; {
+    useEffect(() =&gt; &#123;
       fetch('/api/data').then(res =&gt; res.json()).then(setData);
-    }, []);
-    return &lt;div&gt;{data ? data.title : 'Loading...'}&lt;/div&gt;;
-  }
+    &#125;, []);
+    return &lt;div&gt;&#123;data ? data.title : 'Loading...'&#125;&lt;/div&gt;;
+  &#125;
   </code></pre>
   <p>With SSR, the server generates the HTML:</p>
   <pre><code class="language-javascript">// SSR Concept - Better for SEO
-  export async function getServerSideProps() {
+  export async function getServerSideProps() &#123;
     const res = await fetch('https://api.example.com/data');
     const data = await res.json();
-    return { props: { data } };
-  }
+    return &#123; props: &#123; data &#125; &#125;;
+  &#125;
   
-  function MyComponent({ data }) {
+  function MyComponent(&#123; data &#125;) &#123;
     // The server already provided the populated HTML structure
-    return &lt;h1&gt;{data.title}&lt;/h1&gt;;
-  }
+    return &lt;h1&gt;&#123;data.title&#125;&lt;/h1&gt;;
+  &#125;
   </code></pre>
   <h3>2. Static Site Generation (SSG)</h3>
   <p>For content that doesn't change frequently (like blog posts or marketing pages), Static Site Generation is even better. SSG pre-renders every possible page at build time, generating pure HTML files. These static files can be served instantly and are perfectly indexable by search engines. Frameworks like Gatsby or Astro excel at this approach.</p>

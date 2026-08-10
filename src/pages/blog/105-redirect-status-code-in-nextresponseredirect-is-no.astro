@@ -26,11 +26,11 @@ const date = "2026-08-10";
   <p>The behavior you observe—a 307 for <code>/</code> and a successful redirect for other routes—stems from how the Next.js routing system handles the root path as the application's entry point, separate from dynamically generated locale paths.</p>
   <p>In your middleware logic:</p>
   <pre><code class="language-javascript">// ... inside middleware function
-  if (shouldHandleLocale) {
+  if (shouldHandleLocale) &#123;
       const url = request.nextUrl.clone();
-      url.pathname = `/en${request.nextUrl.pathname}`; // This is where the manipulation happens
+      url.pathname = `/en$&#123;request.nextUrl.pathname&#125;`; // This is where the manipulation happens
       return NextResponse.redirect(url, 308);
-  }
+  &#125;
   // ...
   </code></pre>
   <p>When <code>request.nextUrl.pathname</code> is <code>/</code>, concatenating it results in <code>/en/</code>. The issue arises because the root path (<code>/</code>) often triggers a default behavior within Next.js routing that prioritizes a temporary redirection (like 307) when manipulating the base URL structure, especially on the very first request hitting the domain.</p>
@@ -38,19 +38,19 @@ const date = "2026-08-10";
   <h2>Practical Recommendation for SEO</h2>
   <p>For maximum SEO benefit when implementing international routing, I strongly advise standardizing on <strong>301 Permanent Redirects</strong> across the board if the intent is a permanent move of content. While 308 is technically sound, using 301 ensures that search engines receive the strongest possible signal that the old URL is defunct and the new one is the canonical replacement.</p>
   <p>If you must stick to middleware logic for this specific task, ensure your condition explicitly checks for paths <em>excluding</em> the root path when applying the stricter redirect type:</p>
-  <pre><code class="language-javascript">export const middleware: NextMiddleware = (request: NextRequest) =&gt; {
+  <pre><code class="language-javascript">export const middleware: NextMiddleware = (request: NextRequest) =&gt; &#123;
     const pathname = request.nextUrl.pathname;
   
     // Only apply the strict 308 redirect logic to specific locale routes, excluding the homepage '/'
-    if (!pathname.startsWith('/') &amp;&amp; !pathname.includes('/api/')) {
+    if (!pathname.startsWith('/') &amp;&amp; !pathname.includes('/api/')) &#123;
       // ... existing locale logic for subpages
       const url = request.nextUrl.clone();
-      url.pathname = `/en${pathname}`;
+      url.pathname = `/en$&#123;pathname&#125;`;
       return NextResponse.redirect(url, 308); // Use 308 here for specific content moves
-    }
+    &#125;
   
     return undefined;
-  };
+  &#125;;
   </code></pre>
   <p>By isolating the logic to only apply the strict redirect to subpaths and allowing the root path (<code>/</code>) to be handled by Next.js's default routing mechanism (which often handles the initial entry point gracefully), you avoid the conflict between the framework's base route handling and your custom middleware redirection, leading to consistent and robust SEO signals for all pages.</p>
 

@@ -26,10 +26,10 @@ const date = "2026-08-10";
   <h2>Implementing Best Practices for Decorative Images</h2>
   <p>To address your concern about missing alt tags and ensure compliance with both SEO visibility and accessibility standards, you need to contextually decide the image's role.</p>
   <p>If the image conveys information (e.g., a product photo, a chart, or an icon that functions as a link), you <em>must</em> provide descriptive alt text:</p>
-  <pre><code class="language-jsx">&lt;Image src={imageUrl} alt=&quot;A detailed description of the image content&quot; width={500} height={300} /&gt;
+  <pre><code class="language-jsx">&lt;Image src=&#123;imageUrl&#125; alt=&quot;A detailed description of the image content&quot; width=&#123;500&#125; height=&#123;300&#125; /&gt;
   </code></pre>
   <p>However, if the image is purely decorative—for example, a subtle divider line or an icon used only for visual flair that has no accompanying textual information—then setting the <code>alt</code> attribute to an empty string is the correct practice:</p>
-  <pre><code class="language-jsx">&lt;Image src={decorativeIconUrl} alt=&quot;&quot; width={50} height={50} /&gt;
+  <pre><code class="language-jsx">&lt;Image src=&#123;decorativeIconUrl&#125; alt=&quot;&quot; width=&#123;50&#125; height=&#123;50&#125; /&gt;
   </code></pre>
   <p>By applying this distinction, you satisfy accessibility requirements while allowing search engines to focus on the meaningful text content of your page. This thoughtful approach to markup aligns with the principle of clean, semantic code, a core concept shared across robust frameworks like those found in the Laravel ecosystem where attention to detail in structure is paramount.</p>
   <p>When building complex applications, ensuring every visual element serves both a functional and an inclusive purpose is not just a best practice; it is a foundational requirement for high-quality software design and user experience.</p>

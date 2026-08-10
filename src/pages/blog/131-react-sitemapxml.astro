@@ -21,47 +21,47 @@ const date = "2026-08-10";
   <p>The most idiomatic React approach is to treat the sitemap content as data fetched by a component, rather than relying solely on the URL path to dictate which static file is served. This gives you control over the rendering and error handling within your application.</p>
   <p>First, ensure your <code>sitemap.xml</code> is accessible. If it’s truly static, place it in your public folder. Then, create a route handler that fetches or displays this data.</p>
   <p>Here is an example of setting up the routing and fetching logic using <code>react-router-dom</code>:</p>
-  <pre><code class="language-jsx">import React, { useState, useEffect } from 'react';
-  import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+  <pre><code class="language-jsx">import React, &#123; useState, useEffect &#125; from 'react';
+  import &#123; BrowserRouter as Router, Route, Link &#125; from 'react-router-dom';
   
   // Mock function to simulate fetching sitemap data (in a real app, this would be an API call)
-  const fetchSitemap = async () =&gt; {
+  const fetchSitemap = async () =&gt; &#123;
     // In a real scenario, you might fetch this from a dedicated endpoint or static file logic.
     const response = await fetch('/sitemap.xml'); 
-    if (!response.ok) {
+    if (!response.ok) &#123;
       throw new Error('Failed to fetch sitemap.');
-    }
+    &#125;
     return await response.text();
-  };
+  &#125;;
   
-  const SitemapRoute = () =&gt; {
+  const SitemapRoute = () =&gt; &#123;
     const [sitemapContent, setSitemapContent] = useState('Loading sitemap...');
     const [loading, setLoading] = useState(true);
   
-    useEffect(() =&gt; {
+    useEffect(() =&gt; &#123;
       fetchSitemap()
-        .then(data =&gt; {
+        .then(data =&gt; &#123;
           setSitemapContent(data);
           setLoading(false);
-        })
-        .catch(error =&gt; {
+        &#125;)
+        .catch(error =&gt; &#123;
           console.error(error);
           setSitemapContent('Error loading sitemap.');
           setLoading(false);
-        });
-    }, []);
+        &#125;);
+    &#125;, []);
   
-    if (loading) {
+    if (loading) &#123;
       return &lt;div&gt;Loading sitemap data...&lt;/div&gt;;
-    }
+    &#125;
   
     return (
       &lt;div&gt;
         &lt;h1&gt;Sitemap XML&lt;/h1&gt;
-        &lt;pre&gt;{sitemapContent}&lt;/pre&gt;
+        &lt;pre&gt;&#123;sitemapContent&#125;&lt;/pre&gt;
       &lt;/div&gt;
     );
-  };
+  &#125;;
   
   const App = () =&gt; (
     &lt;Router&gt;
@@ -70,8 +70,8 @@ const date = "2026-08-10";
         &lt;Link to=&quot;/sitemap.xml&quot;&gt;View Sitemap&lt;/Link&gt;
       &lt;/nav&gt;
       &lt;hr /&gt;
-      &lt;Route path=&quot;/&quot; element={&lt;div&gt;Welcome Home&lt;/div&gt;} /&gt;
-      &lt;Route path=&quot;/sitemap.xml&quot; element={&lt;SitemapRoute /&gt;} /&gt;
+      &lt;Route path=&quot;/&quot; element=&#123;&lt;div&gt;Welcome Home&lt;/div&gt;&#125; /&gt;
+      &lt;Route path=&quot;/sitemap.xml&quot; element=&#123;&lt;SitemapRoute /&gt;&#125; /&gt;
     &lt;/Router&gt;
   );
   

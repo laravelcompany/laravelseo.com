@@ -27,25 +27,25 @@ const date = "2026-08-10";
   <p>You must use a JavaScript routing library (like React Router, Vue Router, or vanilla History API) to listen for URL changes and trigger the appropriate component rendering function.</p>
   <p><strong>Conceptual Example using JavaScript:</strong></p>
   <pre><code class="language-javascript">// Hypothetical client-side router logic
-  function handleRoute(path) {
-      if (path === '/connect') {
+  function handleRoute(path) &#123;
+      if (path === '/connect') &#123;
           // Fetch data via AJAX
           fetch('/api/connection-data')
               .then(response =&gt; response.json())
-              .then(data =&gt; {
+              .then(data =&gt; &#123;
                   // Dynamically update the DOM without a reload
                   document.getElementById('app-content').innerHTML = renderConnectView(data);
-              });
-      } else if (path === '/discover') {
+              &#125;);
+      &#125; else if (path === '/discover') &#123;
           // Handle another dynamic view
           console.log(&quot;Loading discovery feed...&quot;);
-      }
-  }
+      &#125;
+  &#125;
   
   // Listen for browser history changes
-  window.onpopstate = function(event) {
+  window.onpopstate = function(event) &#123;
       handleRoute(window.location.pathname);
-  };
+  &#125;;
   </code></pre>
   <h3>2. API Endpoints (The Data Source)</h3>
   <p>Since the server isn't rendering the page, it must provide clean, standardized data when requested. Your backend needs to expose RESTful or GraphQL endpoints that the client can call asynchronously to retrieve the necessary information for the new view.</p>

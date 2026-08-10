@@ -51,10 +51,10 @@ const date = "2026-08-10";
   <pre><code class="language-php">&lt;?php
   
   // Ensure the request came via the rewrite engine
-  if (!isset($_GET['id'])) {
+  if (!isset($_GET['id'])) &#123;
       http_response_code(400);
       exit(&quot;Error: ID parameter is missing.&quot;);
-  }
+  &#125;
   
   // Retrieve the ID directly from the URL structure
   $id = $_GET['id'];

@@ -22,9 +22,9 @@ const date = "2026-08-10";
   <p>Here is a complete example demonstrating how to structure the metadata object to include both standard OG and Twitter tags:</p>
   <pre><code class="language-javascript">// app/page.js or layout.js (using App Router)
   
-  import { Metadata } from 'next';
+  import &#123; Metadata &#125; from 'next';
   
-  export async function generateMetadata({ params, searchParams }: { params: { slug: string }, searchParams: { [key: string]: string } }): Promise&lt;Metadata&gt; {
+  export async function generateMetadata(&#123; params, searchParams &#125;: &#123; params: &#123; slug: string &#125;, searchParams: &#123; [key: string]: string &#125; &#125;): Promise&lt;Metadata&gt; &#123;
     const url = 'https://example.com/dynamic-post';
     const title = 'Dynamic Post Title for Twitter';
     const description = 'This is the dynamic description optimized for social sharing.';
@@ -32,24 +32,24 @@ const date = "2026-08-10";
   
     // Fetch data dynamically here based on params or database calls...
   
-    return {
+    return &#123;
       title: title,
       description: description,
-      openGraph: {
+      openGraph: &#123;
         type: 'article',
         url: url,
         title: title,
         description: description,
         images: [imageUrl],
-      },
-      twitter: {
+      &#125;,
+      twitter: &#123;
         card: 'summary_large_image', // Use summary_large_image for best results
         title: title,
         description: description,
         images: [imageUrl],
-      },
-    };
-  }
+      &#125;,
+    &#125;;
+  &#125;
   </code></pre>
   <h3>Code Breakdown and Best Practices</h3>
   <p>Notice how we structured the return object. We kept the standard <code>openGraph</code> block for Facebook/LinkedIn compatibility, and then introduced a separate <code>twitter</code> block containing the specific tags (<code>card</code>, <code>title</code>, <code>description</code>, <code>images</code>).</p>

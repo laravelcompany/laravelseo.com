@@ -30,9 +30,9 @@ const date = "2026-08-10";
   ];
   
   echo &quot;&lt;h1&gt;Navigation&lt;/h1&gt;&lt;ul&gt;&quot;;
-  foreach ($navigationItems as $item) {
-      echo &quot;&lt;li&gt;&lt;a href=\&quot;{$item['url']}\&quot;&gt;{$item['title']}&lt;/a&gt;&lt;/li&gt;&quot;;
-  }
+  foreach ($navigationItems as $item) &#123;
+      echo &quot;&lt;li&gt;&lt;a href=\&quot;&#123;$item['url']&#125;\&quot;&gt;&#123;$item['title']&#125;&lt;/a&gt;&lt;/li&gt;&quot;;
+  &#125;
   echo &quot;&lt;/ul&gt;&quot;;
   ?&gt;
   </code></pre>
@@ -47,19 +47,19 @@ const date = "2026-08-10";
   <p>When using JavaScript, you would typically fetch raw data via an API endpoint (which PHP or another backend handles) and then use JS to construct the HTML elements:</p>
   <pre><code class="language-javascript">// Example conceptual JavaScript logic
   const navigationItems = [
-      { title: 'Home', url: '/' },
-      { title: 'About', url: '/about' }
+      &#123; title: 'Home', url: '/' &#125;,
+      &#123; title: 'About', url: '/about' &#125;
   ];
   
   const ul = document.createElement('ul');
-  navigationItems.forEach(item =&gt; {
+  navigationItems.forEach(item =&gt; &#123;
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = item.url;
       a.textContent = item.title;
       li.appendChild(a);
       ul.appendChild(li);
-  });
+  &#125;);
   document.body.appendChild(ul);
   </code></pre>
   <h2>Head-to-Head: SEO and Performance</h2>

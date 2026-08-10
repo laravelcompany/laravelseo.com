@@ -32,24 +32,24 @@ const date = "2026-08-10";
   <p>If you must implement it within Nuxt's structure, focus on ensuring that any route component that <em>should</em> exist checks for its existence before attempting to render content. However, for fixing existing broken URLs from an external source (like a sitemap), direct server-level control is superior.</p>
   <p>A conceptual approach using Nitro Server Routes would look like this:</p>
   <pre><code class="language-javascript">// Example concept within a server route handler or middleware
-  export default defineEventHandler(event) =&gt; {
+  export default defineEventHandler(event) =&gt; &#123;
     const path = event.path;
   
     // Check if the requested path is known to be invalid (e.g., based on external data)
-    if (isInvalidRoute(path)) {
+    if (isInvalidRoute(path)) &#123;
       // Return a 301 redirect response immediately
-      return H3RuntimeError.createError({
+      return H3RuntimeError.createError(&#123;
         statusCode: 301,
         statusMessage: 'Moved Permanently',
-        headers: {
+        headers: &#123;
           'location': '/', // Redirect to the homepage
-        },
-      });
-    }
+        &#125;,
+      &#125;);
+    &#125;
   
     // If the route is valid, proceed with normal rendering (if applicable)
     // ... logic to fetch data and return response
-  };
+  &#125;;
   </code></pre>
   <p>This approach forces the server to issue a proper HTTP redirect status code, which search engines respect immediately, solving your Google Search Console issues.</p>
   <h2>Conclusion</h2>

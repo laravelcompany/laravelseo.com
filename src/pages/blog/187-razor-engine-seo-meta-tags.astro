@@ -22,9 +22,9 @@ const date = "2026-08-10";
   <h3>Setting Up Data in the Controller</h3>
   <p>The Controller is responsible for preparing the necessary SEO data before handing control over to the View. This separation of concerns is a core principle, similar to how robust architecture principles are applied in frameworks like Laravel, which encourages clean separation between business logic and presentation.</p>
   <pre><code class="language-csharp">public class HomeController : Controller
-  {
+  &#123;
       public ActionResult Index()
-      {
+      &#123;
           // 1. Fetch dynamic data (e.g., from a database)
           string pageTitle = &quot;Our Awesome Service Page&quot;;
           string pageDescription = &quot;Discover the best services offered by our company.&quot;;
@@ -36,8 +36,8 @@ const date = "2026-08-10";
           ViewBag.Keywords = keywords;
   
           return View();
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <h3>Rendering the Tags in the Razor View</h3>
   <p>The actual placement of these tags must occur within the <code>&lt;head&gt;</code> section of your HTML document, which is typically located in your <code>_Layout.cshtml</code> file. This ensures that every page shares a consistent structure for SEO purposes.</p>

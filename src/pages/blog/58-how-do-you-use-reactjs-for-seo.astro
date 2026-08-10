@@ -32,27 +32,27 @@ const date = "2026-08-10";
   import ReactDOMServer from 'react-dom/server';
   import MyPage from './MyPage'; // Your main component
   
-  export async function renderPage(data) {
+  export async function renderPage(data) &#123;
     // 1. Fetch data on the server
     const pageData = await fetchDataFromDatabase(data.slug);
   
     // 2. Render the React component to an HTML string
     const htmlString = ReactDOMServer.renderToString(
-      &lt;MyPage content={pageData} /&gt;
+      &lt;MyPage content=&#123;pageData&#125; /&gt;
     );
   
     // 3. Return the fully rendered HTML structure
     return `
       &lt;html&gt;
         &lt;head&gt;
-          &lt;title&gt;${pageData.title}&lt;/title&gt;
+          &lt;title&gt;$&#123;pageData.title&#125;&lt;/title&gt;
         &lt;/head&gt;
         &lt;body&gt;
-          &lt;div id=&quot;root&quot;&gt;${htmlString}&lt;/div&gt;
+          &lt;div id=&quot;root&quot;&gt;$&#123;htmlString&#125;&lt;/div&gt;
         &lt;/body&gt;
       &lt;/html&gt;
     `;
-  }
+  &#125;
   </code></pre>
   <h2>Addressing URL Fragments and Metadata</h2>
   <p>The confusion around <code>_escaped_fragment_</code> relates to how URLs are structured and how the browser handles hash fragments (<code>#</code>). While this is purely a front-end concern, when using SSR, you must ensure that all necessary metadata (titles, descriptions, canonical tags) are dynamically generated on the server based on the data being rendered.</p>

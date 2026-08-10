@@ -33,7 +33,7 @@ const date = "2026-08-10";
   
   // Good Practice (Machine-readable and universally compatible):
   $slug = &quot;products-shoes-red&quot;;
-  $safe_url = &quot;https://example.com/{$slug}&quot;; // Result: https://example.com/products-shoes-red
+  $safe_url = &quot;https://example.com/&#123;$slug&#125;&quot;; // Result: https://example.com/products-shoes-red
   </code></pre>
   <p>By focusing on hyphenation and strict path segmentation, you ensure that the URL remains compliant with RFC standards, making it resilient against platform-specific parsing quirks. When designing systems, like those focused on scalable applications found in projects utilizing Laravel, defining clear data structures upfront minimizes these downstream integration headaches.</p>
 

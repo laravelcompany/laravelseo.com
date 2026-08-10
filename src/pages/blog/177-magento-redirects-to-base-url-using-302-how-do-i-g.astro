@@ -22,11 +22,11 @@ const date = "2026-08-10";
   <pre><code class="language-apache">&lt;IfModule mod_rewrite.c&gt;
       Options +FollowSymLinks
       RewriteEngine on
-      RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-      RewriteCond %{REQUEST_URI} !^/(media|skin|js)/
-      RewriteCond %{REQUEST_FILENAME} !-f
-      RewriteCond %{REQUEST_FILENAME} !-d
-      RewriteCond %{REQUEST_FILENAME} !-l
+      RewriteRule .* - [E=HTTP_AUTHORIZATION:%&#123;HTTP:Authorization&#125;]
+      RewriteCond %&#123;REQUEST_URI&#125; !^/(media|skin|js)/
+      RewriteCond %&#123;REQUEST_FILENAME&#125; !-f
+      RewriteCond %&#123;REQUEST_FILENAME&#125; !-d
+      RewriteCond %&#123;REQUEST_FILENAME&#125; !-l
       RewriteRule .* index.php [L]
   &lt;/IfModule&gt;
   </code></pre>
@@ -39,12 +39,12 @@ const date = "2026-08-10";
   <pre><code class="language-apache">RewriteEngine On
   
   # Redirect non-www to www using 301 Permanent
-  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteCond %&#123;HTTP_HOST&#125; !^www\. [NC]
   RewriteRule ^(.*)$ https://www.example.com/$1 [L,R=301]
   
   # Ensure HTTPS is also enforced, which is best practice
-  RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  RewriteCond %&#123;HTTPS&#125; off
+  RewriteRule ^(.*)$ https://%&#123;HTTP_HOST&#125;%&#123;REQUEST_URI&#125; [L,R=301]
   </code></pre>
   <p>By placing this logic high up in the rewrite chain, you ensure that any request hitting the server is immediately evaluated against your canonical rules. This method bypasses potential conflicts within Magento’s internal URL rewriting system and forces the server itself to handle the permanent relocation, resulting in the desired HTTP 301 status code for search engine crawlers. For more complex routing and architecture decisions related to framework setup, examining patterns used by robust systems like those found at <a href="https://laravelcompany.com">laravelcompany.com</a> can provide excellent inspiration on how to structure your system logic effectively.</p>
 

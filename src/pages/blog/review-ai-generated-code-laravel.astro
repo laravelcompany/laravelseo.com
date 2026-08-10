@@ -30,15 +30,15 @@ const date = "2026-06-29";
 
 // AI-generated code — DANGEROUS
 public function store(Request $request)
-{
+&#123;
     return User::create($request->all()); // Never do this
-}
+&#125;
 
 // Fixed version
 public function store(CreateUserRequest $request)
-{
+&#123;
     return User::create($request->validated());
-}</code></pre>
+&#125;</code></pre>
 
       <p>
         Always check that AI-generated code uses form requests with <code>$request->validated()</code> or explicitly lists fillable fields rather than blindly passing all input.
@@ -66,18 +66,18 @@ DB::table('users')->where('email', $email)->get();</code></pre>
 
 // AI might generate this without authorization
 public function destroy(Post $post)
-{
+&#123;
     $post->delete();
     return redirect()->back();
-}
+&#125;
 
 // Always verify this is present
 public function destroy(Post $post)
-{
+&#123;
     $this->authorize('delete', $post);
     $post->delete();
     return redirect()->back();
-}</code></pre>
+&#125;</code></pre>
 
       <h3>Environment Variables and Secrets</h3>
       <p>
@@ -98,21 +98,21 @@ public function destroy(Post $post)
 
 // AI might generate this — too permissive
 public function rules(): array
-{
+&#123;
     return [
         'email' => 'required|email',
         'password' => 'required',
     ];
-}
+&#125;
 
 // What you probably need
 public function rules(): array
-{
+&#123;
     return [
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:12|confirmed',
     ];
-}</code></pre>
+&#125;</code></pre>
 
       <h3>Missing Database Constraints</h3>
       <p>
@@ -122,22 +122,22 @@ public function rules(): array
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // AI might generate this — missing constraints
-Schema::create('posts', function (Blueprint $table) {
+Schema::create('posts', function (Blueprint $table) &#123;
     $table->id();
     $table->string('title');
     $table->text('body');
     $table->unsignedBigInteger('user_id');
     $table->timestamps();
-});
+&#125;);
 
 // What it should look like
-Schema::create('posts', function (Blueprint $table) {
+Schema::create('posts', function (Blueprint $table) &#123;
     $table->id();
     $table->string('title');
     $table->text('body');
     $table->foreignId('user_id')->constrained()->cascadeOnDelete();
     $table->timestamps();
-});</code></pre>
+&#125;);</code></pre>
 
       <h3>Race Conditions and Atomicity</h3>
       <p>
@@ -148,21 +148,21 @@ Schema::create('posts', function (Blueprint $table) {
 
 // AI-generated code — race condition
 public function purchase(Request $request)
-{
+&#123;
     $product = Product::find($request->product_id);
-    if ($product->stock &lt; $request->quantity) {
+    if ($product->stock &lt; $request->quantity) &#123;
         return back()->with('error', 'Out of stock');
-    }
+    &#125;
     $product->decrement('stock', $request->quantity);
     // Order created here...
-}
+&#125;
 
 // Fixed with atomic lock
 public function purchase(Request $request)
-{
+&#123;
     $product = Product::lockForUpdate()->find($request->product_id);
     // ... rest of logic inside a DB::transaction()
-}</code></pre>
+&#125;</code></pre>
 
       <h2>3. N+1 Query Problems</h2>
       <p>
@@ -173,9 +173,9 @@ public function purchase(Request $request)
 
 // AI-generated — N+1 waiting to happen
 $posts = Post::all();
-foreach ($posts as $post) {
+foreach ($posts as $post) &#123;
     echo $post->author->name; // One query per post
-}
+&#125;
 
 // Fixed — eager load
 $posts = Post::with('author', 'tags', 'comments')->get();</code></pre>
@@ -199,15 +199,15 @@ $posts = Post::with('author', 'tags', 'comments')->get();</code></pre>
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // AI-generated — ignores route model binding
-Route::get('/posts/{id}', function ($id) {
+Route::get('/posts/&#123;id&#125;', function ($id) &#123;
     $post = Post::findOrFail($id);
     return view('posts.show', compact('post'));
-});
+&#125;);
 
 // What you probably already have
-Route::get('/posts/{post}', function (Post $post) {
+Route::get('/posts/&#123;post&#125;', function (Post $post) &#123;
     return view('posts.show', compact('post'));
-});</code></pre>
+&#125;);</code></pre>
 
       <h2>5. Testing the AI Output</h2>
       <p>

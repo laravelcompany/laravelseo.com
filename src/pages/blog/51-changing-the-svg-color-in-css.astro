@@ -15,7 +15,7 @@ const date = "2026-08-10";
   <p>As developers, we frequently deal with Scalable Vector Graphics (SVG) when working with modern web interfaces. SVGs offer superior scalability and resolution independence compared to raster images, making them the perfect choice for UI icons. However, styling an SVG via CSS can often be more nuanced than styling a standard HTML element. If you've tried applying a class to your SVG and found that the color change isn't taking effect, you are running into a common hurdle related to how SVG handles its internal structure.</p>
   <p>This post will dive deep into why your previous attempts might have failed and provide the most robust, modern solutions for dynamically changing SVG colors using CSS.</p>
   <h2>The Root of the Problem: Understanding SVG Structure</h2>
-  <p>The reason applying a simple selector like <code>.navigation-icon { fill: red; }</code> doesn't work immediately is often due to how the SVG defines its internal elements. In your provided example, the color is explicitly set on the <code>&lt;path&gt;</code> elements within the SVG itself (e.g., <code>fill="rgba(0,0,0,1)"</code>).</p>
+  <p>The reason applying a simple selector like <code>.navigation-icon &#123; fill: red; &#125;</code> doesn't work immediately is often due to how the SVG defines its internal elements. In your provided example, the color is explicitly set on the <code>&lt;path&gt;</code> elements within the SVG itself (e.g., <code>fill="rgba(0,0,0,1)"</code>).</p>
   <p>When an SVG contains multiple paths or shapes, those shapes are treated as distinct elements. To style them externally, we need to target these internal elements directly, or leverage a property that allows inheritance. Simply applying a class to the root <code>&lt;svg&gt;</code> tag sometimes fails if the internal elements have hardcoded attributes that override external styles.</p>
   <h2>Solution 1: Direct Targeting for Specific Icons</h2>
   <p>The most direct way to change an SVG color is to access and style the actual path elements using standard CSS selectors. This gives you granular control over each icon within the SVG.</p>
@@ -29,13 +29,13 @@ const date = "2026-08-10";
   <p><strong>CSS Implementation:</strong>
   By applying classes to the individual paths, you gain precise control:</p>
   <pre><code class="language-css">/* Target specific paths within the SVG */
-  .icon-path {
+  .icon-path &#123;
       fill: blue; /* Changes the main shape color */
-  }
+  &#125;
   
-  .detail-path {
+  .detail-path &#123;
       fill: green; /* Changes a secondary path color */
-  }
+  &#125;
   </code></pre>
   <h2>Solution 2: The Modern Best Practice – Using <code>currentColor</code></h2>
   <p>For icons that are meant to be purely decorative and should adapt seamlessly to the surrounding text or container theme, the most elegant solution is utilizing the <code>currentColor</code> keyword.</p>
@@ -53,16 +53,16 @@ const date = "2026-08-10";
   <li>
   <p><strong>CSS (Set the base color on the container):</strong>
       ```css
-      .icon {
+      .icon &#123;
           color: #e74c3c; /<em> This sets the text/fill color for the SVG content </em>/
           width: 24px;
           height: 24px;
-      }</p>
+      &#125;</p>
   <p>/<em> Optional: If you need to override or handle stroke specifically </em>/
-  .icon path {
+  .icon path &#123;
       stroke: currentColor; /<em> Use currentColor for strokes if needed </em>/
       stroke-width: 2px;
-  }
+  &#125;
   ```</p>
   </li>
   </ol>

@@ -20,34 +20,34 @@ const date = "2026-08-10";
   <h2>Implementing Custom Slug Generation</h2>
   <p>To achieve your desired structure, you will need to write a custom function that hooks into the process just before the slug is finalized. This logic should run when a product is saved or updated.</p>
   <p>Here is a conceptual outline of the PHP development required within your theme's <code>functions.php</code> file or a custom plugin:</p>
-  <pre><code class="language-php">function custom_woocommerce_product_slug( $new_slug, $product_id ) {
+  <pre><code class="language-php">function custom_woocommerce_product_slug( $new_slug, $product_id ) &#123;
       // 1. Get the base slug (or original ID)
       $base_slug = sanitize_title( $new_slug );
   
       // 2. Fetch product attributes from post meta
       $attributes = get_post_meta( $product_id, '_product_attributes', true );
   
-      if ( ! empty( $attributes ) ) {
+      if ( ! empty( $attributes ) ) &#123;
           $attribute_parts = [];
   
           // Assuming 'metal', 'color', and 'shape' are your attribute keys
-          foreach ( $attributes as $attribute_name =&gt; $attribute_value ) {
+          foreach ( $attributes as $attribute_name =&gt; $attribute_value ) &#123;
               // Sanitize the value to be safe for URL slugs
               $safe_value = sanitize_title( $attribute_value );
   
               // Create a hyphenated segment: e.g., meta-blue-round
               $attribute_parts[] = $safe_value;
-          }
+          &#125;
   
-          if ( ! empty( $attribute_parts ) ) {
+          if ( ! empty( $attribute_parts ) ) &#123;
               $attribute_slug = implode( '-', $attribute_parts);
               // Append the attribute slug to the base name
               $new_slug = $base_slug . '-' . $attribute_slug;
-          }
-      }
+          &#125;
+      &#125;
   
       return $new_slug;
-  }
+  &#125;
   
   // Hooking this function into WooCommerce slug generation
   add_filter( 'woocommerce_product_get_slug', 'custom_woocommerce_product_slug', 10, 2 );

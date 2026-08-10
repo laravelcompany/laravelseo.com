@@ -35,7 +35,7 @@ const date = "2026-08-10";
   
             &lt;!-- The anchor tag retains its href for SEO/structure --&gt;
             &lt;a :href=&quot;subcategory.url&quot; @click.stop&gt;
-              {{subcategory.label}}
+              &#123;&#123;subcategory.label&#125;&#125;
             &lt;/a&gt;
           &lt;/li&gt;
         &lt;/ul&gt;
@@ -51,22 +51,22 @@ const date = "2026-08-10";
   <p><code>html
   &lt;!-- Alternative structure using &lt;button&gt; --&gt;
   &lt;li v-for="subcategory in subcategoryList" @click="handleSubcategoryClick(subcategory)"&gt;
-      &lt;button :data-url="subcategory.url"&gt;{{ subcategory.label }}&lt;/button&gt;
+      &lt;button :data-url="subcategory.url"&gt;&#123;&#123; subcategory.label &#125;&#125;&lt;/button&gt;
   &lt;/li&gt;</code></p>
   </li>
   <li>
   <p><strong>If you MUST use <code>&lt;a&gt;</code> (The <code>event.preventDefault()</code> method):</strong> If keeping the <code>&lt;a&gt;</code> tag is an SEO requirement, you must ensure that the event listener targets the link and calls <code>preventDefault()</code>. Since Vue bindings can sometimes obscure this, a dedicated method is safest:</p>
   <p>```javascript
-  methods: {
-    test(event) {
+  methods: &#123;
+    test(event) &#123;
       // Stop the default navigation immediately upon click
       event.preventDefault(); </p>
   <pre><code>// Now execute your desired logic
   console.log('Link clicked, but navigation was prevented.');
   // Add your Google Tag Manager tracking logic here
   </code></pre>
-  <p>}
-  }
+  <p>&#125;
+  &#125;
   ```</p>
   </li>
   </ol>

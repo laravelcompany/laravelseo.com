@@ -38,17 +38,17 @@ const date = "2026-08-10";
   <p><strong>Example of a Potential Conflict and Fix:</strong></p>
   <p>If you find an entry attempting to enforce a block, remove it or modify it:</p>
   <pre><code class="language-nginx"># Example of a potentially problematic configuration (DO NOT USE IF YOU NEED SITEMAPS)
-  location /sitemap.xml {
+  location /sitemap.xml &#123;
       add_header X-Robots-Tag &quot;noindex&quot;; # &lt;-- REMOVE THIS LINE OR COMMENT IT OUT
       try_files $uri =404;
-  }
+  &#125;
   
   # Corrected Configuration for Sitemap Access:
-  location /sitemap.xml {
+  location /sitemap.xml &#123;
       # Ensure no conflicting headers are added here. 
       # If you need to control indexing, do so via robots.txt or direct server logic, not a header on the sitemap itself.
       try_files $uri =404;
-  }
+  &#125;
   </code></pre>
   <p>After making any changes to your NGINX configuration files, always test the configuration syntax before reloading the service:</p>
   <pre><code class="language-bash">sudo nginx -t

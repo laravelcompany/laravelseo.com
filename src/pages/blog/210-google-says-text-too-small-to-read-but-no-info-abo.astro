@@ -27,24 +27,24 @@ const date = "2026-08-10";
   <p>Instead of setting a static <code>font-size</code>, use relative units like <code>rem</code> or <code>em</code> for better scalability, and use <code>@media</code> queries to adjust sizing based on screen size. This approach is fundamental to creating truly accessible websites.</p>
   <p>Here is an example demonstrating how you might implement responsive typography:</p>
   <pre><code class="language-css">/* Base font size for readability on larger screens */
-  body {
+  body &#123;
       font-size: 16px; /* Base for accessibility */
-  }
+  &#125;
   
   /* Adjustments for smaller mobile screens */
-  @media (max-width: 600px) {
-      body {
+  @media (max-width: 600px) &#123;
+      body &#123;
           font-size: 15px; /* Slightly smaller, but still readable */
-      }
-      h1 {
+      &#125;
+      h1 &#123;
           font-size: 24px;
-      }
-  }
+      &#125;
+  &#125;
   
   /* Ensuring proper line height for comfort */
-  p {
+  p &#123;
       line-height: 1.6; /* Recommended minimum line height for comfortable reading */
-  }
+  &#125;
   </code></pre>
   <p>Notice how we set a baseline and then use media queries to make minor, context-aware adjustments. This ensures that the text remains legible regardless of the screen size, which directly addresses the underlying intent of Google’s warning. When building robust systems like those found in modern frameworks—for instance, when managing complex data presentation within a Laravel application—adhering to these front-end principles is crucial for creating high-quality interfaces.</p>
   <h2>Beyond Font Size: Enhancing Contextual Reports</h2>

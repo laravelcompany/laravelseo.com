@@ -26,10 +26,10 @@ const date = "2026-08-10";
   <p>The preference for human-friendly URLs is heavily reinforced by SEO considerations. While search engine bots are sophisticated crawlers capable of following links and understanding content context, they still interpret the URL as a signal about the page's topic. A well-structured path helps search engines map the site hierarchy more intuitively than a long string of query parameters.</p>
   <p>Search engines don't just look at the ID; they analyze the textual content of the URL to understand the topical relevance of the page. If we use descriptive slugs, we are providing richer context that aids in ranking, without compromising the underlying database integrity.</p>
   <pre><code class="language-php">// Example demonstrating clean routing principles
-  Route::get('/posts/{slug}', function ($slug) {
+  Route::get('/posts/&#123;slug&#125;', function ($slug) &#123;
       // Logic to retrieve post based on slug from database
       return view('posts.show', ['post' =&gt; Post::where('slug', $slug)-&gt;first()]);
-  });
+  &#125;);
   </code></pre>
   <p>By employing this pattern, we ensure that the URL is both easily navigable for humans and structurally sound for machines, fulfilling the requirements of modern web development practices.</p>
 

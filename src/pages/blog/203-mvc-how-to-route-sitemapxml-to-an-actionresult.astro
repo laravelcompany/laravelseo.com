@@ -41,16 +41,16 @@ const date = "2026-08-10";
   use Illuminate\Http\Request;
   
   class HomeController extends Controller
-  {
+  &#123;
       public function generateSitemap()
-      {
+      &#123;
           // Logic for generating the sitemap data structure
           $sitemapData = $this-&gt;sitemapGenerator-&gt;createXml();
           return new SitemapActionResult($sitemapData);
-      }
+      &#125;
   
       public function sitemapIndex()
-      {
+      &#123;
           // This method is called when /sitemap.xml is requested
           $sitemapData = $this-&gt;sitemapGenerator-&gt;createXml();
   
@@ -59,8 +59,8 @@ const date = "2026-08-10";
               'Content-Type' =&gt; 'application/xml',
               'Cache-Control' =&gt; 'no-cache, no-store, must-revalidate'
           ]);
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <p>Notice the difference in the return value: while your internal route might use a custom <code>ActionResult</code> to handle view rendering (like returning an HTML view), for static files like <code>sitemap.xml</code>, you should directly return a <code>response()</code> object with the appropriate MIME type (<code>application/xml</code>). This ensures that search engine crawlers receive pure, machine-readable XML without any surrounding HTML markup, which is best practice for sitemaps.</p>
   <p>By carefully defining these routes and ensuring your controller methods provide the correct HTTP response types, you successfully decouple the internal application routing from the external public addressing, creating a clean, functional structure compliant with MVC principles.</p>

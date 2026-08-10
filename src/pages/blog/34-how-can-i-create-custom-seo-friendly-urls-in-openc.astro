@@ -30,9 +30,9 @@ const date = "2026-08-10";
   RewriteRule ^(product/(\d+)) index.php?route=product/(\1) [NG,L]
   
   # Catch-all rule to ensure everything else still works correctly
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ index.php/[0-9]{1,2}/index.php?route=index/index [L]
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d
+  RewriteRule ^(.*)$ index.php/[0-9]&#123;1,2&#125;/index.php?route=index/index [L]
   </code></pre>
   <p><strong>Explanation of the Code:</strong></p>
   <ol>

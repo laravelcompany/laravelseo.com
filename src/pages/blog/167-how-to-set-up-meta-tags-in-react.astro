@@ -22,28 +22,28 @@ const date = "2026-08-10";
   <p>The standard and most recommended way to manage component-level metadata in React is by using a library like <code>react-helmet</code>. This library allows you to inject <code>&lt;title&gt;</code>, <code>&lt;meta&gt;</code>, and <code>&lt;link&gt;</code> tags into the document head dynamically based on the current route or component state.</p>
   <p>Here is an example demonstrating how to use it within a React Router setup:</p>
   <pre><code class="language-jsx">import React from 'react';
-  import { Helmet } from 'react-helmet';
-  import { Link, useParams } from 'react-router-dom';
+  import &#123; Helmet &#125; from 'react-helmet';
+  import &#123; Link, useParams &#125; from 'react-router-dom';
   
-  function BlogPost({ post }) {
-    const { slug } = useParams();
+  function BlogPost(&#123; post &#125;) &#123;
+    const &#123; slug &#125; = useParams();
   
     return (
       &lt;&gt;
-        {/* Use Helmet to manage the document head */}
+        &#123;/* Use Helmet to manage the document head */&#125;
         &lt;Helmet&gt;
-          &lt;title&gt;{post.title} | My Awesome Blog&lt;/title&gt;
-          &lt;meta name=&quot;description&quot; content={post.excerpt} /&gt;
-          &lt;meta name=&quot;keywords&quot; content={`${post.tags.join(', ')}`} /&gt;
-          &lt;meta property=&quot;og:title&quot; content={post.title} /&gt;
+          &lt;title&gt;&#123;post.title&#125; | My Awesome Blog&lt;/title&gt;
+          &lt;meta name=&quot;description&quot; content=&#123;post.excerpt&#125; /&gt;
+          &lt;meta name=&quot;keywords&quot; content=&#123;`$&#123;post.tags.join(', ')&#125;`&#125; /&gt;
+          &lt;meta property=&quot;og:title&quot; content=&#123;post.title&#125; /&gt;
         &lt;/Helmet&gt;
   
-        &lt;h1&gt;{post.title}&lt;/h1&gt;
-        &lt;p&gt;{post.content}&lt;/p&gt;
+        &lt;h1&gt;&#123;post.title&#125;&lt;/h1&gt;
+        &lt;p&gt;&#123;post.content&#125;&lt;/p&gt;
         &lt;Link to=&quot;/&quot;&gt;Back Home&lt;/Link&gt;
       &lt;/&gt;
     );
-  }
+  &#125;
   
   export default BlogPost;
   </code></pre>

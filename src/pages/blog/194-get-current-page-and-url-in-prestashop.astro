@@ -29,11 +29,11 @@ const date = "2026-08-10";
   // Extracting category ID
   $categoryId = isset($query['id_category']) ? (int)$query['id_category'] : null;
   
-  if ($productId) {
+  if ($productId) &#123;
       echo &quot;Product ID found: &quot; . $productId;
-  } else {
+  &#125; else &#123;
       echo &quot;Product ID not found in the URL.&quot;;
-  }
+  &#125;
   
   ?&gt;
   </code></pre>
@@ -45,7 +45,7 @@ const date = "2026-08-10";
   <pre><code class="language-php">&lt;?php
   
   // Ensure the context is available
-  if (class_exists('Context')) {
+  if (class_exists('Context')) &#123;
       $context = Context::getContext();
   
       // Accessing the current controller information (as you noted)
@@ -53,20 +53,20 @@ const date = "2026-08-10";
   
       // To get the Product ID, you access the specific object loaded by the router.
       // This method relies on PrestaShop's internal routing logic.
-      if ($controllerName === 'product') {
+      if ($controllerName === 'product') &#123;
           $product = $context-&gt;product;
           $productId = $product-&gt;id;
   
           echo &quot;Detected Product ID via context: &quot; . $productId;
-      } elseif ($controllerName === 'category') {
+      &#125; elseif ($controllerName === 'category') &#123;
           $category = $context-&gt;category;
           $categoryId = $category-&gt;id;
   
           echo &quot;Detected Category ID via context: &quot; . $categoryId;
-      }
-  } else {
+      &#125;
+  &#125; else &#123;
       echo &quot;PrestaShop Context is not available.&quot;;
-  }
+  &#125;
   
   ?&gt;
   </code></pre>

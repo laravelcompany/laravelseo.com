@@ -59,9 +59,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class VideoAccessService
-{
+&#123;
     public function generateAccessToken(string $userId, string $videoId): string
-    {
+    &#123;
         // Create a signed URL with a 30-minute expiration
         // tied to the specific user and video
         $signedUrl = URL::temporarySignedRoute(
@@ -76,20 +76,20 @@ class VideoAccessService
 
         // Optionally store the token in cache for revocation capability
         cache()->set(
-            "video_access:{$userId}:{$videoId}",
+            "video_access:&#123;$userId&#125;:&#123;$videoId&#125;",
             true,
             now()->addMinutes(30)
         );
 
         return $signedUrl;
-    }
-}</code></pre>
+    &#125;
+&#125;</code></pre>
 
       <h3>Step 2: Create the Proxy Route and Controller</h3>
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // routes/web.php
-Route::get('/video/proxy/{user}/{video}', 'VideoController@proxy')
+Route::get('/video/proxy/&#123;user&#125;/&#123;video&#125;', 'VideoController@proxy')
     ->name('video.proxy')
     ->middleware('signed'); // Laravel's built-in signed URL validation</code></pre>
 
@@ -103,38 +103,38 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class VideoController extends Controller
-{
+&#123;
     public function proxy(Request $request, User $user, string $videoId)
-    {
+    &#123;
         // Verify user entitlement
-        if (!$user->hasAccessToVideo($videoId)) {
+        if (!$user->hasAccessToVideo($videoId)) &#123;
             abort(403, 'Access revoked');
-        }
+        &#125;
 
         // Check cache for revocation
-        if (!Cache::get("video_access:{$user->id}:{$videoId}")) {
+        if (!Cache::get("video_access:&#123;$user->id&#125;:&#123;$videoId&#125;")) &#123;
             abort(410, 'Token expired or revoked');
-        }
+        &#125;
 
         // Verify it is the same user making the request
-        if ($request-&gt;user()-&gt;id !== $user-&gt;id) {
+        if ($request-&gt;user()-&gt;id !== $user-&gt;id) &#123;
             abort(403, 'Token belongs to another user');
-        }
+        &#125;
 
         // Generate a short-lived embed URL from your video provider
         $embedUrl = $this->generateEmbedUrl($videoId, 5); // 5-minute TTL
 
         // Delete the cache entry to make it single-use
-        Cache::forget("video_access:{$user->id}:{$videoId}");
+        Cache::forget("video_access:&#123;$user->id&#125;:&#123;$videoId&#125;");
 
         return response()-&gt;json([
             'embed_url' =&gt; $embedUrl,
             'expires_at' =&gt; now()-&gt;addMinutes(5)-&gt;toIso8601String(),
         ]);
-    }
+    &#125;
 
     private function generateEmbedUrl(string $videoId, int $ttlMinutes): string
-    {
+    &#123;
         // Call your video provider's API to generate a time-limited embed URL
         // Example with a generic API:
         $response = Http::withToken(config('services.videoprovider.key'))
@@ -145,8 +145,8 @@ class VideoController extends Controller
             ]);
 
         return $response-&gt;json('embed_url');
-    }
-}</code></pre>
+    &#125;
+&#125;</code></pre>
 
       <h3>Step 3: Frontend Integration</h3>
       <p>
@@ -154,23 +154,23 @@ class VideoController extends Controller
       </p>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Frontend JavaScript (or Vue/React)
-async function loadVideo(videoId) {
+async function loadVideo(videoId) &#123;
     // Step 1: Request an access token from your API
-    const tokenResponse = await fetch('/api/video/request-token', {
+    const tokenResponse = await fetch('/api/video/request-token', &#123;
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ video_id: videoId }),
-    });
-    const { token } = await tokenResponse.json();
+        headers: &#123; 'Content-Type': 'application/json' &#125;,
+        body: JSON.stringify(&#123; video_id: videoId &#125;),
+    &#125;);
+    const &#123; token &#125; = await tokenResponse.json();
 
     // Step 2: Use the token to get the actual embed URL
     const proxyResponse = await fetch(token);
-    const { embed_url, expires_at } = await proxyResponse.json();
+    const &#123; embed_url, expires_at &#125; = await proxyResponse.json();
 
     // Step 3: Load the embed
     const iframe = document.getElementById('video-player');
     iframe.src = embed_url;
-}</code></pre>
+&#125;</code></pre>
 
       <h2>Additional Security Layers</h2>
 
@@ -188,7 +188,7 @@ async function loadVideo(videoId) {
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 public function generateAccessToken(string $userId, string $videoId, string $ip): string
-{
+&#123;
     return URL::temporarySignedRoute(
         'video.proxy',
         now()->addMinutes(30),
@@ -199,12 +199,12 @@ public function generateAccessToken(string $userId, string $videoId, string $ip)
             'nonce' =&gt; Str::random(32),
         ]
     );
-}
+&#125;
 
 // In the proxy controller:
-if ($request-&gt;ip() !== $request-&gt;route('ip')) {
+if ($request-&gt;ip() !== $request-&gt;route('ip')) &#123;
     abort(403, 'IP address mismatch');
-}</code></pre>
+&#125;</code></pre>
 
       <h3>User Agent Fingerprinting</h3>
       <p>

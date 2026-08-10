@@ -35,40 +35,40 @@ const date = "2026-08-10";
   const Router = require('react-router-dom'); // Note: We adapt routing for server context
   
   // Assume this function simulates fetching data based on the route
-  async function getRouteData(path) {
+  async function getRouteData(path) &#123;
       // In a real app, this calls a database or external API
-      if (path === '/') {
-          return { title: &quot;Home Page&quot;, content: &quot;Welcome to the SSR App!&quot; };
-      }
-      return { title: `Page: ${path}`, content: `Content for ${path}` };
-  }
+      if (path === '/') &#123;
+          return &#123; title: &quot;Home Page&quot;, content: &quot;Welcome to the SSR App!&quot; &#125;;
+      &#125;
+      return &#123; title: `Page: $&#123;path&#125;`, content: `Content for $&#123;path&#125;` &#125;;
+  &#125;
   
-  app.get('/', async (req, res) =&gt; {
-      try {
+  app.get('/', async (req, res) =&gt; &#123;
+      try &#123;
           const route = req.url;
           const data = await getRouteData(route);
   
           // 1. Render the React component tree to an HTML string
           const appMarkup = ReactDOMServer.renderToString(
-              React.createElement(App, { routeData: data }) // App is the main component defined by router structure
+              React.createElement(App, &#123; routeData: data &#125;) // App is the main component defined by router structure
           );
   
           // 2. Inject the rendered HTML into the response
           res.send(`
               &lt;!DOCTYPE html&gt;
               &lt;html&gt;
-              &lt;head&gt;&lt;title&gt;${data.title}&lt;/title&gt;&lt;/head&gt;
+              &lt;head&gt;&lt;title&gt;$&#123;data.title&#125;&lt;/title&gt;&lt;/head&gt;
               &lt;body&gt;
-                  &lt;h1&gt;${data.title}&lt;/h1&gt;
-                  &lt;p&gt;${data.content}&lt;/p&gt;
+                  &lt;h1&gt;$&#123;data.title&#125;&lt;/h1&gt;
+                  &lt;p&gt;$&#123;data.content&#125;&lt;/p&gt;
               &lt;/body&gt;
               &lt;/html&gt;
           `);
   
-      } catch (error) {
+      &#125; catch (error) &#123;
           res.status(500).send('Server Error');
-      }
-  });
+      &#125;
+  &#125;);
   </code></pre>
   <h2>Conclusion: Embracing Full-Stack Rendering</h2>
   <p>Converting a CSR React application to SSR using <code>react-router</code> is more than just changing a few imports; it requires adopting a full-stack rendering mindset. You are moving from thinking purely client-side to managing the entire lifecycle—fetching data, structuring routes, and generating HTML—on the server.</p>

@@ -39,17 +39,17 @@ const date = "2026-08-10";
   <h3>The Server-Side Compromise: Nginx SSI</h3>
   <p>Server-Side Includes (SSI) allow the web server to insert content directly into an HTML file during the request process. While convenient for very small, simple static sites and avoids a complex build step, it introduces complexity and is generally less robust than pre-rendering.</p>
   <pre><code class="language-nginx"># Example Nginx configuration using SSI directives
-  location / {
+  location / &#123;
       try_files $uri $uri/ @index;
-  }
+  &#125;
   
-  location @index {
+  location @index &#123;
       # Enable server-side includes for this location block
       include mime.types;
       add_header Content-Type text/html;
       # This directive tells Nginx to process SSI tags in the file
       ssi on; 
-  }
+  &#125;
   </code></pre>
   <p>While SSI works, it shifts the complexity from your build script into the server configuration and runtime engine, which can be a potential bottleneck for large deployments.</p>
   <h2>Conclusion: The Recommended Path</h2>

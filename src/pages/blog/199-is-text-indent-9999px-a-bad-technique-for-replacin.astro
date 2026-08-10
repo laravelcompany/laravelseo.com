@@ -20,50 +20,50 @@ const date = "2026-08-10";
   <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;mybutton&quot;&gt;do Stuff&lt;/a&gt;
   </code></pre>
   <p>And the associated CSS:</p>
-  <pre><code class="language-css">.mybutton{
+  <pre><code class="language-css">.mybutton&#123;
     text-indent: -9999px;
     background: transparent url(images/SpriteWithButtons.png) no-repeat 20px 20px;
     display: block;
     width: 16px;
     height: 16px;
-  }
+  &#125;
   </code></pre>
   <p>This approach successfully hides the text but achieves it through a non-standard means. It forces the browser to manage an abstract value rather than dealing with tangible content, which is precisely what modern CSS aims to eliminate.</p>
   <h2>Alternatives: Semantic and Performant Solutions</h2>
   <p>Instead of manipulating text properties to hide content, the superior approach is to use the correct HTML elements and leverage modern CSS features designed for layering and decoration. The goal should be to treat the visual element (the icon/image) and the text as distinct, meaningful components.</p>
   <h3>1. Using Background Images Directly</h3>
   <p>If the intent is purely decorative replacement, the most performant method is to use the actual image as a background for the container, rather than trying to manipulate text positioning. This avoids unnecessary DOM manipulation and reduces reliance on obscure CSS values.</p>
-  <pre><code class="language-css">.mybutton {
+  <pre><code class="language-css">.mybutton &#123;
     background-image: url('images/SpriteWithButtons.png');
     background-repeat: no-repeat;
     background-position: 20px 20px;
     display: inline-block; /* Or block, depending on layout needs */
     width: 16px;
     height: 16px;
-  }
+  &#125;
   </code></pre>
   <p>This method is cleaner, directly addresses the visual requirement, and avoids performance pitfalls. When building scalable systems, focusing on clean front-end architecture is crucial, much like structuring application logic in Laravel where clarity dictates maintainability.</p>
   <h3>2. Leveraging Pseudo-elements for Icons (The Modern Approach)</h3>
   <p>For situations where you need a small graphic <em>next to</em> or <em>inside</em> text, pseudo-elements (<code>::before</code> or <code>::after</code>) combined with <code>content</code> properties offer vastly superior control and accessibility compared to hiding text. If the goal is to turn an anchor into a button icon, using an SVG embedded via <code>content</code> allows for vector scalability and proper screen reader interpretation.</p>
   <pre><code class="language-html">&lt;a href=&quot;#&quot; class=&quot;mybutton&quot;&gt;do Stuff&lt;/a&gt;
   </code></pre>
-  <pre><code class="language-css">.mybutton {
+  <pre><code class="language-css">.mybutton &#123;
     display: inline-flex; /* Or flex/grid layout */
     align-items: center;
     justify-content: center;
     width: 16px;
     height: 16px;
     text-decoration: none; /* Remove default link underline */
-  }
+  &#125;
   
-  .mybutton::before {
+  .mybutton::before &#123;
     content: &quot;&quot;; /* Start with an empty content space */
     display: block;
     background-image: url('images/SpriteWithButtons.png');
     background-size: cover;
     /* Positioning the icon relative to the text area */
     margin-right: 4px; 
-  }
+  &#125;
   </code></pre>
   <p>This approach keeps the link functional, ensures screen readers announce the button correctly (if structured properly using ARIA roles), and eliminates the need for arbitrary pixel values like <code>-9999px</code>. It aligns with the principles of building systems where every component has a clear, documented purpose.</p>
   <h2>Performance and Accessibility Considerations</h2>

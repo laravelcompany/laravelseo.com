@@ -47,17 +47,17 @@ const date = "2026-08-10";
   <h3>Implementation Example (Conceptual)</h3>
   <p>You can implement this logic in your web server configuration, which is often faster than application code:</p>
   <p><strong>Nginx Configuration Snippet:</strong></p>
-  <pre><code class="language-nginx">server {
+  <pre><code class="language-nginx">server &#123;
       listen 80;
       server_name www.example.com;
       return 301 http://example.com$request_uri;
-  }
+  &#125;
   
-  server {
+  server &#123;
       listen 80;
       server_name example.com;
       # Standard site configuration...
-  }
+  &#125;
   </code></pre>
   <h2>Conclusion</h2>
   <p>To summarize, avoid relying solely on shared IP addresses for domain canonicalization. The <strong>301 redirect strategy</strong> offers superior SEO clarity, better control over indexing, and a more robust mechanism for handling canonical URL requests. By prioritizing explicit redirection, you ensure that your website signals its preferred structure clearly to search engines and provides the most optimal experience for your users.</p>

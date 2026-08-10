@@ -26,16 +26,16 @@ const date = "2026-08-10";
   <pre><code class="language-php">// Conceptual Example using a framework concept (e.g., Laravel Middleware)
   
   public function handleRequest(Request $request)
-  {
+  &#123;
       // Check for unwanted parameters before proceeding
-      if ($request-&gt;query('dir') || $request-&gt;query('order')) {
+      if ($request-&gt;query('dir') || $request-&gt;query('order')) &#123;
           // Block access and prevent indexing of this specific URL segment
           abort(403, 'Access to filtered search parameters is denied.');
-      }
+      &#125;
   
       // If checks pass, proceed with normal processing
       return $this-&gt;processData($request);
-  }
+  &#125;
   </code></pre>
   <h3>2. Alternative: Using <code>noindex</code> Directives</h3>
   <p>If the goal is purely to prevent indexing of specific results (rather than blocking the crawl entirely), a more effective method is using the <code>noindex</code> meta tag or the <code>noindex</code> directive within the page's HTML, combined with proper canonicalization. This signals to search engines that while they may have crawled the URL, they should explicitly exclude it from the index.</p>

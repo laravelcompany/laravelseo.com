@@ -35,7 +35,7 @@ const date = "2026-08-10";
   </code></pre>
   <p><strong>CSS Styling:</strong>
   The CSS will manage the visual display, positioning the background image to cover the entire heading area. This technique is powerful and scalable, similar to how modern frameworks handle complex component styling.</p>
-  <pre><code class="language-css">#site-logo {
+  <pre><code class="language-css">#site-logo &#123;
       /* Establish context for layering */
       position: relative;
       display: block; /* Ensures it behaves as a block element */
@@ -44,22 +44,22 @@ const date = "2026-08-10";
       background-image: url(&quot;logo.png&quot;);
       background-repeat: no-repeat;
       background-position: left center;
-  }
+  &#125;
   
-  #site-logo a {
+  #site-logo a &#123;
       /* Make the link fill the entire area defined by the H1 */
       display: block;
       width: 100%;
       height: 100%;
       text-decoration: none; /* Remove default link underline */
       color: inherit; /* Inherit text color from parent, or set explicitly */
-  }
+  &#125;
   
   /* Optional: Style the placeholder text if needed for context/fallback */
-  #site-logo &gt; a {
+  #site-logo &gt; a &#123;
       /* If you still want some fallback text visible to screen readers during testing */
       visibility: hidden; 
-  }
+  &#125;
   </code></pre>
   <h2>SEO and Accessibility Deep Dive</h2>
   <h3>For Search Engines (SEO)</h3>

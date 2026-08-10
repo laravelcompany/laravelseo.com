@@ -27,7 +27,7 @@ const date = "2026-08-10";
   <p>Here is how you can safely construct a clean canonical link:</p>
   <pre><code class="language-php">&lt;?php
   
-  function get_canonical_url() {
+  function get_canonical_url() &#123;
       // Get the full requested URI
       $request_uri = $_SERVER['REQUEST_URI'];
       $base_url = (isset($_SERVER['HTTPS']) &amp;&amp; $_SERVER['HTTPS'] === 'on' ? &quot;https&quot; : &quot;http&quot;) . &quot;://$_SERVER[HTTP_HOST]&quot;;
@@ -43,7 +43,7 @@ const date = "2026-08-10";
       $canonical_url = $base_url . $path;
   
       return $canonical_url;
-  }
+  &#125;
   
   $canonical = get_canonical_url();
   echo '&lt;link rel=&quot;canonical&quot; href=&quot;' . htmlspecialchars($canonical) . '&quot;&gt;';

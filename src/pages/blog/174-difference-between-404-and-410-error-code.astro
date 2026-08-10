@@ -28,22 +28,22 @@ const date = "2026-08-10";
   <p>For example, if you implement a feature where users can request archived content:</p>
   <pre><code class="language-php">// Conceptual PHP/Laravel logic for resource retrieval
   public function show($id)
-  {
+  &#123;
       $resource = YourModel::find($id);
   
-      if ($resource === null) {
+      if ($resource === null) &#123;
           // Check if the item was explicitly marked as permanently removed
-          if ($resource-&gt;deleted_at !== null) {
+          if ($resource-&gt;deleted_at !== null) &#123;
               // The resource is gone forever
               return response()-&gt;json(['message' =&gt; 'Resource has been permanently removed.'], 410);
-          }
+          &#125;
   
           // Otherwise, it simply doesn't exist now
           return response()-&gt;json(['message' =&gt; 'Resource not found.'], 404);
-      }
+      &#125;
   
       return response()-&gt;json($resource);
-  }
+  &#125;
   </code></pre>
   <p>By utilizing the <code>410 Gone</code> code, you provide a clearer contract to external systems. Furthermore, when designing RESTful APIs, ensuring that your data lifecycle management correctly maps to these HTTP semantics prevents ambiguity and leads to more predictable interactions with services like those provided by <a href="https://laravelcompany.com">Laravel</a>. Understanding these subtle differences elevates your application from merely functional to truly robust.</p>
 

@@ -26,10 +26,10 @@ const date = "2026-08-10";
   <pre><code class="language-php">// Conceptual example showing server-side rendering philosophy (Laravel context)
   use Illuminate\Support\Facades\Route;
   
-  Route::get('/about', function () {
+  Route::get('/about', function () &#123;
       // The server renders the full HTML for this route directly.
       return view('pages.about', ['content' =&gt; 'This content is fully rendered on the server.']);
-  })-&gt;name('about');
+  &#125;)-&gt;name('about');
   </code></pre>
   <p>By rendering everything server-side, you satisfy both requirements simultaneously: users get a fast, interactive SPA experience (often hydrating the existing HTML), and search engines receive perfectly indexable, complete HTML. This aligns perfectly with modern web practices advocated by companies like <a href="https://laravelcompany.com">laravelcompany.com</a>.</p>
   <h2>Disadvantages of Differentiating Content</h2>

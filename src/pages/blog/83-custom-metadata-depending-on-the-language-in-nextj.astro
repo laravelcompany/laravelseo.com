@@ -20,52 +20,52 @@ const date = "2026-08-10";
   <h2>Implementing Dynamic Metadata with Next.js</h2>
   <p>Instead of trying to conditionally assign a single object at the top level, the most robust approach is to implement metadata generation within the dynamic function. This gives you access to the route parameters, allowing for precise control over the output based on the detected language.</p>
   <p>Here is how you can structure your <code>layout.tsx</code> or page component to handle this logic:</p>
-  <pre><code class="language-tsx">import { Metadata } from 'next';
-  import { useLocale } from 'next-intl'; // Assuming you are using next-intl for i18n setup
+  <pre><code class="language-tsx">import &#123; Metadata &#125; from 'next';
+  import &#123; useLocale &#125; from 'next-intl'; // Assuming you are using next-intl for i18n setup
   
   // Define the base metadata structures
-  const englishMetadata = {
-    title: {
+  const englishMetadata = &#123;
+    title: &#123;
       default: &quot;Brand | brand.xyz&quot;,
       template: &quot;%s | brand.xyz&quot;,
-    },
+    &#125;,
     description: &quot;Some description in English.&quot;,
-    openGraph: {
+    openGraph: &#123;
       title: &quot;Brand&quot;,
       description: &quot;A great site in English.&quot;,
       url: &quot;brand.xyz&quot;,
       siteName: &quot;Brand&quot;,
       type: &quot;website&quot;,
-    },
+    &#125;,
     keywords: &quot;events clothing, fashion, style&quot;,
-  };
+  &#125;;
   
-  const portugueseMetadata = {
-    title: {
+  const portugueseMetadata = &#123;
+    title: &#123;
       default: &quot;Marca | brand.xyz&quot;,
       template: &quot;%s | brand.xyz&quot;,
-    },
+    &#125;,
     description: &quot;Alguma descrição em Português.&quot;,
-    openGraph: {
+    openGraph: &#123;
       title: &quot;Marca&quot;,
       description: &quot;Um ótimo site em Português.&quot;,
       url: &quot;brand.xyz&quot;,
       siteName: &quot;Marca&quot;,
       type: &quot;website&quot;,
-    },
+    &#125;,
     keywords: &quot;eventos, vestuário, moda&quot;,
-  };
+  &#125;;
   
-  export async function generateMetadata({ params }: { params: { locale: string } }): Promise&lt;Metadata&gt; {
+  export async function generateMetadata(&#123; params &#125;: &#123; params: &#123; locale: string &#125; &#125;): Promise&lt;Metadata&gt; &#123;
     const locale = params.locale;
   
-    if (locale === 'pt') {
+    if (locale === 'pt') &#123;
       return portugueseMetadata;
-    }
+    &#125;
   
     // Default to English if the locale is not Portuguese (or handle other locales)
     return englishMetadata;
-  }
+  &#125;
   
   // Note: In a real Next.js App Router setup, you would typically use this function 
   // inside a Server Component or layout file.

@@ -39,37 +39,37 @@ const date = "2026-08-10";
   </code></pre>
   <h3>JavaScript Implementation for Dynamic Loading</h3>
   <p>Instead of complex string replacement, a cleaner approach is to check the <code>data-src</code> and use the appropriate source (WebP or JPG) when loading the background. Since we are dealing with CSS backgrounds, we will update the style property directly.</p>
-  <pre><code class="language-javascript">function loadDeferredBackground() {
+  <pre><code class="language-javascript">function loadDeferredBackground() &#123;
       const element = document.getElementById('deferred-bg');
       const dataSrc = element.getAttribute('data-src');
       const fallbackSrc = element.getAttribute('data-fallback-src');
   
-      if (dataSrc) {
+      if (dataSrc) &#123;
           // Determine which source to use based on browser capability or simple logic
           let finalSrc;
   
           // Simple check: if the data-src ends in .webp, use it, otherwise use the fallback
-          if (dataSrc.endsWith('.webp')) {
+          if (dataSrc.endsWith('.webp')) &#123;
               finalSrc = dataSrc;
-          } else {
+          &#125; else &#123;
               finalSrc = fallbackSrc;
-          }
+          &#125;
   
           // Apply the final image URL to the style property
-          element.style.backgroundImage = `url('${finalSrc}')`;
-      }
-  }
+          element.style.backgroundImage = `url('$&#123;finalSrc&#125;')`;
+      &#125;
+  &#125;
   
   window.onload = loadDeferredBackground;
   </code></pre>
   <h3>CSS Styling</h3>
   <p>The CSS remains simple, applying the deferred background:</p>
-  <pre><code class="language-css">.parallax {
+  <pre><code class="language-css">.parallax &#123;
       background-size: cover;
       background-position: center;
       /* Initial state (optional, can be a solid color) */
       background-color: #f0f0f0; 
-  }
+  &#125;
   </code></pre>
   <h2>Conclusion</h2>
   <p>Optimizing web performance requires thoughtful implementation across the stack. By adopting next-gen formats like WebP with necessary fallbacks via the <code>&lt;picture&gt;</code> element and strategically deferring offscreen image loading using <code>data-src</code>, you can significantly enhance user experience and boost your Page Insights scores. Remember, robust development involves combining modern features with proven fallback strategies. For building scalable applications where performance is paramount, leveraging powerful tools—whether in front-end delivery or back-end architecture—is key. Keep pushing the boundaries of what you can achieve with technology!</p>

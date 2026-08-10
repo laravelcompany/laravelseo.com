@@ -32,19 +32,19 @@ const date = "2026-08-10";
   
   const app = express();
   
-  app.get('/page/:slug', (req, res) =&gt; {
+  app.get('/page/:slug', (req, res) =&gt; &#123;
       const pageSlug = req.params.slug;
       // In a real application, you would dynamically load and render your React component here.
       // For simplicity, we simulate loading a pre-rendered HTML file or using server-side rendering libraries.
   
-      try {
+      try &#123;
           // Imagine 'renderPage' is a function that calls your Expo components server-side
           const htmlContent = renderPage(pageSlug); 
           res.send(htmlContent);
-      } catch (error) {
+      &#125; catch (error) &#123;
           res.status(500).send('Error rendering page.');
-      }
-  });
+      &#125;
+  &#125;);
   
   app.listen(3000, () =&gt; console.log('SSR Server running on port 3000'));
   </code></pre>

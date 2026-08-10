@@ -19,9 +19,9 @@ const date = "2026-06-29";
       </p>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Expected:
-{
+&#123;
     "message": "Unauthenticated"
-}
+&#125;
 
 // Actual:
 &lt;!DOCTYPE html&gt;
@@ -45,14 +45,14 @@ const date = "2026-06-29";
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // routes/api.php — WRONG
-Route::middleware('auth')-&gt;group(function () {
+Route::middleware('auth')-&gt;group(function () &#123;
     // These routes redirect to login instead of returning 401
-});
+&#125;);
 
 // routes/api.php — CORRECT
-Route::middleware('auth:sanctum')-&gt;group(function () {
+Route::middleware('auth:sanctum')-&gt;group(function () &#123;
     // Sanctum guard returns proper JSON 401
-});</code></pre>
+&#125;);</code></pre>
 
       <h3>2. SPA Not Sending Accept Header</h3>
       <p>
@@ -63,13 +63,13 @@ fetch('/api/user');
 // Server sees non-XHR, no Accept header → redirect
 
 // Correct way
-fetch('/api/user', {
-    headers: {
+fetch('/api/user', &#123;
+    headers: &#123;
         'Accept': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
-    },
+    &#125;,
     credentials: 'include', // Required for Sanctum SPA auth
-});</code></pre>
+&#125;);</code></pre>
 
       <h3>3. Custom Authenticate Middleware Override</h3>
       <p>
@@ -82,21 +82,21 @@ namespace App\Http\Middleware;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
-{
+&#123;
     protected function redirectTo($request)
-    {
+    &#123;
         // Missing the expectsJson check!
         return route('login');
-    }
-}
+    &#125;
+&#125;
 
 // Fixed version:
 protected function redirectTo($request)
-{
-    if (!$request-&gt;expectsJson()) {
+&#123;
+    if (!$request-&gt;expectsJson()) &#123;
         return route('login');
-    }
-}</code></pre>
+    &#125;
+&#125;</code></pre>
 
       <h2>Complete Setup Checklist</h2>
       <p>
@@ -146,55 +146,55 @@ return [
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
+Route::get('/user', function (Request $request) &#123;
     return $request-&gt;user();
-})-&gt;middleware('auth:sanctum');</code></pre>
+&#125;)-&gt;middleware('auth:sanctum');</code></pre>
 
       <h3>Step 5: Bootstrap the SPA Auth</h3>
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Frontend — Vue/React/vanilla JS
-async function login(email, password) {
+async function login(email, password) &#123;
     // Step 1: Get CSRF cookie
-    await fetch('/sanctum/csrf-cookie', {
+    await fetch('/sanctum/csrf-cookie', &#123;
         method: 'GET',
         credentials: 'include',
-    });
+    &#125;);
 
     // Step 2: Login via Fortify
-    const response = await fetch('/login', {
+    const response = await fetch('/login', &#123;
         method: 'POST',
-        headers: {
+        headers: &#123;
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
-        },
-        body: JSON.stringify({ email, password }),
+        &#125;,
+        body: JSON.stringify(&#123; email, password &#125;),
         credentials: 'include',
-    });
+    &#125;);
 
-    if (!response.ok) {
+    if (!response.ok) &#123;
         const error = await response.json();
         throw new Error(error.message);
-    }
+    &#125;
 
     // Now authenticated — subsequent API calls work with cookie
-}
+&#125;
 
-async function fetchUser() {
-    const response = await fetch('/api/user', {
-        headers: {
+async function fetchUser() &#123;
+    const response = await fetch('/api/user', &#123;
+        headers: &#123;
             'Accept': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
-        },
+        &#125;,
         credentials: 'include',
-    });
+    &#125;);
 
-    if (response.status === 401) {
+    if (response.status === 401) &#123;
         // Not authenticated — redirect to login
         return null;
-    }
+    &#125;
 
     return response.json();
-}</code></pre>
+&#125;</code></pre>
 
       <h2>Quick Debugging Checklist</h2>
       <p>
@@ -222,12 +222,12 @@ $token = $user-&gt;createToken('spa-token')-&gt;plainTextToken;
 return response()-&gt;json(['token' =&gt; $token]);
 
 // Frontend sends it as a Bearer token
-fetch('/api/user', {
-    headers: {
-        'Authorization': `Bearer ${token}`,
+fetch('/api/user', &#123;
+    headers: &#123;
+        'Authorization': `Bearer $&#123;token&#125;`,
         'Accept': 'application/json',
-    },
-});</code></pre>
+    &#125;,
+&#125;);</code></pre>
 
       <p>
         This approach does not require cookies, CSRF protection, or same-domain constraints. The trade-off is that tokens stored in localStorage are more vulnerable to XSS attacks than HTTP-only cookies.

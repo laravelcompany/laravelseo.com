@@ -24,8 +24,8 @@ const date = "2026-08-10";
   <h2>The Power of RewriteRule for Custom Routing</h2>
   <p>The <code>RewriteRule</code>, utilized via the <code>mod_rewrite</code> module, operates by rewriting the requested URL internally before the server processes the request. This is a form of URL manipulation and routing. To handle 404s using this method, you must explicitly check if the requested filename or directory exists first.</p>
   <pre><code class="language-apache"># Redirect invalid requests and missing files to the not-found page
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-f
+  RewriteCond %&#123;REQUEST_FILENAME&#125; !-d
   RewriteRule ^(.*)$ /not-found.html [L]
   </code></pre>
   <p>This set of rules checks two conditions: first, does the requested path <em>not</em> exist as a file (<code>!-f</code>), and second, does the requested path <em>not</em> exist as a directory (<code>!-d</code>). If both are true (meaning it's a request for something that doesn't exist), the rule then redirects the request internally to <code>/not-found.html</code>.</p>

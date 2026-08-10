@@ -26,8 +26,8 @@ const date = "2026-08-10";
   <h3>Example: Ensuring Proper Imports</h3>
   <p>Ensure you are using proper ES module imports across your application. This allows the bundler to perform its analysis accurately. If you import entire libraries without specific references, tree-shaking might be less effective. Always rely on explicit imports:</p>
   <pre><code class="language-typescript">// Good practice for enabling tree-shaking
-  import { MyFeatureService } from './my-feature.service';
-  import { MyComponent } from './my-component.component';
+  import &#123; MyFeatureService &#125; from './my-feature.service';
+  import &#123; MyComponent &#125; from './my-component.component';
   
   // Only the code for MyFeatureService and MyComponent is included in the final bundle,
   // based on what is actually referenced downstream.

@@ -36,16 +36,16 @@ const date = "2026-08-10";
   <p>The next critical step involves configuring your chosen web server (Apache, Nginx, etc.) to recognize and serve files from that specific public location.</p>
   <p><strong>For Nginx Users:</strong>
   You typically configure a <code>server</code> block. Ensure the <code>root</code> directive points exactly to the directory containing your public assets.</p>
-  <pre><code class="language-nginx">server {
+  <pre><code class="language-nginx">server &#123;
       listen 80;
       server_name example.com;
       root /path/to/your/public_html;  # &lt;-- This must point to the folder containing sitemap.xml
       index index.html index.htm;
   
-      location / {
+      location / &#123;
           try_files $uri $uri/ =404;
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <p><strong>For Apache Users:</strong>
   You need to ensure that the document root is set correctly and that directory indexing is enabled for static files.</p>

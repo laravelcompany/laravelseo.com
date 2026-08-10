@@ -29,7 +29,7 @@ const date = "2026-08-10";
   
   # --- Bot Blocking Logic ---
   # Block Googlebot and other common search engine bots
-  RewriteCond %{HTTP_USER_AGENT} (Googlebot|Bingbot|Slurp) [NC]
+  RewriteCond %&#123;HTTP_USER_AGENT&#125; (Googlebot|Bingbot|Slurp) [NC]
   RewriteRule .* - [F,L]
   
   # You would expand this list significantly for comprehensive blocking.

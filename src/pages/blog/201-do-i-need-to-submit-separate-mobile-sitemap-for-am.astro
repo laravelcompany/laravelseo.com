@@ -22,13 +22,13 @@ const date = "2026-08-10";
   <p>Instead of focusing on splitting the sitemap, let’s focus on the schemas that provide context for AMP content. You should primarily rely on the standard <code>Sitemap</code> schema to point to your main index file, but you can enhance this with other relevant types if the page structure warrants it.</p>
   <p>The concept of an old <code>sitemap-mobile/1.0</code> is largely superseded by modern best practices. Google recommends using the standard <code>Sitemap</code> type for all sitemaps. If you are specifically trying to denote mobile-centric indexing or specific mobile content, you should focus on implementing robust JSON-LD schema within the HTML of the respective AMP pages.</p>
   <p>For example, if an AMP page is purely a mobile experience, embedding appropriate structured data helps Google understand the context immediately:</p>
-  <pre><code class="language-json">{
+  <pre><code class="language-json">&#123;
     &quot;@context&quot;: &quot;https://schema.org&quot;,
     &quot;@type&quot;: &quot;WebPage&quot;,
     &quot;url&quot;: &quot;https://example.com/amp-article&quot;,
     &quot;mobilePreferred&quot;: true,
     &quot;description&quot;: &quot;This is the mobile-optimized content.&quot;
-  }
+  &#125;
   </code></pre>
   <p>By using custom properties like <code>mobilePreferred</code>, you are explicitly telling crawlers about the page's intended context, which is more powerful than relying on an external sitemap file to infer this information. This approach aligns perfectly with building robust applications; just as developers use frameworks like Laravel to manage complex routing and data structures efficiently, optimizing SEO requires applying that same principle of clear, structured data representation.</p>
   <h2>Best Practices for AMP Implementation</h2>

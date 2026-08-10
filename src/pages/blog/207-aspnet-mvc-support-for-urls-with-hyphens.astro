@@ -22,8 +22,8 @@ const date = "2026-08-10";
   <pre><code class="language-csharp">// Manual approach (Not scalable)
   routes.MapRoute(
       name: &quot;hyphenRoute&quot;,
-      path: &quot;{controller}/{action}&quot;,
-      defaults: new { controller = &quot;TestPageController&quot;, action = &quot;EditDetails&quot; }
+      path: &quot;&#123;controller&#125;/&#123;action&#125;&quot;,
+      defaults: new &#123; controller = &quot;TestPageController&quot;, action = &quot;EditDetails&quot; &#125;
   );
   </code></pre>
   <p>While effective for small applications, this requires developers to constantly maintain consistency between the URL structure and the code names. We are looking for automation that handles the translation transparently, similar to how modern frameworks handle convention over configuration.</p>
@@ -36,9 +36,9 @@ const date = "2026-08-10";
   <p>Imagine a scenario where you define a specific route pattern and use an interceptor to normalize the names:</p>
   <pre><code class="language-csharp">// Conceptual representation of pre-processing logic (not full MVC code)
   public class HyphenRouteProcessor : IRouteHandler
-  {
+  &#123;
       public IRouteResult HandleRequest(HttpContext context, string routePath)
-      {
+      &#123;
           // 1. Normalize the path segments
           string normalizedPath = routePath.Replace('-', '_');
   
@@ -52,9 +52,9 @@ const date = "2026-08-10";
           var controller = ResolveController(controllerName);
           var action = ResolveAction(actionName);
   
-          return new IRouteResult { Controller = controller, Action = action };
-      }
-  }
+          return new IRouteResult &#123; Controller = controller, Action = action &#125;;
+      &#125;
+  &#125;
   </code></pre>
   <p>By implementing this custom layer, you decouple the URL presentation from the internal code structure. This approach provides the automation you seek, ensuring that even when using cleaner hyphenated URLs, your underlying C# code remains clean and adheres to standard naming practices, avoiding the need for manual route management across potentially hundreds of endpoints.</p>
 

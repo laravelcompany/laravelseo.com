@@ -39,18 +39,18 @@ const date = "2026-08-10";
   <pre><code class="language-php">&lt;?php
   // Assuming this script is play.php
   
-  if (isset($_GET['title'])) {
+  if (isset($_GET['title'])) &#123;
       $videoTitle = $_GET['title'];
       // Step 2: Use $videoTitle to query your MySQL database
       // Example: $stmt = $pdo-&gt;prepare(&quot;SELECT * FROM videos WHERE title = ?&quot;);
       echo &quot;Displaying video for title: &quot; . htmlspecialchars($videoTitle);
-  } elseif (isset($_GET['id'])) {
+  &#125; elseif (isset($_GET['id'])) &#123;
       $videoId = $_GET['id'];
       // Example: $stmt = $pdo-&gt;prepare(&quot;SELECT * FROM videos WHERE id = ?&quot;);
       echo &quot;Displaying video with ID: &quot; . htmlspecialchars($videoId);
-  } else {
+  &#125; else &#123;
       echo &quot;Error: Missing video identifier.&quot;;
-  }
+  &#125;
   ?&gt;
   </code></pre>
   <p>This application-level logic allows you to handle both cases seamlessly, depending on which parameter (<code>title</code> or <code>id</code>) was passed by the URL.</p>

@@ -16,22 +16,22 @@ const date = "2026-08-10";
   <p>This post will break down why your current method might be failing and provide a robust, developer-focused strategy for correctly injecting Yoast SEO metadata into your posts via API calls.</p>
   <h2>Understanding the Yoast SEO Data Structure</h2>
   <p>The reason you are likely seeing empty meta descriptions is that while WordPress supports standard <code>meta</code> fields, complex plugin data like Yoast SEO often relies on specific internal hooks or custom field structures that are not directly exposed in the standard post creation payload for simple endpoints.</p>
-  <p>When dealing with the WordPress REST API, the system expects data to map cleanly to the database schema. Directly injecting a nested structure like <code>'yoast_meta': {'yoast_wpseo_metadesc': meta_description}</code> often bypasses the necessary serialization hooks that Yoast uses internally to process and save these fields correctly upon post creation.</p>
+  <p>When dealing with the WordPress REST API, the system expects data to map cleanly to the database schema. Directly injecting a nested structure like <code>'yoast_meta': &#123;'yoast_wpseo_metadesc': meta_description&#125;</code> often bypasses the necessary serialization hooks that Yoast uses internally to process and save these fields correctly upon post creation.</p>
   <h2>The Developer Solution: Using Standard Fields and Custom Data</h2>
   <p>Instead of trying to guess the exact internal structure, the most reliable approach is to leverage the standard WordPress mechanisms or utilize custom fields if you need highly specific SEO control.</p>
   <h3>Option 1: Relying on Standard Meta Fields (The Simplest Way)</h3>
   <p>For basic search engine optimization, the standard <code>meta</code> field is usually sufficient for the primary description. If your goal is just to have a meta description visible in the standard WordPress backend, use this structure:</p>
-  <pre><code class="language-php">post_data = {
+  <pre><code class="language-php">post_data = &#123;
       'title': title,
       'content':  markdown.markdown(content),
       'slug': slug,
       'status': 'publish',
-      'meta': {
+      'meta': &#123;
           'description': meta_description, // Standard WordPress field
-      },
+      &#125;,
       'author': author_id,
       'categories': [category_id],
-  }
+  &#125;
   </code></pre>
   <p>While this populates the basic description, it doesn't necessarily trigger Yoast’s specific SEO scoring unless you are using a custom endpoint designed to handle those fields.</p>
   <h3>Option 2: Leveraging Custom Fields for Deep Integration (The Robust Way)</h3>
@@ -43,7 +43,7 @@ const date = "2026-08-10";
   <p>This approach mirrors how large-scale applications—like those built with frameworks such as Laravel—manage complex relational data by enforcing clear boundaries between input and persistence. For instance, understanding how Eloquent models relate to database tables is crucial for building reliable API interactions, much like understanding the internal structure of a plugin like Yoast.</p>
   <h2>Best Practice Implementation Example</h2>
   <p>If you must inject the specific Yoast meta description via API, ensure your endpoint and the receiving system are set up to handle it as a custom field, rather than relying on direct nesting:</p>
-  <pre><code class="language-python">post_data = {
+  <pre><code class="language-python">post_data = &#123;
       'title': title,
       'content':  markdown.markdown(content),
       'slug': slug,
@@ -52,7 +52,7 @@ const date = "2026-08-10";
       'seo_meta_description': meta_description, 
       'author': author_id,
       'categories': [category_id],
-  }
+  &#125;
   
   # Send this data to the /wp-json/wp/v2/posts endpoint
   </code></pre>

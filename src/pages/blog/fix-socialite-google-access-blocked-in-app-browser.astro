@@ -41,9 +41,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DetectInAppBrowser
-{
+&#123;
     public function handle(Request $request, Closure $next): Response
-    {
+    &#123;
         $userAgent = $request-&gt;userAgent();
         $inAppBrowsers = [
             'FBAN', 'FBAV',        // Facebook
@@ -60,8 +60,8 @@ class DetectInAppBrowser
             'Electron',            // Electron apps
         ];
 
-        foreach ($inAppBrowsers as $browser) {
-            if (str_contains($userAgent, $browser)) {
+        foreach ($inAppBrowsers as $browser) &#123;
+            if (str_contains($userAgent, $browser)) &#123;
                 // Store the intended URL in the session
                 session()->put('intended_after_oauth', $request->fullUrl());
 
@@ -69,19 +69,19 @@ class DetectInAppBrowser
                 return redirect()->away($this->buildExternalRedirectUrl(
                     $request->fullUrl()
                 ));
-            }
-        }
+            &#125;
+        &#125;
 
         return $next($request);
-    }
+    &#125;
 
     private function buildExternalRedirectUrl(string $url): string
-    {
+    &#123;
         // Use a custom URL scheme or universal link
         // This opens the system browser
         return 'https://your-app.com/open-in-browser?redirect=' . urlencode($url);
-    }
-}</code></pre>
+    &#125;
+&#125;</code></pre>
 
       <h3>Frontend Detection Alternative</h3>
       <p>
@@ -89,19 +89,19 @@ class DetectInAppBrowser
       </p>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;script&gt;
-function detectInAppBrowser() {
+function detectInAppBrowser() &#123;
     const ua = navigator.userAgent;
     const isInApp = /FBAN|FBAV|Instagram|FB_IAB|FBNL|Twitter|LinkedInApp|Snapchat|TikTok/i.test(ua);
 
-    if (isInApp) {
+    if (isInApp) &#123;
         // Show a button that opens the system browser
         document.getElementById('open-in-browser').style.display = 'block';
 
         // Or auto-redirect using a custom URL scheme
         // window.location = 'googlechrome://...' on iOS
         // window.location = 'intent://...' on Android
-    }
-}
+    &#125;
+&#125;
 &lt;/script&gt;</code></pre>
 
       <h2>Solution 2: Use a Landing Page with "Open in Browser" Prompt</h2>
@@ -112,7 +112,7 @@ function detectInAppBrowser() {
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;?php
 
 // routes/web.php
-Route::get('/auth/google', function () {
+Route::get('/auth/google', function () &#123;
     // Store the intended redirect
     session()->put('oauth_intent', 'google');
 
@@ -122,7 +122,7 @@ Route::get('/auth/google', function () {
             ->redirect()
             ->getTargetUrl(),
     ]);
-})-&gt;name('auth.google');</code></pre>
+&#125;)-&gt;name('auth.google');</code></pre>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">&lt;!-- resources/views/auth/choose-browser.blade.php --&gt;
 &lt;!DOCTYPE html&gt;
@@ -144,10 +144,10 @@ Route::get('/auth/google', function () {
     &lt;/div&gt;
 
     &lt;script&gt;
-    function copyLink() {
+    function copyLink() &#123;
         navigator.clipboard.writeText(window.location.href);
         alert('Link copied! Open it in your system browser.');
-    }
+    &#125;
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -163,12 +163,12 @@ Route::get('/auth/google', function () {
       </ul>
 
       <pre is:raw class="bg-slate-900 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-200">// Android — Kotlin
-fun openOAuthUrl(context: Context, url: String) {
+fun openOAuthUrl(context: Context, url: String) &#123;
     val builder = CustomTabsIntent.Builder()
     builder.setShowTitle(true)
     val customTabsIntent = builder.build()
     customTabsIntent.launchUrl(context, Uri.parse(url))
-}
+&#125;
 
 // iOS — Swift
 import SafariServices

@@ -26,10 +26,10 @@ const date = "2026-08-10";
   <h3>1. Conditional Rendering</h3>
   <p>The best practice is to use your server-side logic to conditionally render HTML based on user roles, settings, or specific conditions. If a section should not be indexed or displayed, simply do not output the necessary HTML for that section.</p>
   <p>For instance, in a Laravel application, you would control this output within your Blade templates:</p>
-  <pre><code class="language-php">{{-- Example of conditional rendering in a Blade file --}}
+  <pre><code class="language-php">&#123;&#123;-- Example of conditional rendering in a Blade file --&#125;&#125;
   @if (session('is_public_content'))
       &lt;div class=&quot;public-content&quot;&gt;
-          {{-- Only render content if the condition is met --}}
+          &#123;&#123;-- Only render content if the condition is met --&#125;&#125;
           &lt;h1&gt;This section is visible to all users.&lt;/h1&gt;
           &lt;p&gt;This text will be indexed by search engines.&lt;/p&gt;
       &lt;/div&gt;

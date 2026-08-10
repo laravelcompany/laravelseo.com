@@ -24,29 +24,29 @@ const date = "2026-08-10";
   <p>Here is how you structure a dynamic meta definition on a route level:</p>
   <pre><code class="language-vue">&lt;script setup&gt;
   // Example data fetched from an API or store
-  const pageData = {
+  const pageData = &#123;
     title: 'Dynamic Article Title',
     description: 'This is the dynamically generated description for the article.',
     imageUrl: 'https://example.com/image.jpg'
-  };
+  &#125;;
   
-  useHead({
+  useHead(&#123;
     title: pageData.title,
     meta: [
-      { name: 'description', content: pageData.description },
-      { property: 'og:title', content: pageData.title },
-      { property: 'og:description', content: pageData.description },
-      { property: 'og:image', content: pageData.imageUrl },
+      &#123; name: 'description', content: pageData.description &#125;,
+      &#123; property: 'og:title', content: pageData.title &#125;,
+      &#123; property: 'og:description', content: pageData.description &#125;,
+      &#123; property: 'og:image', content: pageData.imageUrl &#125;,
     ],
     script: [
       // Other dynamic scripts can be added here if needed
     ]
-  })
+  &#125;)
   &lt;/script&gt;
   
   &lt;template&gt;
     &lt;div&gt;
-      &lt;h1&gt;{{ pageData.title }}&lt;/h1&gt;
+      &lt;h1&gt;&#123;&#123; pageData.title &#125;&#125;&lt;/h1&gt;
       &lt;!-- Page content --&gt;
     &lt;/div&gt;
   &lt;/template&gt;

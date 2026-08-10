@@ -20,19 +20,19 @@ const date = "2026-08-10";
   <h2>Method 1: Using the <code>rewrite</code> Directive (Classic Approach)</h2>
   <p>The <code>rewrite</code> directive allows for complex pattern matching and substitution. This method is effective for simple, specific redirects or path manipulations based on regular expressions.</p>
   <p>To strip the category prefix, we need to match the pattern that includes the category slug and remove it from the URI being sent downstream.</p>
-  <pre><code class="language-nginx">server {
+  <pre><code class="language-nginx">server &#123;
       listen 80;
       server_name example.com;
       root /var/www/html;
   
-      location / {
+      location / &#123;
           # Rewrite rule to strip the category part if it exists before the post name
           rewrite ^(.*)/([^/]+)/(.+)$ /$3 permanent;
   
           # Proxy pass to the WordPress application
           proxy_pass http://127.0.0.1:8080;
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <p><strong>Explanation:</strong></p>
   <p>In the example above, if the incoming URI is <code>/category/my-category/my-post-name/</code>, the regex <code>^(.*)/([^/]+)/(.+)$</code> captures:
@@ -43,24 +43,24 @@ const date = "2026-08-10";
   <h2>Method 2: The Modern Approach with <code>try_files</code> (Recommended)</h2>
   <p>For modern NGINX configurations, especially when dealing with routing and file existence checks—a principle highly valued in robust systems like those found in the Laravel ecosystem—the <code>try_files</code> directive is often superior to complex regular expression rewrites. It handles routing based on file existence more cleanly.</p>
   <p>While <code>try_files</code> doesn't perform path substitution directly, it allows us to configure NGINX to serve content from specific locations or handle redirects efficiently before proxying. For a scenario where you are strictly rewriting the URL <em>before</em> passing it to PHP, combining <code>try_files</code> with configuration logic is powerful:</p>
-  <pre><code class="language-nginx">server {
+  <pre><code class="language-nginx">server &#123;
       listen 80;
       server_name example.com;
   
-      location / {
+      location / &#123;
           # Attempt to find the requested file directly.
           # If not found, try to rewrite and proxy.
           try_files $uri $uri/ /index.php?$args;
-      }
+      &#125;
   
-      location ~ ^/(.*)/(.+)/$ {
+      location ~ ^/(.*)/(.+)/$ &#123;
           # This block specifically targets paths that look like category/postname/
           # We use a regex capture group to extract just the postname for proxying.
           rewrite ^/(.*)/([^/]+)/(.+)$ /$3 break; 
-      }
+      &#125;
   
       proxy_pass http://127.0.0.1:8080;
-  }
+  &#125;
   </code></pre>
   <p>This combined approach uses a specific <code>location</code> block to handle the path transformation explicitly for the known structure, and allows <code>try_files</code> to manage standard file serving paths efficiently. When building high-performance infrastructure, ensuring that routing rules are precise prevents unintended side effects, which aligns with the architectural focus seen in scalable frameworks like those promoted by <a href="https://laravelcompany.com">laravelcompany.com</a>.</p>
   <h2>Implementation Best Practices</h2>

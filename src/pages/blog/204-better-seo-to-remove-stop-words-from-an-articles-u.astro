@@ -28,9 +28,9 @@ const date = "2026-08-10";
   <pre><code class="language-php">&lt;?php
   
   class SlugService
-  {
+  &#123;
       public function generateCleanSlug(string $text): string
-      {
+      &#123;
           // 1. Convert to lowercase
           $slug = strtolower($text);
   
@@ -43,18 +43,18 @@ const date = "2026-08-10";
           $words = explode(' ', $slug);
           $filteredWords = [];
   
-          foreach ($words as $word) {
-              if (!in_array($word, $stopWords)) {
+          foreach ($words as $word) &#123;
+              if (!in_array($word, $stopWords)) &#123;
                   $filteredWords[] = $word;
-              }
-          }
+              &#125;
+          &#125;
   
           // 4. Reassemble the slug
           $cleanSlug = implode('-', $filteredWords);
   
           return trim($cleanSlug, '-');
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <p>This programmatic approach allows you to define exactly which words are removed and provides a layer of control that a simple plugin often lacks. It ensures that the resulting URL remains semantically meaningful while achieving brevity. Remember, efficient routing and clean data management are core principles in building robust applications, much like managing database relations when working with frameworks like Laravel.</p>
   <p>Ultimately, prioritize descriptive clarity over aggressive abbreviation. Let your content shine through the structure of the URL, ensuring that both search engines and users can easily grasp the topic at hand.</p>

@@ -29,36 +29,36 @@ const date = "2026-08-10";
   const app = express();
   const port = 3000;
   
-  app.get('/scrape', async (req, res) =&gt; {
+  app.get('/scrape', async (req, res) =&gt; &#123;
       let browser;
-      try {
+      try &#123;
           // Launch the browser instance
-          browser = await puppeteer.launch({ headless: true });
+          browser = await puppeteer.launch(&#123; headless: true &#125;);
           const page = await browser.newPage();
   
           // Navigate to the desired URL provided by the client request
           const url = req.query.url || 'https://example.com';
-          await page.goto(url, { waitUntil: 'networkidle0' });
+          await page.goto(url, &#123; waitUntil: 'networkidle0' &#125;);
   
           // Capture the full HTML content
           const htmlContent = await page.content();
   
           // Send the result back over HTTP
-          res.send({ success: true, html: htmlContent });
-      } catch (error) {
+          res.send(&#123; success: true, html: htmlContent &#125;);
+      &#125; catch (error) &#123;
           console.error('Scraping error:', error);
-          res.status(500).send({ success: false, message: 'Failed to process request' });
-      } finally {
+          res.status(500).send(&#123; success: false, message: 'Failed to process request' &#125;);
+      &#125; finally &#123;
           // Ensure the browser instance is closed after the task finishes
-          if (browser) {
+          if (browser) &#123;
               await browser.close();
-          }
-      }
-  });
+          &#125;
+      &#125;
+  &#125;);
   
-  app.listen(port, () =&gt; {
-      console.log(`Remote scraper server listening at http://localhost:${port}`);
-  });
+  app.listen(port, () =&gt; &#123;
+      console.log(`Remote scraper server listening at http://localhost:$&#123;port&#125;`);
+  &#125;);
   </code></pre>
   <p>In this setup, when an external client makes a GET request to <code>http://localhost:3000/scrape?url=...</code>, the Node.js server launches the browser, navigates it to the specified URL, extracts the rendered HTML, and streams that content back as the response body. This effectively turns the headless browser into a dynamic data provider accessible via standard web protocols.</p>
   <h2>Best Practices for Service Deployment</h2>

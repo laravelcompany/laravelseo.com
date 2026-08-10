@@ -28,9 +28,9 @@ const date = "2026-08-10";
   Crawl-delay: 5
   
   # Server-side logic (Active Blocking Example - Conceptual Pseudocode)
-  if (request_count_from_ip &gt; 100 in 60 seconds) {
+  if (request_count_from_ip &gt; 100 in 60 seconds) &#123;
       return 429; // Too Many Requests
-  }
+  &#125;
   </code></pre>
   <p>In summary, while <code>robots.txt</code> remains a good practice for transparency and basic compliance, it should not be treated as the sole defense mechanism against sophisticated webcrawlers. True control over server load requires implementing active rate limiting and throttling logic directly within your application infrastructure to ensure performance and stability.</p>
 

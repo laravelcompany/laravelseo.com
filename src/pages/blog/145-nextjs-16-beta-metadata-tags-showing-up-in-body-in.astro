@@ -27,45 +27,45 @@ const date = "2026-08-10";
   <p>To reproduce this issue, we are working with a standard App Router setup utilizing dynamic metadata:</p>
   <p><strong>Root Layout Example:</strong>
   The layout defines the basic HTML structure:</p>
-  <pre><code class="language-tsx">import type { Metadata } from &quot;next&quot;;
+  <pre><code class="language-tsx">import type &#123; Metadata &#125; from &quot;next&quot;;
   
-  export const metadata: Metadata = {
-    title: {
+  export const metadata: Metadata = &#123;
+    title: &#123;
       template: &quot;%s | The Road to Next&quot;,
       default: &quot;The Road to Next - Ticket Management System&quot;,
-    },
+    &#125;,
     description: &quot;A modern ticket management system...&quot;,
     metadataBase: new URL(
       process.env.NODE_ENV === &quot;development&quot;
         ? &quot;http://localhost:3000/&quot;
         : &quot;https://ticket-bounty-pi.vercel.app/&quot;
     ),
-  };
+  &#125;;
   
-  export default function RootLayout({ children }) {
+  export default function RootLayout(&#123; children &#125;) &#123;
     return (
       &lt;html lang=&quot;en&quot; suppressHydrationWarning&gt;
-        &lt;body&gt;{children}&lt;/body&gt;
+        &lt;body&gt;&#123;children&#125;&lt;/body&gt;
       &lt;/html&gt;
     );
-  }
+  &#125;
   </code></pre>
   <p><strong>Dynamic Page Metadata Example:</strong>
   The page itself defines route-specific metadata:</p>
-  <pre><code class="language-tsx">export const metadata = {
+  <pre><code class="language-tsx">export const metadata = &#123;
     title: &quot;My Tickets&quot;,
     description: &quot;All your tickets in one place&quot;,
     keywords: [&quot;tickets&quot;, &quot;ticket management&quot;, &quot;...&quot;],
-    openGraph: {
+    openGraph: &#123;
       title: &quot;My Tickets - The Road to Next&quot;,
       description: &quot;All your tickets in one place&quot;,
       images: [&quot;/og-image.jpg&quot;],
-    },
-  };
+    &#125;,
+  &#125;;
   
-  export default async function TicketsPage() {
+  export default async function TicketsPage() &#123;
     // page content
-  }
+  &#125;
   </code></pre>
   <h2>Troubleshooting the Beta Bug</h2>
   <p>I have exhaustively tested numerous potential fixes, which highlights that this is likely an internal state management issue within the Next.js 16 beta rather than a simple configuration error:</p>

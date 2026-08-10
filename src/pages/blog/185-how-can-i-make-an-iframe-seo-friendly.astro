@@ -36,7 +36,7 @@ const date = "2026-08-10";
   &lt;iframe id=&quot;dynamic-iframe&quot; style=&quot;display: none;&quot; src=&quot;https://example.com/widget-content&quot;&gt;&lt;/iframe&gt;
   
   &lt;script&gt;
-  document.getElementById('load-button').addEventListener('click', function() {
+  document.getElementById('load-button').addEventListener('click', function() &#123;
       const iframe = document.getElementById('dynamic-iframe');
       const container = document.getElementById('iframe-container');
   
@@ -46,7 +46,7 @@ const date = "2026-08-10";
   
       // Optional: If you want to transition away from the link state entirely
       // window.location.href = '/full-content-page'; 
-  });
+  &#125;);
   &lt;/script&gt;
   </code></pre>
   <h2>Architectural Best Practices for Performance</h2>

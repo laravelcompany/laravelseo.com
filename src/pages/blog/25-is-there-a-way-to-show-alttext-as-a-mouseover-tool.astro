@@ -31,12 +31,12 @@ const date = "2026-08-10";
       &lt;span class=&quot;custom-tooltip&quot;&gt;A detailed description of the image content&lt;/span&gt;
   &lt;/div&gt;
   </code></pre>
-  <pre><code class="language-css">.image-container {
+  <pre><code class="language-css">.image-container &#123;
       position: relative; /* Establishes context for positioning the tooltip */
       display: inline-block;
-  }
+  &#125;
   
-  .custom-tooltip {
+  .custom-tooltip &#123;
       visibility: hidden;
       width: 150px;
       background-color: #333;
@@ -51,30 +51,30 @@ const date = "2026-08-10";
       margin-left: -75px; /* Center the tooltip */
       opacity: 0;
       transition: opacity 0.3s;
-  }
+  &#125;
   
   /* Show the tooltip when hovering over the container */
-  .image-container:hover .custom-tooltip {
+  .image-container:hover .custom-tooltip &#123;
       visibility: visible;
       opacity: 1;
-  }
+  &#125;
   </code></pre>
   <h3>Method 2: JavaScript for Dynamic Control</h3>
   <p>If the interaction needs to be more complex—such as handling dynamic content, positioning tooltips relative to viewport edges (avoiding overflow), or integrating with complex frameworks like those built on Laravel where state management is critical—JavaScript (or jQuery) becomes essential. You would use JS event listeners (<code>mouseover</code>, <code>mouseout</code>) to dynamically update the tooltip's visibility class or position.</p>
   <p>For instance, in a larger application structure, managing these component states efficiently aligns with the principles of building scalable applications, much like how you approach backend logic in frameworks like Laravel.</p>
-  <pre><code class="language-javascript">document.querySelectorAll('.tooltip-trigger').forEach(image =&gt; {
-      image.addEventListener('mouseover', function(event) {
+  <pre><code class="language-javascript">document.querySelectorAll('.tooltip-trigger').forEach(image =&gt; &#123;
+      image.addEventListener('mouseover', function(event) &#123;
           // Get the alt text (or custom data attribute) and display the tooltip
           const tooltipText = this.getAttribute('alt') || 'No description found';
           document.getElementById('customTooltip').textContent = tooltipText;
           document.getElementById('customTooltip').style.display = 'block';
-      });
+      &#125;);
   
-      image.addEventListener('mouseout', function() {
+      image.addEventListener('mouseout', function() &#123;
           // Hide the tooltip on mouse out
           document.getElementById('customTooltip').style.display = 'none';
-      });
-  });
+      &#125;);
+  &#125;);
   </code></pre>
   <h2>Conclusion</h2>
   <p>While the desire to simplify HTML by replacing <code>alt</code> with a visual tooltip is understandable, accessibility dictates that you must retain descriptive text for screen readers. The best practice is to use the existing semantic structure (<code>alt</code> for accessibility) and layer custom visual feedback on top using CSS for presentation. By leveraging modern CSS positioning and JavaScript event handling, you gain complete control over the user experience, ensuring your application is both visually appealing and fully accessible across all browsers.</p>

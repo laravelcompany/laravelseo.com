@@ -37,24 +37,24 @@ const date = "2026-08-10";
   <pre><code class="language-java">import java.text.Normalizer;
   import java.util.regex.Pattern;
   
-  public class SlugGenerator {
+  public class SlugGenerator &#123;
   
       /**
        * Generates a URL-friendly slug from an input string, handling Unicode characters.
        * @param text The original string to convert.
        * @return The generated slug.
        */
-      public static String generateSlug(String text) {
-          if (text == null || text.isEmpty()) {
+      public static String generateSlug(String text) &#123;
+          if (text == null || text.isEmpty()) &#123;
               return &quot;&quot;;
-          }
+          &#125;
   
           // 1. Normalize the string (e.g., to NFD form for easier decomposition)
           String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
   
           // 2. Transliterate and filter characters: Keep only letters, numbers, and spaces.
           // We use a pattern to remove non-alphanumeric/space characters first.
-          String cleaned = normalized.replaceAll(&quot;[^\\p{L}\\p{N}\\s]&quot;, &quot;&quot;);
+          String cleaned = normalized.replaceAll(&quot;[^\\p&#123;L&#125;\\p&#123;N&#125;\\s]&quot;, &quot;&quot;);
   
           // 3. Replace spaces and other separators with a single hyphen.
           String slug = cleaned.toLowerCase().trim();
@@ -66,16 +66,16 @@ const date = "2026-08-10";
           slug = slug.replaceAll(&quot;^-|-$&quot;, &quot;&quot;);
   
           return slug;
-      }
+      &#125;
   
-      public static void main(String[] args) {
+      public static void main(String[] args) &#123;
           String input1 = &quot;Café au Lait &amp; Delice&quot;;
           String input2 = &quot;Über-Welt&quot;;
   
           System.out.println(&quot;Input 1: \&quot;&quot; + input1 + &quot;\&quot; -&gt; Slug: &quot; + generateSlug(input1));
           System.out.println(&quot;Input 2: \&quot;&quot; + input2 + &quot;\&quot; -&gt; Slug: &quot; + generateSlug(input2));
-      }
-  }
+      &#125;
+  &#125;
   </code></pre>
   <h3>Explanation of the Code Logic</h3>
   <p>This approach demonstrates a more sophisticated method than simple regex. By using <code>Normalizer.normalize(..., Normalizer.Form.NFD)</code>, we decompose characters (like <code>é</code> into <code>e</code> followed by a combining accent mark). The subsequent filtering and replacement steps then effectively strip the accents while ensuring that all non-essential separators are converted into the desired hyphen format (<code>-</code>).</p>

@@ -29,43 +29,43 @@ const date = "2026-08-10";
   <p>The <code>SeoService</code> should be refactored to accept pre-fetched data rather than attempting to fetch it internally during rendering. The focus shifts from <em>fetching</em> data during render to <em>populating</em> metadata based on already available server data.</p>
   <p>If you are using a library like <code>ngx-meta</code>, ensure that the data being passed into its methods originates from a source that has been populated by your SSR logic.</p>
   <p>Here is a conceptual adjustment focusing on how data flows instead of fetching:</p>
-  <pre><code class="language-typescript">import {Injectable} from '@angular/core';
-  import { Meta, Title } from '@angular/platform-browser';
-  import {commonMetas} from './meta-data.model';
+  <pre><code class="language-typescript">import &#123;Injectable&#125; from '@angular/core';
+  import &#123; Meta, Title &#125; from '@angular/platform-browser';
+  import &#123;commonMetas&#125; from './meta-data.model';
   
   @Injectable()
-  export class SeoService {
+  export class SeoService &#123;
       public commonMetas = commonMetas;
-      constructor(public meta: Meta, public title: Title) {}
+      constructor(public meta: Meta, public title: Title) &#123;&#125;
   
       // This method now assumes the data has already been fetched on the server
-      setFromServerData(data: {
+      setFromServerData(data: &#123;
           title: string,
           description: string,
           image: string,
           author: string,
           keywords?: string
-      }) {
+      &#125;) &#123;
           this.setTitle(data.title);
           this.setDescription(data.description);
           this.setAuthor(data.author);
-          if (data.image) {
-              this.meta.addTag({ name: 'og:image', content: data.image }); // Example for Open Graph
-          }
-          if (data.keywords) {
-               this.meta.addTag({ name: 'keywords', content: data.keywords });
-          }
-      }
+          if (data.image) &#123;
+              this.meta.addTag(&#123; name: 'og:image', content: data.image &#125;); // Example for Open Graph
+          &#125;
+          if (data.keywords) &#123;
+               this.meta.addTag(&#123; name: 'keywords', content: data.keywords &#125;);
+          &#125;
+      &#125;
   
-      setTitle(titleToSet = '') {
+      setTitle(titleToSet = '') &#123;
           this.title.setTitle(titleToSet);
-      }
+      &#125;
   
-      setAuthor(nameToSet = '') {
+      setAuthor(nameToSet = '') &#123;
           // Ensure author is correctly set for all necessary tags (e.g., Twitter, Facebook)
-          this.meta.addTag({ name: 'author', content: 'yourdomain.com' }); 
-      }
-  }
+          this.meta.addTag(&#123; name: 'author', content: 'yourdomain.com' &#125;); 
+      &#125;
+  &#125;
   </code></pre>
   <p>By decoupling the API call from the component lifecycle and ensuring that the server-side rendering process handles the data resolution before calling these methods, you guarantee that the HTML output contains the correct, SEO-optimized meta tags for crawlers like Google and Facebook. This approach ensures that your application adheres to best practices for full-stack performance and discoverability, mirroring the structured data focus seen in modern web development philosophies.</p>
 

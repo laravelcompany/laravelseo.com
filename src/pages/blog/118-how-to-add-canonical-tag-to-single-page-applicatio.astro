@@ -24,25 +24,25 @@ const date = "2026-08-10";
   <p>Here is a conceptual example showing how you might structure this logic within a hypothetical SSR environment:</p>
   <pre><code class="language-javascript">// Example concept for a component rendering product details (Server-Side context)
   
-  import { useRouter } from 'next/router'; // Assuming Next.js or similar routing context
+  import &#123; useRouter &#125; from 'next/router'; // Assuming Next.js or similar routing context
   
-  function ProductPage({ productData }) {
+  function ProductPage(&#123; productData &#125;) &#123;
     const router = useRouter();
     const currentUrl = router.asPath; // Gets the full path, e.g., /products/sku-12345
   
     // Construct the correct canonical URL
-    const canonicalUrl = `https://www.yourstore.com${currentUrl}`;
+    const canonicalUrl = `https://www.yourstore.com$&#123;currentUrl&#125;`;
   
     return (
       &lt;&gt;
-        {/* This tag is dynamically generated based on the server-rendered path */}
-        &lt;link rel=&quot;canonical&quot; href={canonicalUrl} /&gt;
+        &#123;/* This tag is dynamically generated based on the server-rendered path */&#125;
+        &lt;link rel=&quot;canonical&quot; href=&#123;canonicalUrl&#125; /&gt;
   
-        &lt;h1&gt;{productData.name}&lt;/h1&gt;
-        &lt;p&gt;{productData.description}&lt;/p&gt;
+        &lt;h1&gt;&#123;productData.name&#125;&lt;/h1&gt;
+        &lt;p&gt;&#123;productData.description&#125;&lt;/p&gt;
       &lt;/&gt;
     );
-  }
+  &#125;
   </code></pre>
   <p>Notice how the <code>currentUrl</code> is derived directly from the routing context, ensuring that for every product page rendered by the server, the canonical tag points precisely to that product's URL. This pattern ensures consistency and accuracy for crawlers.</p>
   <h2>Managing Data for Canonical URLs</h2>
