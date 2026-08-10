@@ -1,0 +1,70 @@
+---
+import BlogPost from "../../layouts/BlogPost.astro";
+
+const title = "Best JSON-LD practices: using multiple <script> elements?";
+const description = "Best JSON-LD Practices: Using Multiple &lt;script&gt; Elements for Schema.org As developers working on modern web applications, especially those focused on SEO...";
+const date = "2026-08-10";
+---
+
+<BlogPost
+  title={title}
+  description={description}
+  date={date}
+>
+  <h1>Best JSON-LD Practices: Using Multiple <code>&lt;script&gt;</code> Elements for Schema.org</h1>
+  <p>As developers working on modern web applications, especially those focused on SEO and structured data, we often encounter the task of implementing JSON-LD. JSON-LD is the standard way to embed rich, machine-readable data (Schema.org markup) directly into the HTML, helping search engines better understand the context of your content.</p>
+  <p>A common question arises when dealing with complex pages: Should all related schema definitions be bundled into a single <code>&lt;script type="application/ld+json"&gt;</code> block, or should we use multiple blocks for different entities? Let's dive into the technical reality and best practices for structuring your JSON-LD implementation.</p>
+  <h2>The Scenario: Multiple Schema Types on One Page</h2>
+  <p>Consider the scenario you presented: defining both an <code>Article</code> schema for the main content and a <code>WebSite</code> schema for the overall site structure on the same page.</p>
+  <p>Your initial approach of separating them into distinct script tags is technically valid:</p>
+  <pre><code class="language-html">&lt;!-- WebSite Schema --&gt;
+  &lt;script type=&quot;application/ld+json&quot;&gt;
+  {
+      &quot;@context&quot;: &quot;http://schema.org&quot;,
+      &quot;@type&quot;: &quot;WebSite&quot;,
+      &quot;url&quot;: &quot;http://www.example.com/&quot;,
+      &quot;potentialAction&quot;: {
+        &quot;@type&quot;: &quot;SearchAction&quot;,
+        &quot;target&quot;: &quot;http://www.example.com/search?&amp;q={query}&quot;,
+        &quot;query-input&quot;: &quot;required&quot;
+      }
+  }
+  &lt;/script&gt;
+  
+  &lt;!-- Article Schema --&gt;
+  &lt;script type=&quot;application/ld+json&quot;&gt;
+  {
+    &quot;@context&quot;: &quot;http://schema.org&quot;,
+    &quot;@type&quot;: &quot;Article&quot;,
+    &quot;author&quot;: {
+        &quot;@type&quot;: &quot;Person&quot;,
+        &quot;name&quot;: &quot;John Doe&quot;
+    },
+    &quot;headline&quot;: &quot;How to Tie a Reef Knot&quot;,
+    &quot;interactionCount&quot;: [
+      &quot;UserTweets:1203&quot;,
+      &quot;UserComments:78&quot;
+    ]
+  }
+  &lt;/script&gt;
+  </code></pre>
+  <h2>Merging vs. Separating: The Developer Perspective</h2>
+  <p>From a purely technical standpoint, <strong>both methods are correct</strong> and will be successfully parsed by crawlers like Google's. There is no inherent penalty for separating them into multiple blocks.</p>
+  <p>However, the choice between merging and separating comes down to maintainability, modularity, and debugging—principles that are crucial in robust software development, much like those we adhere to when building scalable systems, perhaps leveraging patterns seen in frameworks like Laravel.</p>
+  <h3>Argument for Separation (Modularity)</h3>
+  <p>Separating the JSON-LD into distinct script blocks offers significant advantages for large or evolving sites:</p>
+  <ol>
+  <li><strong>Debugging:</strong> If a crawler flags an error in the <code>Article</code> block, you immediately know exactly where to look. If everything is mashed together, isolating the broken piece requires manually parsing the entire payload.</li>
+  <li><strong>Maintainability:</strong> As your site grows and you add more complex schema types (e.g., <code>Product</code>, <code>FAQPage</code>), keeping related data grouped in separate blocks makes the code much cleaner and easier for new developers to manage.</li>
+  <li><strong>Readability:</strong> Well-structured, smaller JSON objects are inherently easier for human review than one massive, monolithic script block.</li>
+  </ol>
+  <h3>Argument for Merging (Simplicity)</h3>
+  <p>Merging everything into a single script tag is simpler if you only have a handful of very simple schema types and the page content is small. It reduces the number of HTTP requests the browser has to process when fetching the document.</p>
+  <h2>The Best Practice: Modular Organization</h2>
+  <p>For most modern, dynamic applications, <strong>separation is the superior practice.</strong> Treat your structured data like any other piece of application logic—treat it as modular components.</p>
+  <p>Instead of scattering these definitions directly in your Blade files or view templates, you should encapsulate this logic into dedicated service classes or data transfer objects (DTOs). This mirrors good object-oriented design principles: separate concerns.</p>
+  <p>For instance, if you are building a system where content types and metadata are dynamic, defining the JSON-LD structure within a structured array or map before rendering is highly beneficial. This approach ensures that when you move to larger architectural patterns, such as those championed by frameworks like Laravel, your data structures remain clean and easily testable.</p>
+  <h2>Conclusion</h2>
+  <p>There is no single "right" answer enforced by Google. The key takeaway for developers is to prioritize <strong>maintainability</strong>. Use multiple <code>&lt;script type="application/ld+json"&gt;</code> elements when you have distinct, logically separate pieces of structured data (like <code>WebSite</code> vs. <code>Article</code>). This modular approach improves debugging, enhances code readability, and prepares your site structure for future growth. Always aim for clean, decoupled code, whether you are building a front-end application or managing back-end content generation.</p>
+
+</BlogPost>

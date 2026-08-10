@@ -1,0 +1,110 @@
+---
+import BlogPost from "../../layouts/BlogPost.astro";
+
+const title = "Dynamic sitemap for NextJs 13";
+const description = "Creating a Dynamic Sitemap in Next.js 13: Solving the Endpoint Mystery When building modern web applications with Next.js 13, leveraging dynamic data to power...";
+const date = "2026-08-10";
+---
+
+<BlogPost
+  title={title}
+  description={description}
+  date={date}
+>
+  <h1>Creating a Dynamic Sitemap in Next.js 13: Solving the Endpoint Mystery</h1>
+  <p>When building modern web applications with Next.js 13, leveraging dynamic data to power static assets like <code>sitemap.xml</code> is a common requirement. As you've encountered, simply defining an <code>async function sitemap()</code> does not automatically translate that logic into a publicly accessible <code>/sitemap.xml</code> file. The issue stems from how Next.js handles server-side rendering and file generation versus standard API routes.</p>
+  <p>This guide will walk you through why your dynamic sitemap endpoint might be failing and provide the correct architectural approach for fetching dynamic data and generating a valid sitemap in the Next.js App Router environment.</p>
+  <h2>Understanding Next.js Sitemap Generation</h2>
+  <p>In Next.js, the mechanism for creating <code>sitemap.xml</code> is primarily tied to file-system generation or specific server functions. When you place an <code>async function sitemap()</code> at the root level of your <code>app</code> directory, Next.js expects that function to return a fully formed XML string, which it then writes to the appropriate public location.</p>
+  <p>The reason you are seeing a 404 when accessing <code>/sitemap.xml</code> is likely because while your function successfully executes and logs errors (as shown in your example), it might not be returning the data in the exact XML format that Next.js expects for file generation, or the underlying mechanism isn't configured to treat this specific execution as a static output file.</p>
+  <p>To achieve a dynamic sitemap based on external data (like blog posts from a CMS), we need to separate the data fetching logic from the final file generation process. We should use API routes to fetch complex data and then have the sitemap function consume that structured data.</p>
+  <h2>The Recommended Dynamic Approach: Leveraging API Routes</h2>
+  <p>Instead of trying to force the <code>sitemap</code> function to handle external HTTP requests directly, a more robust pattern involves decoupling data fetching into dedicated API endpoints. This aligns well with principles found in frameworks like Laravel, where complex data retrieval is handled via structured routes.</p>
+  <h3>Step 1: Create a Dedicated Data Endpoint</h3>
+  <p>First, create an API route that handles the heavy lifting of fetching and transforming your CMS data. This endpoint will be predictable and easy to test independently.</p>
+  <p>Create a file at <code>app/api/routes/contentful/entries/route.ts</code>:</p>
+  <pre><code class="language-typescript">import { NextResponse } from 'next/server';
+  import axios from 'axios';
+  
+  // Assume this function fetches data from your CMS API
+  async function getCmsEntries() {
+    // In a real application, use environment variables for the base URL
+    const url = 'YOUR_CMS_API_URL/entries'; 
+    const response = await axios.get(url);
+    return response.data;
+  }
+  
+  export async function GET() {
+    try {
+      const entries = await getCmsEntries();
+      // Return the data in a structured format that the sitemap can easily consume
+      return NextResponse.json({ data: entries });
+    } catch (error) {
+      console.error('Error fetching CMS data:', error);
+      return NextResponse.json({ error: 'Failed to fetch content' }, { status: 500 });
+    }
+  }
+  </code></pre>
+  <h3>Step 2: Implement the Dynamic Sitemap Generator</h3>
+  <p>Now, your root <code>sitemap</code> function becomes much cleaner. It focuses only on assembling the URLs based on the data it can reliably access, which is now sourced from a known API endpoint. We will use this structure to generate the final XML string explicitly.</p>
+  <pre><code class="language-typescript">import { NextResponse } from 'next/server';
+  import axios from 'axios';
+  
+  // Define the expected structure for clarity
+  interface TransformedEntry {
+    id: string;
+    contentType: string;
+    updatedAt: string;
+  }
+  
+  export default async function sitemap() {
+    try {
+      // Fetch data from the dedicated API route we created in Step 1
+      const response: any = await axios.get('/api/routes/contentful/entries');
+      const allEntries = response.data.data; // Assuming the structure is { data: [...] }
+  
+      const blogPosts = allEntries
+        .filter((entry: TransformedEntry) =&gt; entry.contentType === 'blogPost')
+        .map((entry: TransformedEntry) =&gt; ({
+          url: `/blog/${entry.id}`,
+          lastModified: entry.updatedAt,
+        }));
+  
+      const routes = [
+        { url: '/', lastModified: new Date().toISOString() },
+        { url: '/blog', lastModified: new Date().toISOString() },
+      ];
+  
+      // Combine and format the URLs into XML structure
+      const sitemapUrls = [...routes, ...blogPosts];
+  
+      // Manually construct the XML string
+      let xml = '&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\n&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/v0.9&quot;&gt;\n';
+  
+      sitemapUrls.forEach(item =&gt; {
+        xml += `  &lt;url&gt;\n`;
+        xml += `    &lt;loc&gt;${item.url}&lt;/loc&gt;\n`;
+        xml += `    &lt;lastmod&gt;${item.lastModified}&lt;/lastmod&gt;\n`;
+        xml += `  &lt;/url&gt;\n`;
+      });
+  
+      xml += '&lt;/urlset&gt;';
+  
+      // Return the XML string as text, which Next.js can serve correctly
+      return new Response(xml, {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/xml',
+        },
+      });
+  
+    } catch (error) {
+      console.error('Sitemap generation failed:', error);
+      // Return a proper 500 error response if something goes wrong
+      return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
+  }
+  </code></pre>
+  <p>By explicitly returning the XML string via <code>new Response()</code>, you are telling Next.js exactly what content to serve at that endpoint, resolving the ambiguity that led to the 404 error in your original setup. This pattern of separating data fetching (API routes) from file generation (root functions) results in cleaner, more maintainable code, a principle highly valued in scalable backend development similar to how well-structured services are designed within the Laravel ecosystem.</p>
+
+</BlogPost>
