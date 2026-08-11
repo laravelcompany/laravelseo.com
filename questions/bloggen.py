@@ -106,8 +106,8 @@ log = logging.getLogger("bloggen")
 # CONFIGURATION
 # ============================================================================
 DEFAULT_CONFIG = {
-    "api_endpoint": "https://ai.izdrail.com/v1/chat/completions",
-    "model": "gemma4:e2b",
+    "api_endpoint": "http://localhost:11434/v1/chat/completions",
+    "model": "gemma4:12b",
     "api_key": "",
     "request_timeout": 1200,
     "max_retries": 3,
@@ -408,9 +408,21 @@ def _log_ai_request(payload, cfg):
 
 
 def _stream_response(
-    response, debug_ai, on_chunk=None, cancel_event: Optional[threading.Event] = None
+    response,
+    debug_ai,
+    on_chunk=None,
+    on_reasoning=None,
+    cancel_event: Optional[threading.Event] = None,
 ):
-    """Streaming parser – handles SSE and plain JSON fallback, cancellable mid-stream."""
+    """
+    Streaming parser – handles SSE and plain JSON fallback, cancellable mid-stream.
+
+    Reasoning models (e.g. gemma4, qwen) first stream `delta.reasoning` tokens with
+    an empty `content` field. Those reasoning tokens are forwarded to `on_reasoning`
+    (used for live display only) so the TUI never looks stuck, while `on_chunk` and
+    the yielded values stay limited to the actual response content so the final
+    stored/exported post is clean.
+    """
     try:
         content_type = response.headers.get("content-type", "")
         if (
@@ -425,7 +437,12 @@ def _stream_response(
                         on_chunk(content)
                     yield content
                     return
-        for line in response.iter_lines(decode_unicode=True, delimiter=None):
+        for raw_line in response.iter_lines(decode_unicode=False, delimiter=None):
+            line = (
+                raw_line.decode("utf-8", errors="replace")
+                if isinstance(raw_line, bytes)
+                else raw_line
+            )
             if cancel_event is not None and cancel_event.is_set():
                 log.debug("Streaming cancelled by user request.")
                 try:
@@ -445,7 +462,10 @@ def _stream_response(
                 try:
                     chunk = json.loads(data)
                     delta = chunk.get("choices", [{}])[0].get("delta", {})
+                    reasoning = delta.get("reasoning", "") or ""
                     content = delta.get("content", "") or ""
+                    if reasoning and on_reasoning:
+                        on_reasoning(reasoning)
                     if content:
                         if on_chunk:
                             on_chunk(content)
@@ -461,13 +481,15 @@ def _stream_response(
                         delta = chunk.get("choices", [{}])[0].get(
                             "delta", {}
                         ) or chunk.get("message", {})
-                        content = (
-                            delta.get("content", "") if isinstance(delta, dict) else ""
-                        )
-                        if content:
-                            if on_chunk:
-                                on_chunk(content)
-                            yield content
+                        if isinstance(delta, dict):
+                            reasoning = delta.get("reasoning", "") or ""
+                            content = delta.get("content", "") or ""
+                            if reasoning and on_reasoning:
+                                on_reasoning(reasoning)
+                            if content:
+                                if on_chunk:
+                                    on_chunk(content)
+                                yield content
                 except json.JSONDecodeError:
                     continue
     except Exception as e:
@@ -482,6 +504,7 @@ def call_ai(
     session,
     expand=False,
     on_chunk: Optional[Callable[[str], None]] = None,
+    on_reasoning: Optional[Callable[[str], None]] = None,
     cancel_event: Optional[threading.Event] = None,
 ):
     """Unified AI caller – auto-detects endpoint format."""
@@ -541,6 +564,7 @@ def call_ai(
                 timeout=timeout,
                 stream=stream_enabled,
             )
+            resp.encoding = "utf-8"
 
             log.debug("Request completed in %.2fs", time.time() - start)
 
@@ -555,16 +579,29 @@ def call_ai(
 
             if stream_enabled:
                 content_parts = []
+                saw_reasoning_only = {"seen": False}
+
+                def _reasoning_cb(text):
+                    saw_reasoning_only["seen"] = True
+                    if on_reasoning:
+                        on_reasoning(text)
+
                 for chunk in _stream_response(
                     resp,
                     cfg.get("debug_ai", False),
                     on_chunk=on_chunk,
+                    on_reasoning=_reasoning_cb,
                     cancel_event=cancel_event,
                 ):
                     content_parts.append(chunk)
                 if cancel_event is not None and cancel_event.is_set():
                     return None
                 full_content = "".join(content_parts).strip()
+                if not full_content and saw_reasoning_only["seen"]:
+                    log.warning(
+                        "Model produced only reasoning (thinking) and no content. "
+                        "Increase max_tokens or use a non-thinking model."
+                    )
             else:
                 data = resp.json()
                 if "error" in data:
@@ -660,6 +697,7 @@ def generate_blog_post(
     cfg,
     session,
     on_chunk: Optional[Callable[[str], None]] = None,
+    on_reasoning: Optional[Callable[[str], None]] = None,
     cancel_event: Optional[threading.Event] = None,
 ):
     """Generate with fallback – returns best content even if below min_words."""
@@ -682,6 +720,7 @@ def generate_blog_post(
             session,
             expand=expand,
             on_chunk=on_chunk,
+            on_reasoning=on_reasoning,
             cancel_event=cancel_event,
         )
         if content is None:
@@ -797,12 +836,29 @@ class RichTUI:
                 "word_count": 0,
                 "token_count": 0,
                 "content": "",
+                "thinking": "",
                 "status": "starting",
                 "history": [],
             }
             self.current_record_id = (
                 getattr(self, "current_record_id", None) or record_id
             )
+        self.refresh()
+
+    def update_thinking(self, record_id, chunk):
+        """Feed reasoning-model thinking tokens; shown live but never saved to the post."""
+        with self.lock:
+            rec = self.running.get(record_id)
+            if not rec:
+                return
+            rec["thinking"] += chunk
+            if not rec["content"]:
+                rec["status"] = "thinking"
+            if (
+                not hasattr(self, "current_record_id")
+                or self.current_record_id not in self.running
+            ):
+                self.current_record_id = record_id
         self.refresh()
 
     def update_stream(self, record_id, chunk):
@@ -945,6 +1001,7 @@ class RichTUI:
                 style = {
                     "streaming": "cyan",
                     "starting": "yellow",
+                    "thinking": "magenta",
                     "completed": "green",
                     "failed": "red",
                 }.get(status, "red" if status.startswith("error") else "white")
@@ -962,26 +1019,40 @@ class RichTUI:
             Panel(table, title="Active Jobs", border_style="cyan", box=box.ROUNDED)
         )
 
+    def _truncate_lines(self, content):
+        lines = content.splitlines() or [content]
+        max_lines = self.stream_lines
+        if len(lines) > max_lines:
+            return "... [truncated to last %d lines]\n\n" % max_lines + "\n".join(
+                lines[-max_lines:]
+            )
+        return content
+
     def _render_content(self):
         rid = getattr(self, "current_record_id", None)
         rec = self.running.get(rid) if rid is not None else None
         if not rec:
-            content = "Waiting for the next job..."
+            body = Text("Waiting for the next job...")
         else:
-            content = rec["content"] or "Waiting for first tokens..."
+            err_prefix = ""
             if rec["status"].startswith("error"):
-                content = f"❌ {rec['status']}\n\n{content}"
-        lines = content.splitlines() or [content]
-        max_lines = self.stream_lines
-        if len(lines) > max_lines:
-            content = "... [truncated to last %d lines]\n\n" % max_lines + "\n".join(
-                lines[-max_lines:]
-            )
+                err_prefix = f"❌ {rec['status']}\n\n"
+            if rec["content"]:
+                body = Text(self._truncate_lines(rec["content"]))
+            else:
+                thinking = rec.get("thinking", "")
+                if thinking:
+                    body = Text("💭 Thinking…\n\n")
+                    body.append(self._truncate_lines(thinking), style="dim italic")
+                else:
+                    body = Text("Waiting for first tokens...")
+            if err_prefix:
+                body = Text(err_prefix, style="red") + body
 
         title = f"Live Output — {rec['title'][:50]}" if rec else "Live Output"
         self.layout["content"].update(
             Panel(
-                Text(content, style="white"),
+                body,
                 title=title,
                 border_style="yellow",
                 box=box.ROUNDED,
@@ -1043,12 +1114,17 @@ def _worker(cfg, record, tui, session, stream_file=None, quiet=False):
             stream_output.write(chunk)
             stream_output.flush()
 
+    def on_reasoning(chunk):
+        if tui:
+            tui.update_thinking(rec_id, chunk)
+
     blog_post = generate_blog_post(
         title,
         body,
         cfg,
         session,
         on_chunk=on_chunk if cfg.get("stream") else None,
+        on_reasoning=on_reasoning if cfg.get("stream") else None,
         cancel_event=_shutdown_event,
     )
 
