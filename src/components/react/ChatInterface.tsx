@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { Send, Bot, User, ChevronDown, Loader2, Search, Phone, Video, MoreVertical, Smile, Paperclip } from 'lucide-react';
 
-const API_BASE = 'https://ai.izdrail.com';
-
 const MODELS = [
   { id: 'hf.co/laravelcompany/laravelseo:latest', name: 'Laravel SEO (3.2B)' },
   { id: 'hf.co/laravelcompany/laravelmail:latest', name: 'Laravel Mail (3.2B)' },
@@ -58,7 +56,7 @@ function ChatInterface() {
     setMessages((prev) => [...prev, assistantMessage]);
 
     try {
-      const res = await fetch(`${API_BASE}/api/chat`, {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
