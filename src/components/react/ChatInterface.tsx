@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { FormEvent } from 'react';
-import { Send, Bot, User, ChevronDown, Loader2, Search, Phone, Video, MoreVertical, Smile, Paperclip } from 'lucide-react';
+import { Send, Bot, User, Loader2, Search, Smile, Paperclip } from 'lucide-react';
+import Markdown from './Markdown';
 
 const MODELS = [
   { id: 'hf.co/laravelcompany/laravelseo:latest', name: 'Laravel SEO (3.2B)' },
@@ -11,6 +12,7 @@ const MODELS = [
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  createdAt: number;
 }
 
 const EXAMPLE_CONVOS = [
@@ -22,37 +24,42 @@ const EXAMPLE_CONVOS = [
 function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [model, setModel] = useState<string>(MODELS[0].id);
+  const model = MODELS[0].id;
   const [isStreaming, setIsStreaming] = useState(false);
-  const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scrolling intentionally disabled
-
+  // Keep the view pinned to the latest message
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setModelDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // Auto-grow the input as content wraps
+  useEffect(() => {
+    const el = inputRef.current;
+    if (el) {
+      el.style.height = 'auto';
+      el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+    }
+  }, [input]);
+
+  const formatTime = (ts: number) =>
+    new Date(ts).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed || isStreaming) return;
 
-    const userMessage: Message = { role: 'user', content: trimmed };
+    const userMessage: Message = { role: 'user', content: trimmed, createdAt: Date.now() };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsStreaming(true);
 
-    const assistantMessage: Message = { role: 'assistant', content: '' };
+    const assistantMessage: Message = { role: 'assistant', content: '', createdAt: Date.now() };
     setMessages((prev) => [...prev, assistantMessage]);
 
     try {
@@ -118,7 +125,12 @@ function ChatInterface() {
       });
     } finally {
       setIsStreaming(false);
-      inputRef.current?.focus();
+      const el = inputRef.current;
+      if (el) {
+        el.style.height = 'auto';
+        el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+        el.focus();
+      }
     }
   };
 
@@ -192,52 +204,10 @@ function ChatInterface() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  type="button"
-                  onClick={() => setModelDropdownOpen(!modelDropdownOpen)}
-                  className="flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/50 px-3 py-1.5 text-xs text-slate-300 hover:border-slate-600 transition-colors"
-                >
-                  {selectedModel?.name}
-                  <ChevronDown className={`w-3 h-3 transition-transform ${modelDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {modelDropdownOpen && (
-                  <div className="absolute right-0 z-10 mt-1 w-56 rounded-lg border border-slate-700 bg-slate-800 shadow-xl">
-                    {MODELS.map((m) => (
-                      <button
-                        key={m.id}
-                        type="button"
-                        onClick={() => {
-                          setModel(m.id);
-                          setModelDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${
-                          m.id === model
-                            ? 'bg-violet-600/20 text-violet-300'
-                            : 'text-slate-300 hover:bg-slate-700'
-                        } ${m.id === MODELS[0].id ? 'rounded-t-lg' : ''} ${m.id === MODELS[MODELS.length - 1].id ? 'rounded-b-lg' : ''}`}
-                      >
-                        {m.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <button type="button" className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-slate-200 hover:border-slate-600 transition-colors">
-                <Phone className="w-4 h-4" />
-              </button>
-              <button type="button" className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-slate-200 hover:border-slate-600 transition-colors">
-                <Video className="w-4 h-4" />
-              </button>
-              <button type="button" className="flex items-center justify-center w-8 h-8 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-slate-200 hover:border-slate-600 transition-colors">
-                <MoreVertical className="w-4 h-4" />
-              </button>
-            </div>
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <div className="w-16 h-16 rounded-2xl bg-violet-500/15 flex items-center justify-center mb-4 border border-violet-500/20">
@@ -280,20 +250,32 @@ function ChatInterface() {
                     <Bot className="w-4 h-4 text-violet-400" />
                   </div>
                 )}
-                <div
-                  className={`max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
-                    msg.role === 'user'
-                      ? 'bg-violet-600 text-white rounded-br-sm'
-                      : 'bg-slate-800/80 text-slate-200 border border-slate-700/50 rounded-bl-sm'
-                  }`}
-                >
-                  <div className="whitespace-pre-wrap break-words">{msg.content}</div>
-                  {msg.role === 'assistant' && msg.content === '' && isStreaming && i === messages.length - 1 && (
-                    <div className="flex items-center gap-1.5 text-slate-400 mt-1">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Thinking...</span>
-                    </div>
-                  )}
+                <div className={`flex flex-col max-w-[75%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                  <div
+                    className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                      msg.role === 'user'
+                        ? 'bg-violet-600 text-white rounded-br-sm'
+                        : 'bg-slate-800/80 text-slate-200 border border-slate-700/50 rounded-bl-sm'
+                    }`}
+                  >
+                    {msg.role === 'user' ? (
+                      <div className="whitespace-pre-wrap break-words">{msg.content}</div>
+                    ) : msg.content ? (
+                      <Markdown content={msg.content} />
+                    ) : isStreaming && i === messages.length - 1 ? (
+                      <div className="flex items-center gap-1.5 py-1" role="status" aria-label="Assistant is typing">
+                        <span className="sr-only">Assistant is typing</span>
+                        {[0, 1, 2].map((d) => (
+                          <span
+                            key={d}
+                            className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"
+                            style={{ animationDelay: `${d * 150}ms` }}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                  <span className="mt-1 text-[10px] text-slate-500 tabular-nums">{formatTime(msg.createdAt)}</span>
                 </div>
                 {msg.role === 'user' && (
                   <div className="w-8 h-8 rounded-full bg-slate-700/80 flex items-center justify-center shrink-0 mt-0.5">
@@ -302,7 +284,6 @@ function ChatInterface() {
                 )}
               </div>
             ))}
-            <div ref={messagesEndRef} />
           </div>
 
           {/* Input Area */}
@@ -343,6 +324,10 @@ function ChatInterface() {
                   <Send className="w-5 h-5" />
                 )}
               </button>
+            </div>
+            <div className="flex items-center justify-between mt-2 px-1">
+              <p className="text-[11px] text-slate-600">Enter to send · Shift+Enter for new line</p>
+              <p className="text-[11px] text-slate-600 truncate">{selectedModel?.name}</p>
             </div>
           </form>
         </div>
